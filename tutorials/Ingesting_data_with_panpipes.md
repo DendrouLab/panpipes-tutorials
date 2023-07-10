@@ -21,5 +21,36 @@ You should find three `.h5ad` objects in this directory, one for each modality o
 In order to ingest the data, we have to tell panpipes the paths to each anndata.
 Create a csv file like the one we provide in the [docs](), if you have cloned this repo, you should have it under `sample_file_qc.txt`.
 
+create a directory in which you will store all the processing steps.
+for example 
+
+``` 
+mkdir teaseq
+```
+
+this is the upper level directory in which you will create individual workflows outputs. 
+Create the directory to run the `qc_mm` (aka ingestion) workflow.
+
+```
+cd teaseq
+mkdir qc_mm && cd $_
+mkdir data.dir
+```
+
+Now move the 3 anndata you downloaded to the `data.dir` folder you have just created.
+
+in `teaseq/qc_mm` call `panpipes qc_mm config`.
+this will generate a `pipeline.log` and a `pipeline.yml` file.
+
+Modify the `pipeline.yml` with custom parameters or simply copy the one we provide in [tutorials]()
+
+
+
+
+
+
+
+
+
 
 
