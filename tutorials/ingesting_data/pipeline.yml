@@ -81,7 +81,7 @@ modalities:
 # this should be stored in one csv containing 2 columns, barcode_id, and sample_id,
 # which should match the sample_id column in the submission file.
 barcode_mtd:
-  include: true
+  include: False
   path:
   metadatacols:  
 
@@ -334,8 +334,8 @@ plotqc_rep_metrics:
 # ------------
 # Profiling Ambient background
 # ------------
-# This pipeline does not include removal of background contamination as you would with soupX or cellblender.
-# However it is useful to chararcterise the background of your gene expression assay and antibody binding assay
+# This pipeline does not include removal of background contamination as you would with soupX or cellbender.
+# However it is useful to characterise the background of your gene expression assay and antibody binding assay
 # Setting `assess_background` to True will:
 # 1. create h5mu from raw data inputs (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
 # 2. Plot comparitive QC plots to compare distribution of UMI and feature counts in background and foreground
