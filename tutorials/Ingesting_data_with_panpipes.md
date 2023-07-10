@@ -44,6 +44,9 @@ this will generate a `pipeline.log` and a `pipeline.yml` file.
 
 Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide in [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data)
 
+Now run the qc_mm workflow 
+
+`panpipes qc_mm make full --local` 
 
 
 
