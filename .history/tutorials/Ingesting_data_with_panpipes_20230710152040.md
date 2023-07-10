@@ -19,7 +19,5 @@ Please download the input data that we have provided [here](). It's a random sub
 You should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `adt` and `atac`.
 
 In order to ingest the data, we have to tell panpipes the paths to each anndata.
-Create a csv file like the one we provide in the [docs](), if you have cloned this repo, you should have it under `sample_file_qc.txt`.
-
-
+Create a csv file like the one we provide in the [docs](), if you have cloned this repo, you should have it under .
 
