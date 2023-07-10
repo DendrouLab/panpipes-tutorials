@@ -19,7 +19,7 @@ Please download the input data that we have provided [here](). It's a random sub
 You should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `adt` and `atac`.
 
 In order to ingest the data, we have to tell panpipes the paths to each anndata.
-Create a csv file like the one we provide in the [docs](), if you have cloned this repo, you should have it under `sample_file_qc.txt`.
+Create a csv file like the one we provide in the [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data), if you have cloned this repo, you should have it under `sample_file_qc.txt`.
 
 create a directory in which you will store all the processing steps.
 for example 
@@ -42,7 +42,9 @@ Now move the 3 anndata you downloaded to the `data.dir` folder you have just cre
 in `teaseq/qc_mm` call `panpipes qc_mm config`.
 this will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` with custom parameters or simply copy the one we provide in [tutorials]()
+Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide in [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data)
+
+
 
 
 
