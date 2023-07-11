@@ -176,7 +176,7 @@ ccgenes: default
 # 
 # custom genes actions
 
-custom_genes_file: resources/qc_genelist_1.0.csv
+custom_genes_file: /Users/fabiola.curion/Documents/devel/github/panpipes_reproducibility/tutorials/ingesting_data/qc_genelist_1.0.csv
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 
@@ -226,7 +226,7 @@ isotype_n_pass: 2
 # at the QC stage it can be useful to look at the normalised data on a per channel basis 
 # i.e. the 10X channel. 
 # this is usually the sample_id column (otherwise leave the next parameter blank)
-channel_col: orig.ident
+channel_col: sample_id
 # It is important to note that in qc_mm the per channel normalised adt scores are not saved in the mudata object
 #  this is because if you perform feature normalisation (clr normalisation margin 0 or dsb normalisation), 
 #  on subsets of cells then the normalised values cannot be simply concatenated. 
@@ -334,13 +334,13 @@ plotqc_rep_metrics:
 # ------------
 # Profiling Ambient background
 # ------------
-# This pipeline does not include removal of background contamination as you would with soupX or cellbender.
-# However it is useful to characterise the background of your gene expression assay and antibody binding assay
+# This pipeline does not include removal of background contamination as you would with soupX or cellblender.
+# However it is useful to chararcterise the background of your gene expression assay and antibody binding assay
 # Setting `assess_background` to True will:
 # 1. create h5mu from raw data inputs (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
 # 2. Plot comparitive QC plots to compare distribution of UMI and feature counts in background and foreground
 # 3. Create heatmaps of the top features in the background, so you can compare teh background contaimation per channel
-assess_background: True
+assess_background: False
 # typically there is a lot of cells in the full raw cellranger outputs, 
 # since we just want to get a picture of the background then we can subsample the data 
 # to a more reasonable ize. If you want to keep all the raw data then set the following to False
