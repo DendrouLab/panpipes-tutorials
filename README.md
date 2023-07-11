@@ -6,7 +6,7 @@ For installation please check the [documentation](https://github.com/DendrouLab/
 
 ### List of tutorials
 
-[#### Ingesting multimodal data with panpipes](https://github.com/DendrouLab/panpipes_reproducibility/blob/main/tutorials/Ingesting_data_with_panpipes.md) 
+#### [Ingesting multimodal data with panpipes](https://github.com/DendrouLab/panpipes_reproducibility/blob/main/tutorials/Ingesting_data_with_panpipes.md) 
 #### Uni and multimodal integration
 #### Visualization 
 
