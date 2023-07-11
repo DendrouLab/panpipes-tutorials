@@ -89,7 +89,7 @@ def run_qc():
 So the pipeline will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
 If you have run a full workflow and want to change the parameters in the yaml and reproduce the output of one task, you will have to remove the log file for that task so the pipeline knows where to start from!  
 
-### [Next: filtering the cells using `panpipes preprocess`](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/filtering_data/filtering_data_with_panpipes.md)
+#### [Next: filtering the cells using `panpipes preprocess`](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/filtering_data/filtering_data_with_panpipes.md)
 
 
 
