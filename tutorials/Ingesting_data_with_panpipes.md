@@ -47,11 +47,50 @@ Modify the `pipeline.yml` with custom parameters or simply replace with the one 
 
 type `panpipes qc_mm show full --local` to see what will be run.
 
+```
+Task = "mkdir('logs') #2   before pipeline_qc_mm.load_mudatas "
+Task = 'pipeline_qc_mm.load_mudatas'
+Task = 'pipeline_qc_mm.concat_filtered_mudatas'
+Task = 'pipeline_qc_mm.run_scrublet'
+Task = 'pipeline_qc_mm.run_rna_qc'
+Task = "mkdir('logs') #2   before pipeline_qc_mm.load_bg_mudatas "
+Task = 'pipeline_qc_mm.load_bg_mudatas'
+Task = 'pipeline_qc_mm.downsample_bg_mudatas'
+Task = 'pipeline_qc_mm.concat_bg_mudatas'
+Task = 'pipeline_qc_mm.run_scanpy_prot_qc'
+Task = 'pipeline_qc_mm.run_dsb_clr'
+Task = 'pipeline_qc_mm.run_prot_qc'
+Task = 'pipeline_qc_mm.run_repertoire_qc'
+Task = 'pipeline_qc_mm.run_atac_qc'
+Task = 'pipeline_qc_mm.run_qc'
+Task = 'pipeline_qc_mm.run_assess_background'
+Task = 'pipeline_qc_mm.plot_qc'
+Task = 'pipeline_qc_mm.all_rna_qc'
+Task = 'pipeline_qc_mm.all_prot_qc'
+Task = "mkdir('logs')   before pipeline_qc_mm.aggregate_tenx_metrics_multi "
+Task = 'pipeline_qc_mm.aggregate_tenx_metrics_multi'
+Task = 'pipeline_qc_mm.process_all_tenx_metrics'
+Task = 'pipeline_qc_mm.full'
+```
+
 Now run the qc_mm complete workflow 
 
 `panpipes qc_mm make full --local` 
 
-you can also run individual steps, i.e. `panpipes qc_mm make concat_adata`
+`panpipes qc_mm` will produce a different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
+
+You can also run individual steps, i.e. `panpipes qc_mm make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_qc_mm.py` worflow script, you can see that this step follows the qc metrics calculation for the multimodal assays.
+
+```
+@follows(run_rna_qc, run_prot_qc, run_repertoire_qc, run_atac_qc)
+def run_qc():
+    pass
+```
+So the pipeline will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
+If you have run a full workflow and want to change the parameters in the yaml and reproduce the output of one task, you will have to remove the log file for that task so the pipeline knows where to start from!  
+
+### [Next: filtering the cells using `panpipes preprocess`](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data/filtering_data_with_panpipes.md)
+
 
 
 
