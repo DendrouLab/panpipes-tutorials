@@ -186,7 +186,7 @@ score_genes: MarkersNeutro
 # all metrics should be inputted as a comma separated string e.g. a,b,c
 
 # likely a combination of metadatacolumns and demultiplex_metadatacols
-plotqc_grouping_var: sample_id
+plotqc_grouping_var: orig.ident
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
 
@@ -226,7 +226,7 @@ isotype_n_pass: 2
 # at the QC stage it can be useful to look at the normalised data on a per channel basis 
 # i.e. the 10X channel. 
 # this is usually the sample_id column (otherwise leave the next parameter blank)
-channel_col: sample_id
+channel_col: orig.ident
 # It is important to note that in qc_mm the per channel normalised adt scores are not saved in the mudata object
 #  this is because if you perform feature normalisation (clr normalisation margin 0 or dsb normalisation), 
 #  on subsets of cells then the normalised values cannot be simply concatenated. 
