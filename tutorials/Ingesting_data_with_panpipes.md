@@ -7,6 +7,7 @@ Please check the [`scverse` webpage](https://scverse.org/) for more information!
 
 We will give you a couple of examples of reading data from a 10X directory or directly from existing anndata objects, but we offer functionalities to read in any tabular format and assay-specific data types (check out Spatial Transcriptomics and Repertoire analysis)
 
+For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
 ### Start from 10X directories
 
