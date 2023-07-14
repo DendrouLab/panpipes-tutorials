@@ -67,9 +67,33 @@ final_obj:
     umap_min_dist:
   multimodal:
     include: True
-    bc_choice: totalvi
+    bc_choice: WNN
 
 ```
 and run `panpipes integration make merge_integration --local`.
 
-once this is finished, let's create a 
+once this is finished, you will find a new object in the main directory, namely `teaseq_corrected.h5mu`.
+let's create a new directory 
+
+```
+mdkir sub_integration & cd $_
+ln -s ../teaseq_corrected.h5mu teaseq_temp.h5mu
+cp ../pipeline.yml .
+```
+
+now let's modify the name of the input file to `teaseq_temp.h5mu`. 
+Let's also set to false all the modalities batch_correction algorithms and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object.
+To compare the new vs the nobatch wnn run we have done in `integration`, we can create a `batch_correction` directory in this subfolder and link the original file to this location by taking care of adding a string that will distinguish the original wnn run from this new one.
+For example: 
+
+
+```
+mkdir batch_correction & cd $_
+ln -s ../../batch_correction/umap_multimodal_wnn.csv umap_multimodal_wnnnobatch.csv
+```
+
+also, to avoid re-running the unimodal no_correction runs, we can link the individual modalities `batch_correction/umap_*_none.csv` in the same way.
+
+let's now run again `panpipes integration make full --local`
+
+The pipeline will pick the new requirement for wnn and create a new wnn run with the desired batch corrections for each modality, and since we have linked the previous `wnn` correction in this subdirectory, it will generate the outputs (check the figures folder for plots and scores) to compare `wnn`` with and without batch correction.
