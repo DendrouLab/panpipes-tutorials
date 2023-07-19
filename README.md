@@ -1,4 +1,6 @@
-# panpipes_reproducibility
+Panpipes tutorials
+==================
+
 
 This github repo contains tutorials to exemplify running [panpipes](https://github.com/DendrouLab/panpipes).
 For installation please check the [documentation](https://github.com/DendrouLab/panpipes/blob/main/docs/install.md)
