@@ -2,8 +2,7 @@
 
 # -- Project information
 
-
-project = 'Panpipes-tutorials'
+project = 'Panpipes'
 copyright = '2023, Rich-Griffin & Curion'
 author = 'Charlotte Rich-Griffin & Fabiola Curion'
 
@@ -17,14 +16,7 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.intersphinx',
-    "myst_parser"
-
-]
-
-suppress_warnings = [
-    'ref.citation',
-    'myst.header',  # https://github.com/executablebooks/MyST-Parser/issues/262
+    'sphinx.ext.intersphinx'
 ]
 
 intersphinx_mapping = {
