@@ -97,3 +97,6 @@ also, to avoid re-running the unimodal no_correction runs, we can link the indiv
 let's now run again `panpipes integration make full --local`
 
 The pipeline will pick the new requirement for wnn and create a new wnn run with the desired batch corrections for each modality, and since we have linked the previous `wnn` correction in this subdirectory, it will generate the outputs (check the figures folder for plots and scores) to compare `wnn`` with and without batch correction.
+
+
+
