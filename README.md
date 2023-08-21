@@ -12,6 +12,8 @@ For installation please check the [documentation](https://github.com/DendrouLab/
 #### [Clustering]()
 #### [Visualization]()
 
+#### [Ingesting spatial data with panpipes](https://github.com/DendrouLab/panpipes_reproducibility/blob/main/tutorials/ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.md) 
+
 
 
 
