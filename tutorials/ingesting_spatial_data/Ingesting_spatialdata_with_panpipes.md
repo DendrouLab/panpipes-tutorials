@@ -48,7 +48,7 @@ Modify the `pipeline.yml` with custom parameters or simply replace with the one 
 
 Run `panpipes qc_spatial make full --local` to ingest your visium datasets.
 
-This command will produce one mudata for each input sample in the submission file and save them in the "tmp" directory. In this workflow we have decided to process individual ST sections instead of concatenating them at the beginning, like you saw for cell-suspension datasets. We offer the option to concatenate the filtered objects in the `xxx` spatial workflow just before the deconvolution step, in the future we will implement the advanced functionalities of [SpatialData](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html) to deal with multi-sample ST datasets.
+This command will produce one mudata for each input sample in the submission file and save them in the "qc.data" directory. In this workflow we have decided to process individual ST sections instead of concatenating them at the beginning, like you saw for cell-suspension datasets. We offer the option to concatenate the filtered objects in the `xxx` spatial workflow just before the deconvolution step, in the future we will implement the advanced functionalities of [SpatialData](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html) to deal with multi-sample ST datasets.
 
 
 
