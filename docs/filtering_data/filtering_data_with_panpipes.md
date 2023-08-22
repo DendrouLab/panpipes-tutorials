@@ -13,13 +13,13 @@ go to your previously created `teaseq` directory and create a new folder to run 
 mkdir preprocessing & cd $_
 ```
 
-In here, run `panpipes preprocess config --local`, which will generate again a `pipeline.yml` file for you to customize. You can see the yaml here: [pipeline_preprocess.yml](pipeline_yml) or in this [folder](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/filtering_data) on github.
+In here, run `panpipes preprocess config --local`, which will generate again a `pipeline.yml` file for you to customize. You can see the yaml here: [pipeline_preprocess.yml](pipeline_yml) or in this [folder](../filtering_data) on github.
 
 
 
 Open the yml file to inspect the parameters choice. 
 
-If you have run the previous step, [Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) you will have a `*.unfilt.h5mu` object that you want to apply filtering on. You may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes qc_mm` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
+If you have run the previous step ([Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) ) you should have a `*.unfilt.h5mu` object that you want to apply filtering on. You may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes qc_mm` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
 Either copy the file into the directory you have just created or link the file into the new directory (our preferred choice)
 
 ```
