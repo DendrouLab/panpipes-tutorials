@@ -1,6 +1,7 @@
 # Panpipes Tutorials
-This github repo contains tutorials to exemplify running [panpipes single cell pipelines](https://panpipes-pipelines.readthedocs.io/en/latest/). 
-For installation please check out the [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage.html)
+This [website](https://panpipes-tutorials.readthedocs.io/en/latest/) contains tutorials to exemplify running [panpipes](https://panpipes-pipelines.readthedocs.io/en/latest/).
+
+For installation please check the [documentation](https://github.com/DendrouLab/panpipes/blob/main/docs/install.md)
 
 ## List of tutorials
 
