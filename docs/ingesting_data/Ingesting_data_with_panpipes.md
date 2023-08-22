@@ -9,9 +9,7 @@ We will give you a couple of examples of reading data from a 10X directory or di
 
 For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
-## Starting from 10X directories
-
-lorem ipsum
+In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, there is lots of information [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
 
 ## Starting from pre-existing h5ad objects
 
@@ -20,66 +18,72 @@ Please download the input data that we have provided [here](https://figshare.com
 You should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `adt` and `atac`.
 
 In order to ingest the data, we have to tell panpipes the paths to each anndata.
-Create a csv file like the one we provide in the [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/ingesting_data), if you have cloned this repo, you should have it under [sample_file_qc.txt](sample_file_qc.txt)
+Download an example sample submission file here: [sample_file_qc.txt](sample_file_qc.txt).
 
-create a directory in which you will store all the processing steps.
+Create a directory in which you will store all the processing steps.
 for example 
 
 ``` 
 mkdir teaseq
 ```
 
-this is the upper level directory in which you will create individual workflows outputs. 
-Create the directory to run the `qc_mm` (aka ingestion) workflow.
+This is the top level directory in which you will create individual workflows outputs. 
+Create the directory to run the `ingest` workflow.
 
 ```
 cd teaseq
-mkdir qc_mm && cd $_
+mkdir ingest && cd ingest
 mkdir data.dir
 ```
 
 Now move the 3 anndata you downloaded to the `data.dir` folder you have just created.
 
-in `teaseq/qc_mm` call `panpipes qc_mm config`.
+in `teaseq/ingest` call `panpipes ingest config`.
 this will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide [here](pipeline_yml.rst) or on github[tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/ingesting_data/pipeline.yml)
+Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide [here](pipeline_yml.md).
 
-type `panpipes qc_mm show full --local` to see what will be run.
+Review the steps that are going to be run as part of the `ingest` pipeline:
+```
+panpipes ingest show full --local
+``` 
+
+This is the output which describes all the tasks which will be run:
+```
+Task = "mkdir('logs') #2   before pipeline_ingest.load_mudatas "
+Task = 'pipeline_ingest.load_mudatas'
+Task = 'pipeline_ingest.concat_filtered_mudatas'
+Task = 'pipeline_ingest.run_scrublet'
+Task = 'pipeline_ingest.run_rna_qc'
+Task = "mkdir('logs') #2   before pipeline_ingest.load_bg_mudatas "
+Task = 'pipeline_ingest.load_bg_mudatas'
+Task = 'pipeline_ingest.downsample_bg_mudatas'
+Task = 'pipeline_ingest.concat_bg_mudatas'
+Task = 'pipeline_ingest.run_scanpy_prot_qc'
+Task = 'pipeline_ingest.run_dsb_clr'
+Task = 'pipeline_ingest.run_prot_qc'
+Task = 'pipeline_ingest.run_repertoire_qc'
+Task = 'pipeline_ingest.run_atac_qc'
+Task = 'pipeline_ingest.run_qc'
+Task = 'pipeline_ingest.run_assess_background'
+Task = 'pipeline_ingest.plot_qc'
+Task = 'pipeline_ingest.all_rna_qc'
+Task = 'pipeline_ingest.all_prot_qc'
+Task = "mkdir('logs')   before pipeline_ingest.aggregate_tenx_metrics_multi "
+Task = 'pipeline_ingest.aggregate_tenx_metrics_multi'
+Task = 'pipeline_ingest.process_all_tenx_metrics'
+Task = 'pipeline_ingest.full'
+```
+
+To run the ingest complete workflow 
 
 ```
-Task = "mkdir('logs') #2   before pipeline_qc_mm.load_mudatas "
-Task = 'pipeline_qc_mm.load_mudatas'
-Task = 'pipeline_qc_mm.concat_filtered_mudatas'
-Task = 'pipeline_qc_mm.run_scrublet'
-Task = 'pipeline_qc_mm.run_rna_qc'
-Task = "mkdir('logs') #2   before pipeline_qc_mm.load_bg_mudatas "
-Task = 'pipeline_qc_mm.load_bg_mudatas'
-Task = 'pipeline_qc_mm.downsample_bg_mudatas'
-Task = 'pipeline_qc_mm.concat_bg_mudatas'
-Task = 'pipeline_qc_mm.run_scanpy_prot_qc'
-Task = 'pipeline_qc_mm.run_dsb_clr'
-Task = 'pipeline_qc_mm.run_prot_qc'
-Task = 'pipeline_qc_mm.run_repertoire_qc'
-Task = 'pipeline_qc_mm.run_atac_qc'
-Task = 'pipeline_qc_mm.run_qc'
-Task = 'pipeline_qc_mm.run_assess_background'
-Task = 'pipeline_qc_mm.plot_qc'
-Task = 'pipeline_qc_mm.all_rna_qc'
-Task = 'pipeline_qc_mm.all_prot_qc'
-Task = "mkdir('logs')   before pipeline_qc_mm.aggregate_tenx_metrics_multi "
-Task = 'pipeline_qc_mm.aggregate_tenx_metrics_multi'
-Task = 'pipeline_qc_mm.process_all_tenx_metrics'
-Task = 'pipeline_qc_mm.full'
-```
+panpipes ingest make full --local
+``` 
 
-Now run the qc_mm complete workflow 
+`panpipes ingest` will produce a different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
 
-`panpipes qc_mm make full --local` 
-
-`panpipes qc_mm` will produce a different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
-
-You can also run individual steps, i.e. `panpipes qc_mm make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_qc_mm.py` worflow script, you can see that this step follows the qc metrics calculation for the multimodal assays.
+You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the multimodal assays.
 
 ```
 @follows(run_rna_qc, run_prot_qc, run_repertoire_qc, run_atac_qc)
