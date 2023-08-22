@@ -9,10 +9,6 @@ We will give you a couple of examples of reading data from a 10X directory or di
 
 For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
-## Starting from 10X directories
-
-lorem ipsum
-
 ## Starting from pre-existing h5ad objects
 
 Please download the input data that we have provided [here](https://figshare.com/articles/dataset/data_to_run_tutorials_on_https_github_com_DendrouLab_panpipes-tutorials/23735706). It's a random subset of cells from the [teaseq datasets](https://elifesciences.org/articles/63632) that we also used for the `panpipes` paper.
