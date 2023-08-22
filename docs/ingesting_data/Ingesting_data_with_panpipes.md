@@ -1,4 +1,4 @@
-## Ingesting data with panpipes
+# Ingesting data with panpipes
 
 Panpipes is a single cell multimodal analysis pipeline with a lot of functionalities to streamline and speed up your single cell projects.
 
@@ -9,18 +9,18 @@ We will give you a couple of examples of reading data from a 10X directory or di
 
 For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
-### Start from 10X directories
+## Starting from 10X directories
 
 lorem ipsum
 
-### Start from pre-existing h5ad objects
+## Starting from pre-existing h5ad objects
 
 Please download the input data that we have provided [here](https://figshare.com/articles/dataset/data_to_run_tutorials_on_https_github_com_DendrouLab_panpipes-tutorials/23735706). It's a random subset of cells from the [teaseq datasets](https://elifesciences.org/articles/63632) that we also used for the `panpipes` paper.
 
 You should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `adt` and `atac`.
 
 In order to ingest the data, we have to tell panpipes the paths to each anndata.
-Create a csv file like the one we provide in the [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data), if you have cloned this repo, you should have it under `sample_file_qc.txt`.
+Create a csv file like the one we provide in the [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data), if you have cloned this repo, you should have it under [sample_file_qc.txt](sample_file_qc.txt)
 
 create a directory in which you will store all the processing steps.
 for example 
@@ -43,7 +43,7 @@ Now move the 3 anndata you downloaded to the `data.dir` folder you have just cre
 in `teaseq/qc_mm` call `panpipes qc_mm config`.
 this will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide in [tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data)
+Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide [here](pipeline_yml.rst) or on github[tutorials](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/ingesting_data/pipeline.yml)
 
 type `panpipes qc_mm show full --local` to see what will be run.
 
@@ -89,7 +89,9 @@ def run_qc():
 So the pipeline will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
 If you have run a full workflow and want to change the parameters in the yaml and reproduce the output of one task, you will have to remove the log file for that task so the pipeline knows where to start from!  
 
-#### [Next: filtering the cells using `panpipes preprocess`](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/filtering_data/filtering_data_with_panpipes.md)
+## Next Steps: 
+
+Filtering the cells using [panpipes preprocess](../filtering_data/filtering_data_with_panpipes.md)
 
 
 

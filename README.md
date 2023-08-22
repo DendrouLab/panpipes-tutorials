@@ -1,6 +1,7 @@
 # Panpipes Tutorials
+---------------------
 
-This github repo contains tutorials to exemplify running [panpipes](https://github.com/DendrouLab/panpipes).
+This github repo contains tutorials to exemplify running [panpipes](https://panpipes-pipelines.readthedocs.io/en/latest/).
 For installation please check the [documentation](https://github.com/DendrouLab/panpipes/blob/main/docs/install.md)
 
 
