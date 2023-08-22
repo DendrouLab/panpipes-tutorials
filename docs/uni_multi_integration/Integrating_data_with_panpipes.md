@@ -8,9 +8,16 @@ Go to your previously created `teaseq` directory and create a new folder to run 
 ```
 # if you are in teaseq/preprocessing
 # cd ..
-mkdir integration & cd $_
+mkdir integration & cd integration
 ```
-You can now create the pipeline.yml by launching `panpipes integration config`. Again, we provide the preconfigured yml in the [integration]() folder.
+You can now create the pipeline.yml by launching 
+
+```
+panpipes integration config
+```
+
+Review and download a [preconfigured yml here](pipeline_yml.md).
+
 As we did before, link the preprocessed h5mu object in the present directory where the 
 
 ```
@@ -23,26 +30,42 @@ In the yml we specify:
 
 
 ```
-for rna: harmony,bbknn,scvi
-for prot: harmony, bbknn
-for atac: harmony, bbknn
+rna:
+  tools: harmony,bbknn,scvi
+prot:
+  tools: harmony,bbknn
+atac: 
+  tools: harmony,bbknn
+```
 
 and for multimodal integration:
-totalVI: rna,prot
-WNN: rna,atac,prot 
-MOFA+: rna,atac,prot
+```
+multimodal:
+  tools:
+    - WNN
+    - totalVI
+    - mofa
+  totalvi:
+    modalities: rna,prot
+  WNN: 
+    modalities: rna,atac,prot 
+  mofa: 
+    modalities: rna,atac,prot
 
 ```
-Also note that by default, `panpipes` will always produce the uncorrected unimodal objects by running neighbours and umap on the baseline dimensionality reduction, PCA or LSI depending on the modality. You can also leave blank the batch correction arguments, and the uncorrected objects will be the only outputs.
+By default, `panpipes` will always produce the uncorrected unimodal objects by running neighbours and umap on the baseline dimensionality reduction, PCA or LSI depending on the modality. If you leave  the batch correction arguments blank, the uncorrected objects will be the only outputs.
 
 For background on each method please consider reading the best practices for cross-modal single cell paper[REF], the benchmarks on batch correction and multimodal integration[REF]
 
-Run the integration workflow with `panpipes integration make full --local`
+Run the integration workflow with 
+```
+panpipes integration make full --local
+```
 Once the pipeline finishes, you will find the uni or multimodal integrated objects in a `tmp` folder, along with relevant auxillary files such as the scvi trained model in `batch_correction/scvi_model` and plots are saved in `figures`.
 In the paper, we showcase how WNN offers the flexibility to integrate modalities that have individually been batch-corrected.
 To showcase this scenario, we will use the last functionality of `panpipes integration` workflow, the `make merge_integration`. This task should be run after you have inspected the results of the integration and have decided which of the applied corrections you want to keep, for both uni and multimodal approaches.
 
-let's modify the `pipeline.yml` file and keep :
+To do this, you must modify the `pipeline.yml` file and keep :
 
 ```
 # ----------------
@@ -70,7 +93,10 @@ final_obj:
     bc_choice: WNN
 
 ```
-and run `panpipes integration make merge_integration --local`.
+and run 
+```
+panpipes integration make merge_integration --local
+```
 
 once this is finished, you will find a new object in the main directory, namely `teaseq_corrected.h5mu`.
 let's create a new directory 
@@ -81,9 +107,10 @@ ln -s ../teaseq_corrected.h5mu teaseq_temp.h5mu
 cp ../pipeline.yml .
 ```
 
-now let's modify the name of the input file to `teaseq_temp.h5mu`. 
-Let's also set to false all the modalities batch_correction algorithms and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object.
-To compare the new vs the nobatch wnn run we have done in `integration`, we can create a `batch_correction` directory in this subfolder and link the original file to this location by taking care of adding a string that will distinguish the original wnn run from this new one.
+In the new `pipeline.yml` modify the name of the input file to `teaseq_temp.h5mu`. 
+Then set false all the modalities batch_correction algorithms and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object.
+To compare the new vs the nobatch wnn run as we have done in `integration`, we can create a `batch_correction` directory in this subfolder and link the original file to this location by taking care of adding a string that will distinguish the original wnn run from this new one.
+
 For example: 
 
 
@@ -92,9 +119,9 @@ mkdir batch_correction & cd $_
 ln -s ../../batch_correction/umap_multimodal_wnn.csv umap_multimodal_wnnnobatch.csv
 ```
 
-also, to avoid re-running the unimodal no_correction runs, we can link the individual modalities `batch_correction/umap_*_none.csv` in the same way.
+Also, to avoid re-running the unimodal no_correction runs, we can link the individual modalities `batch_correction/umap_*_none.csv` in the same way.
 
-let's now run again `panpipes integration make full --local`
+Then run again `panpipes integration make full --local`
 
 The pipeline will pick the new requirement for wnn and create a new wnn run with the desired batch corrections for each modality, and since we have linked the previous `wnn` correction in this subdirectory, it will generate the outputs (check the figures folder for plots and scores) to compare `wnn`` with and without batch correction.
 
