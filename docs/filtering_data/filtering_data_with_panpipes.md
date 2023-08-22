@@ -13,7 +13,7 @@ go to your previously created `teaseq` directory and create a new folder to run 
 mkdir preprocessing & cd $_
 ```
 
-In here, run `panpipes preprocess config --local`, which will generate again a `pipeline.yml` file for you to customize. You can see the yaml here: [pipeline_preprocess.yml](pipeline_yml) or in this [folder](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/tutorials/filtering_data) on github.
+In here, run `panpipes preprocess config --local`, which will generate again a `pipeline.yml` file for you to customize. You can see the yaml here: [pipeline_preprocess.yml](pipeline_yml) or in this [folder](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/filtering_data) on github.
 
 
 
