@@ -8,6 +8,8 @@ It's time to filter the cells to make sure to exclude bad quality cells for down
 In your previously created `teaseq` directory, create a new folder to run `panpipes preprocess`.
 
 ```
+# if you are in teaseq/qc_mm
+# cd ..
 mkdir preprocessing & cd preprocessing
 ```
 
