@@ -15,3 +15,5 @@ Modify the file, or just use the one we provide in [filtering spatial data](../f
 
 Now run `panpipes preprocess_spatial make full --local`
 
+
+*Note: We find that keeping the suggested directory structure (one main directory by project with all the individual steps in separate folders) is useful for project management. You can of course customize your directories as you prefer, and change the paths accordingly in the `pipeline.yml` config files!*
