@@ -1,2 +1,2 @@
 sample_id	gex_path	gex_filetype	adt_path	adt_filetype	atac_path	atac_filetype	tissue
-teaseq	data.dir/rna.h5ad	h5ad	data.dir/adt.h5ad	h5ad	data.dir/atac.h5ad	h5ad	pbmc
+teaseq	data.dir/subsample_rna.h5ad	h5ad	data.dir/subsample_adt.h5ad	h5ad	data.dir/subsample_atac.h5ad	h5ad	pbmc

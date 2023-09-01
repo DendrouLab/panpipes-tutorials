@@ -29,7 +29,7 @@ resources:
   # this must be enough memory to load text files and do plotting, requires much less memory than the other two
   threads_low: 1
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
+condaenv: pipeline_env
 
 # ------------------------------------------------------------------------------------------------
 # Loading and concatenating data options
@@ -176,7 +176,7 @@ ccgenes: default
 # 
 # custom genes actions
 
-custom_genes_file: /Users/fabiola.curion/Documents/devel/github/panpipes_reproducibility/tutorials/ingesting_data/qc_genelist_1.0.csv
+custom_genes_file: panpipes-tutorials/tutorials/ingesting_data/qc_genelist_1.0.csv
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 
