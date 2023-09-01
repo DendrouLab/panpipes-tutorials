@@ -14,7 +14,7 @@ resources:
 
   fewer_jobs: True
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn/
+condaenv: pipeline_env
 
 # Start
 # --------------------------

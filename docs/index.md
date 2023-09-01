@@ -12,4 +12,8 @@ filtering_data/filtering_data_with_panpipes.md
 uni_multi_integration/Integrating_data_with_panpipes.md
 clustering_tutorial.md
 vis_tutorial.md
+
+ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.md
+ingesting_processing_merfish_data/merfish_analysis_with_panpipes.md
+filtering_spatial_data/filtering_spatial_data_with_panpipes.md
 ```
