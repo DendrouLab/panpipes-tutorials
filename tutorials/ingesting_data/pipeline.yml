@@ -29,7 +29,7 @@ resources:
   # this must be enough memory to load text files and do plotting, requires much less memory than the other two
   threads_low: 1
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv:
+condaenv: pipeline_env
 
 # ------------------------------------------------------------------------------------------------
 # Loading and concatenating data options
