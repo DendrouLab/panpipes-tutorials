@@ -1,25 +1,33 @@
 # Filtering data with panpipes
 
 ## Running the pipeline
-You have ingested your single cell data and you have created a `.h5mu` object storing calculated qc metrics.
-It's time to filter the cells to make sure to exclude bad quality cells for downstream analysis.
-The filtering 
+Following the [ingest tutorial](../ingesting_data/Ingesting_data_with_panpipes.md) means that your single cell data is combined into  a `.h5mu` object. Within the `.h5mu` object there are also qc metrics stored.
 
-go to your previously created `teaseq` directory and create a new folder to run `panpipes preprocess`
+It's time to filter the cells to make sure to exclude bad quality cells for downstream analysis.
+
+In your previously created `teaseq` directory, create a new folder to run `panpipes preprocess`.
 
 ```
 # if you are in teaseq/qc_mm
 # cd ..
-mkdir preprocessing & cd $_
+mkdir preprocessing & cd preprocessing
 ```
 
-In here, run `panpipes preprocess config --local`, which will generate again a `pipeline.yml` file for you to customize. You can see the yaml here: [pipeline_preprocess.yml](pipeline_yml) or in this [folder](../filtering_data) on github.
+
+In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
 
 
 
 Open the yml file to inspect the parameters choice. 
 
-If you have run the previous step ([Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) ) you should have a `*.unfilt.h5mu` object that you want to apply filtering on. You may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes qc_mm` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
+
+If you have run the previous step, [Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) you will have a `*.unfilt.h5mu` object that you want to apply filtering on. 
+
+Alternatively, you may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes qc_mm` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
+
+**NOTE**: it's important that the `.h5mu` object is linked (or renamed) in this directory with a `sampleprefix_unfilt` structure, cause the pipeline will look for this string to start from.
+
+
 Either copy the file into the directory you have just created or link the file into the new directory (our preferred choice)
 
 ```
@@ -29,7 +37,6 @@ ln -s ../teaseq_unfilt.h5mu .
 ln -s ../teaseq_unfilt.h5mu teaseq_unfilt.h5mu 
 ```
 
-**NOTE**: it's important that the `.h5mu` object is linked (or renamed) in this directory with a `sampleprefix_unfilt` structure, cause the pipeline will look for this string to start from.
 
 In the yaml, we have already specified that this is the input file
 
