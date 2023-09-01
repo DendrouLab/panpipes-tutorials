@@ -32,7 +32,7 @@ source_suffix = ['.rst', '.md']
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_static_path = []
 html_logo = "img/panpipeslogo2.png"
 html_theme_options = {
     'logo_only': True,

@@ -13,10 +13,13 @@ In your previously created `teaseq` directory, create a new folder to run `panpi
 mkdir preprocessing & cd preprocessing
 ```
 
+
 In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
 
 
+
 Open the yml file to inspect the parameters choice. 
+
 
 If you have run the previous step, [Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) you will have a `*.unfilt.h5mu` object that you want to apply filtering on. 
 
