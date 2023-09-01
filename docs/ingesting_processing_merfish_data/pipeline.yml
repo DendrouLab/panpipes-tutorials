@@ -1,0 +1,111 @@
+# ----------------------- #
+# Spatial QC pipeline 
+# ----------------------- #
+# written by Fabiola Curion, Sarah Ouloguem
+
+# This pipeline needs a sample metadata file (see resources for an example)
+# will run :
+#   scanpy QC
+#   summary QC plots
+
+# Followed by preprocess pipeline. 
+# The qc_mm pipeline does not perform any filtering of cells or genes.
+# Filtering happens as the first stpe in the preprocess pipeline. See pipeline_preprocess for details
+
+# Note that if you are combining mutliple datasets from different source the final anndata object will only contain the intersect of the genes
+# from all the data sets. For example if the mitochondrial genes have been excluded from one of the inputs, they will be excluded from the final data set.
+# In this case it might be wise to run qc separately on each dataset, and them merge them together to create on h5ad file to use as input for
+# integration pipeline.
+# ------------------------
+# compute resource options
+# ------------------------
+resources:
+  # Number of threads used for parallel jobs
+  # this must be enough memory to create to load all you input files and once and create the mudatafile
+  threads_high: 1
+  # this must be enough memory to load your mudata and do computationally light tasks
+  threads_medium: 1
+  # this must be enough memory to load text files and do plotting, requires much less memory than the other two
+  threads_low: 1
+# path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
+
+# ------------------------------------------------------------------------------------------------
+# Loading and concatenating data options
+# ------------------------------------------------------------------------------------------------
+# ------------------------
+# Project name and data format
+# ------------------------
+project: merfishbrain
+sample_prefix: merfishbrain
+# submission_file format:
+# For qc_spatial the required columns are
+# sample_id spatial_path spatial_filetype spatial_counts spatial_metadata spatial_transformation
+# Example at resources/sample_file_qc_spatial.txt
+submission_file: sample_qc_spatial.txt
+
+# which metadata cols from the submission file do you want to include in the anndata object
+# as a comma-separated string e.g. batch,disease,sex
+metadatacols: 
+#@@@@@@@@@@@@@@@
+#NOTE check this if useful
+#@@@@@@@@@@@@@@@
+# which concat join to you want to perform on your mudata objects, recommended inner
+# see https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins for details
+concat_join_type: inner
+
+
+#---------------------------------------
+# Modalities in the project
+#---------------------------------------
+# 
+# Set spatialT to True to abilitate reading. 
+# Leave empty (None) or False to signal this modality is not in the experiment.
+
+modalities:
+  spatial: True
+assay: vizgen
+
+
+# ------------------------------------------------------------------------------------------------
+# QC options
+# ------------------------------------------------------------------------------------------------
+
+# ------------
+# GEX QC
+# ------------
+# this part of the pipeline allows to generate the QC parameters that will be used to 
+# evaluate inclusion/ exclusion criteria. Filtering of cells/genes happens in the following pipeline
+# pipeline_integration.py.
+
+# leave options blank to avoid running, "default" (the data stored within the package) 
+# cell cycle action
+# ccgenes will plot the proportions of cell cycle genes (recommended to leave as default)
+ccgenes: 
+# It's often practical to rely on known gene lists, for a series of tasks, like evaluating % of mitochondrial genes or
+# ribosomal genes, or excluding IGG genes from HVG selection. We collect useful gene lists in a file, resources/custom_gene_lists_v1.tsv, 
+# and define "actions" on them as follows:
+# (for pipeline_qc_mm.py)
+# calc_proportions: calculate proportion of reads mapping to X genes over total number of reads, per cell
+# score_genes: using scanpy.score_genes function, 
+# (for pipeline_integration.py)
+# exclude: exclude these genes from the HVG selection, if they are deemed HV.
+# plot_markers: plot these genes
+# 
+# custom genes actions
+
+custom_genes_file: 
+calc_proportions: hb,mt,rp
+score_genes:
+
+# ---------------
+# Plot QC metrics
+# ------------
+# all metrics should be inputted as a comma separated string e.g. a,b,c
+
+# sample_id is the name of each spatial slide and it will always be used to plot. 
+# use additional covariates to plot the QC metrics over multiple samples 
+# (but we're not sure about the interpretation of these!)
+plotqc_grouping_var: sample_id
+plotqc_metrics: pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
+
