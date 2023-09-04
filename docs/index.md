@@ -17,4 +17,5 @@ vis_tutorial.md
 ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.md
 ingesting_processing_merfish_data/merfish_analysis_with_panpipes.md
 filtering_spatial_data/filtering_spatial_data_with_panpipes.md
+deconvolution/deconvoluting_spatial_data_with_panpipe.md
 ```
