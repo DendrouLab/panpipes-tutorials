@@ -23,7 +23,7 @@ deconvolution
 In the pipeline.yml file, we can now specify the paths of the input data, for our example `input_spatial = ./data/spatial_data` and `input_singlecell = ./data/sc_reference.h5mu`.
 
 
-## Cell2Location
+### Cell2Location
 
 With the `deconvolution_spatial` workflow we can currently only run [Cell2Location](https://doi.org/10.1038/s41587-021-01139-4). 
 
