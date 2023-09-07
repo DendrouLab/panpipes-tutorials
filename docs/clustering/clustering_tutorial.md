@@ -16,6 +16,15 @@ now run `panpipes clustering config` . Inspect and customize the yml (or use the
 
 and run `panpipes clustering make full --local`  
 You will find in the outputs:
+ - the clustered h5mu object with all the tested combination of clustering parameters on the `.obs` of the respective modality (and the clustering of the multimodal representation in the outer `.obs`)
+ - a metadata file with all the modality-specific `.obs` concatenated
  - a folder for each modality
-   - inside, each resolution 
+  
+    inside of these:
+
+    - the computed umap coordinates with the specified choice of parameters
+    - one directory for each combination of clustering parameters 
+  
+  Finally, each of the clustering directories contains plots and txt files for the marker analysis. We run the marker analysis using the clustering results and ANY of the modalities. That means you can discover protein markers for clusters that were calculated on RNA, or on ATAC, and viceversa.
+
 
