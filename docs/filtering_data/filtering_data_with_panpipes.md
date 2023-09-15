@@ -8,9 +8,9 @@ It's time to filter the cells to make sure to exclude bad quality cells for down
 In your previously created `teaseq` directory, create a new folder to run `panpipes preprocess`.
 
 ```
-# if you are in teaseq/qc_mm
+# if you are in teaseq/ingest
 # cd ..
-mkdir preprocessing & cd preprocessing
+mkdir preprocessing && cd preprocessing
 ```
 
 
@@ -23,7 +23,7 @@ Open the yml file to inspect the parameters choice.
 
 If you have run the previous step, [Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) you will have a `*.unfilt.h5mu` object that you want to apply filtering on. 
 
-Alternatively, you may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes qc_mm` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
+Alternatively, you may also have a custom `.h5mu` dataset that you didn't generate with the `panpipes ingest` workflow, but you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
 
 **NOTE**: it's important that the `.h5mu` object is linked (or renamed) in this directory with a `sampleprefix_unfilt` structure, cause the pipeline will look for this string to start from.
 
@@ -64,5 +64,8 @@ As usual, you can choose to modify the parameters and re-run a specific task, fo
 Next [uni and multimodal integration](../uni_multi_integration/Integrating_data_with_panpipes.md)
 
 
+
+
+*Note: We find that keeping the suggested directory structure (one main directory by project with all the individual steps in separate folders) is useful for project management. You can of course customize your directories as you prefer, and change the paths accordingly in the `pipeline.yml` config files!*
 
 
