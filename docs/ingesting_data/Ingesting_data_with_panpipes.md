@@ -48,7 +48,11 @@ in `teaseq/ingest` call `panpipes ingest config`.
 this will generate a `pipeline.log` and a `pipeline.yml` file.
 
 
-Modify the `pipeline.yml` with custom parameters or simply replace with the one we provide [here](pipeline_yml.md).
+Modify the `pipeline.yml` with custom parameters: you can simply replace with the one we provide [here](pipeline_yml.md).
+We specify a series of custom paths such as the conda environment or the path to the file that contains the genes used for qc'ing the cells.
+Inspect the `pipeline.yml`` file and remember to change the paths to the folders and files on your local machine!
+
+
 
 Review the steps that are going to be run as part of the `ingest` pipeline:
 ```
