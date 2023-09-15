@@ -99,15 +99,16 @@ panpipes integration make merge_integration --local
 ```
 
 once this is finished, you will find a new object in the main directory, namely `teaseq_corrected.h5mu`.
-let's create a new directory 
+
+Let's create a new directory inside the integration folder where we have just finished our run.
 
 ```
-mdkir sub_integration & cd $_
+mdkir sub_integration && cd $_
 ln -s ../teaseq_corrected.h5mu teaseq_temp.h5mu
 cp ../pipeline.yml .
 ```
 
-In the new `pipeline.yml` modify the name of the input file to `teaseq_temp.h5mu`. 
+In the new `pipeline.yml` we have just copied over, modify the name of the input file to `teaseq_temp.h5mu`. 
 Then set false all the modalities batch_correction algorithms and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object.
 To compare the new vs the nobatch wnn run as we have done in `integration`, we can create a `batch_correction` directory in this subfolder and link the original file to this location by taking care of adding a string that will distinguish the original wnn run from this new one.
 
@@ -115,7 +116,7 @@ For example:
 
 
 ```
-mkdir batch_correction & cd $_
+mkdir batch_correction && cd $_
 ln -s ../../batch_correction/umap_multimodal_wnn.csv umap_multimodal_wnnnobatch.csv
 ```
 
