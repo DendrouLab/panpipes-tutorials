@@ -49,8 +49,19 @@ this will generate a `pipeline.log` and a `pipeline.yml` file.
 
 
 Modify the `pipeline.yml` with custom parameters: you can simply replace with the one we provide [here](pipeline_yml.md).
-We specify a series of custom paths such as the conda environment or the path to the file that contains the genes used for qc'ing the cells.
-Inspect the `pipeline.yml`` file and remember to change the paths to the folders and files on your local machine!
+We specify a series of custom paths such as the conda environment or the path to the file that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes.
+These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads.
+
+Download this file from [here](./qc_genelist_1.0.csv)
+
+Inspect the `pipeline.yml` file to familiarize with the input parameters. 
+
+NOTE: remember to change the following paths to the files on your local machine! 
+
+- We need to provide the correct conda environment if using one (you can also leave empty if using python venv)
+- We need to specify the path to the `sample_qc_file.txt` file 
+- We need to provide the path to the `qc_genelist_1.0.csv` file that you downloaded.
+
 
 
 
