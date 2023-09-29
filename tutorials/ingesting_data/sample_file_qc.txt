@@ -1,0 +1,2 @@
+sample_id	rna_path	rna_filetype	prot_path	prot_filetype	atac_path	atac_filetype	tissue
+teaseq	data.dir/rna.h5ad	h5ad	data.dir/adt.h5ad	h5ad	data.dir/atac.h5ad	h5ad	pbmc
