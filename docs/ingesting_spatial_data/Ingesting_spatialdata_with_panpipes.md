@@ -110,12 +110,14 @@ ingestion
 ├── pipeline.yml
 ├── sample_file_qc_spatial.txt
 ├── V1_Human_Heart_cell_metadata.tsv # Metadata, i.e. .obs
-└── V1_Human_Lymph_Node_cell_metadata.tsv #Metadata, i.e. .obs
+└── V1_Human_Lymph_Node_cell_metadata.tsv # Metadata, i.e. .obs
 ```
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots: 
-![spatial_embedding](https://github.com/DendrouLab/panpipes-tutorials/tree/main/tutorials/ingesting_visium_data/spatial_spatial_total_counts.V1_Human_Heart.png)
-![violin_plot](https://github.com/DendrouLab/panpipes-tutorials/tree/main/tutorials/ingesting_visium_data/violin_obs_total_counts_sample_id.V1_Human_Heart.png)
+<p float="left">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/sarah_readthedocs/tutorials/ingesting_visium_data/spatial_spatial_total_counts.V1_Human_Heart.png" alt="drawing" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/sarah_readthedocs/tutorials/ingesting_visium_data/violin_obs_total_counts_sample_id.V1_Human_Heart.png" alt="drawing" width="300"/>
+</p>
 
 
 #### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../filtering_spatial_data/filtering_spatial_data_with_panpipes.md)
