@@ -70,7 +70,7 @@ In general, the spatial submission file expects the following columns:
 
 `sample_id` `spatial_path` `spatial_filetype` `spatial_counts` `spatial_metadata` `spatial_transformation` 
 
-For 10X Visium datasets, only the first four columns need to be specified. With `Panpipes` you can ingest multiple spatial slides by creating one line for each in the submission file. For each slide, one `MuData` will be created by the pipeline. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md)
+For `10X Visium datasets`, only the first four columns need to be specified. With `Panpipes` you can ingest multiple spatial slides by creating one line for each in the submission file. For each slide, one `MuData` will be created by the pipeline. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md)
 
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
