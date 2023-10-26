@@ -112,10 +112,10 @@ ingestion
 ├── V1_Human_Heart_cell_metadata.tsv # Metadata, i.e. .obs
 └── V1_Human_Lymph_Node_cell_metadata.tsv # Metadata, i.e. .obs
 ```
-In the `qc.data` folder, the final `MuData` objects with computed QC metrics are stored. `MuData` objects without QC metrics are also available and stored in the `tmp` folder. The metadata of the final `Mudata` objects is additonally extracted and saved as tsv files, `V1_Human_Heart_cell_metadata.tsv` `V1_Human_Lymph_Node_cell_metadata.tsv`.
+In the `qc.data` folder, the final `MuData` objects with computed QC metrics are stored. `MuData` objects without QC metrics are also available and stored in the `tmp` folder. The metadata of the final `Mudata` objects is additionally extracted and saved as tsv files, `V1_Human_Heart_cell_metadata.tsv` `V1_Human_Lymph_Node_cell_metadata.tsv`.
 Using the [provided example yaml file](../../tutorials/ingesting_visium_data), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
 
--                 | spatial:in_tissue | spatial:array_row | spatial:array_col | spatial:sample_id | spatial:MarkersNeutro_score | spatial:n_genes_by_counts
+|                   | spatial:in_tissue | spatial:array_row | spatial:array_col | spatial:sample_id | spatial:MarkersNeutro_score | spatial:n_genes_by_counts
 -------------------|-------------------|-------------------|-------------------|-------------------|-----------------------------|--------------------------
 AAACAAGTATCTCCCA-1 |	     1         |        50	       |        102	       |  V1_Human_Heart   |     0.46748291571753986	 |           1924	
 
