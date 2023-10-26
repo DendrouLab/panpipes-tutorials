@@ -62,6 +62,9 @@ data
         └── tissue_positions_list.csv
 ```
 
+**Please note, that the data folder structure needs to be structured as expected by the [squidpy.read.visium](https://squidpy.readthedocs.io/en/stable/api/squidpy.read.visium.html) function.**
+
+
 ### Edit submission and yaml file 
 
 In `spatial/ingestion`, create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_visium_data). For this tutorial, you can use the provided. 
@@ -75,7 +78,7 @@ For `10X Visium datasets`, only the first four columns need to be specified. Wit
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_visium_data). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_visium_data), you potentially need to add a path to the conda environment in the yaml. 
+Modify the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_visium_data). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_visium_data), you potentially need to add the path of the conda environment in the yaml. 
 
 ### Run Panpipes
 
@@ -120,7 +123,7 @@ Using the [provided example yaml file](../../tutorials/ingesting_visium_data), t
 AAACAAGTATCTCCCA-1 |	     1         |        50	       |        102	       |  V1_Human_Heart   |     0.46748291571753986	 |           1924	
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots: 
-<p float="left">
+<p align="center">
 <img src="../../tutorials/ingesting_visium_data/spatial_spatial_total_counts.V1_Human_Heart.png" alt="drawing" width="300"/>
 <img src="../../tutorials/ingesting_visium_data/violin_obs_total_counts_sample_id.V1_Human_Heart.png" alt="drawing" width="300"/>
 </p>
