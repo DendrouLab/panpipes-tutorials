@@ -92,7 +92,7 @@ With the plots in `spatial/ingestion/figures/spatial` you can now decide on cuto
 
 
 
-#### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../filtering_spatial_data/filtering_spatial_data_with_panpipes.md)
+#### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
 
 
 *Note: In this workflow, we have decided to process individual ST sections instead of concatenating them at the beginning, as you saw for cell-suspension datasets. This is because the workflows for processing multiple spatial transcriptomics slides (especially concerning normalization, dimensionality reduction, and batch correction) are still experimental. With panpipes, you can group multiple samples and process them one by one with the same choice of parameters. In the future we will implement the advanced functionalities of [SpatialData](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html) to deal with multi-sample ST datasets.*
