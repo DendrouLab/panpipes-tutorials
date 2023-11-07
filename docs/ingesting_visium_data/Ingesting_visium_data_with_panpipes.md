@@ -4,7 +4,7 @@ Let's run through an example of reading `10X Visium` data into `MuData` objects 
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
-### Create directories and download data
+## Create directories and download data
 
 Let's create a main `spatial` directory and in that directory, the directories `ingestion` and `data`.
 
@@ -65,9 +65,9 @@ data
 **Please note, that the data folder structure needs to be structured as expected by the [squidpy.read.visium](https://squidpy.readthedocs.io/en/stable/api/squidpy.read.visium.html) function.**
 
 
-### Edit submission and yaml file 
+## Edit submission and yaml file 
 
-In `spatial/ingestion`, create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_visium_data). For this tutorial, you can use the provided. 
+In `spatial/ingestion`, create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_visium_data/sample_file_qc_spatial.txt). For this tutorial, you can use the provided. 
 
 In general, the spatial submission file expects the following columns: 
 
@@ -78,9 +78,9 @@ For `10X Visium datasets`, only the first four columns need to be specified. Wit
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_visium_data). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_visium_data), you potentially need to add the path of the conda environment in the yaml. 
+Modify the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_visium_data/pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_visium_data/pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
 
-### Run Panpipes
+## Run Panpipes
 
 In `spatial/ingestion`, run `panpipes qc_spatial make full --local` to ingest your `Visium` datasets.
 
@@ -116,7 +116,7 @@ ingestion
 └── V1_Human_Lymph_Node_cell_metadata.tsv # Metadata, i.e. .obs
 ```
 In the `qc.data` folder, the final `MuData` objects with computed QC metrics are stored. `MuData` objects without QC metrics are also available and stored in the `tmp` folder. The metadata of the final `Mudata` objects is additionally extracted and saved as tsv files, `V1_Human_Heart_cell_metadata.tsv` `V1_Human_Lymph_Node_cell_metadata.tsv`.
-Using the [provided example yaml file](../../tutorials/ingesting_visium_data), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
+Using the [provided example yaml file](../../tutorials/ingesting_visium_data/pipeline.yml), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
 
 |                   | spatial:in_tissue | spatial:array_row | spatial:array_col | spatial:sample_id | spatial:MarkersNeutro_score | spatial:n_genes_by_counts
 -------------------|-------------------|-------------------|-------------------|-------------------|-----------------------------|--------------------------
@@ -129,7 +129,7 @@ With the plots in `spatial/ingestion/figures/spatial` you can now decide on cuto
 </p>
 
 
-#### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
+### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
 
 
 *Note: In this workflow, we have decided to process individual ST sections instead of concatenating them at the beginning, as you saw for cell-suspension datasets. This is because the workflows for processing multiple spatial transcriptomics slides (especially concerning normalization, dimensionality reduction, and batch correction) are still experimental. With panpipes, you can group multiple samples and process them one by one with the same choice of parameters. In the future we will implement the advanced functionalities of [SpatialData](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html) to deal with multi-sample ST datasets.*

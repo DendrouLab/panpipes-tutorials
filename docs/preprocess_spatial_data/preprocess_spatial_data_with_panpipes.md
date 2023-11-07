@@ -5,7 +5,7 @@ The `preprocess_spatial` workflow expects one or multiple `MuData` objects as in
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
 
-### Directories and data
+## Directories and data
 
 For the preprocessing tutorial, we will work in the main `spatial` directory and create a `preprocess` directory for the preprocessing: 
 
@@ -40,14 +40,14 @@ spatial
 The `preprocess_spatial` workflow allows you to preprocess one or multiple `MuData` objects **of the same assay, i.e. Visium or Vizgen,** in one run. For that, the workflow reads in all `.h5mu` files of the input directory. The `MuData` objects of the input directory are then **preprocessed with the same specified parameters**.
  
 
-### Edit yaml file 
+## Edit yaml file 
 
 In `spatial/preprocess`, create the pipeline.yml and pipeline.log files by running `panpipes preprocess_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the yaml file, or just use the [pipeline.yml](../../tutorials/preprocess_spatial/) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
+Modify the yaml file, or simply use the [pipeline.yml](../../tutorials/preprocess_spatial/pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
 
 
 
-### Run Panpipes
+## Run Panpipes
 
 Run the full workflow with `panpipes preprocess_spatial make full --local`
 
@@ -105,6 +105,6 @@ The PCA and the elbow plot are also plotted:
 
 
 
-#### [Next: Clustering the data using `panpipes_clustering`]()
+### [Next: Clustering the data using `panpipes_clustering`]()
 
 *Note: We find that keeping the suggested directory structure (one main directory by project with all the individual steps in separate folders) is useful for project management. You can of course customize your directories as you prefer, and change the paths accordingly in the `pipeline.yml` config files!*

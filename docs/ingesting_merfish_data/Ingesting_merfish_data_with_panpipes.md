@@ -5,7 +5,7 @@ This tutorial guides you through the ingestion of `MERFISH` datasets using `Panp
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
 
-### Create directories and download data
+## Create directories and download data
 
 Create a main `spatial` directory and inside it, `ingestion` and `data`.
 
@@ -32,17 +32,17 @@ spatial
 **Please note, that the data folder structure needs to be structured as expected by the [squidpy.read.vizgen](https://squidpy.readthedocs.io/en/stable/api/squidpy.read.vizgen.html) function.**
 
 
-### Edit submission and yaml file 
+## Edit submission and yaml file 
 
 
-Create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_merfish_data) and save it in`spatial/ingestion`. For this tutorial, you can use the provided submission file. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md) 
+Create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_merfish_data/sample_file_qc_spatial.txt) and save it in`spatial/ingestion`. For this tutorial, you can use the provided submission file. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md) 
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Customize the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_merfish_data). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_merfish_data), you potentially need to add the path of the conda environment in the yaml. 
+Customize the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_merfish_data/pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_merfish_data/pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
 
 
-### Run Panpipes
+## Run Panpipes
 
 In `spatial/ingestion`, run `panpipes qc_spatial make full --local` to ingest your `MERFISH` datasets.
 
@@ -74,7 +74,7 @@ ingestion
 ```
 
 In the `qc.data` folder, the final `MuData` object with computed QC metrics is stored. The `MuData` object without QC metrics is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as tsv file, `mouse_brain_cell_metadata.tsv`.
-Using the [provided example yaml file](../../tutorials/ingesting_merfish_data), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
+Using the [provided example yaml file](../../tutorials/ingesting_merfish_data/pipeline.yml), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
 
 |                  | spatial:fov | spatial:volume | spatial:min_x | spatial:max_x | spatial:min_y | spatial:max_y
 ----------------------------------------|------------------|----------------------|----------------------|----------------------|------------------------|-----------------------
@@ -92,7 +92,7 @@ With the plots in `spatial/ingestion/figures/spatial` you can now decide on cuto
 
 
 
-#### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
+### [Next: filtering and preprocessing using `panpipes preprocess_spatial`](../preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
 
 
 *Note: In this workflow, we have decided to process individual ST sections instead of concatenating them at the beginning, as you saw for cell-suspension datasets. This is because the workflows for processing multiple spatial transcriptomics slides (especially concerning normalization, dimensionality reduction, and batch correction) are still experimental. With panpipes, you can group multiple samples and process them one by one with the same choice of parameters. In the future we will implement the advanced functionalities of [SpatialData](https://spatialdata.scverse.org/en/latest/tutorials/notebooks/notebooks.html) to deal with multi-sample ST datasets.*
