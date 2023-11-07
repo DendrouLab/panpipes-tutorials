@@ -1,4 +1,4 @@
-## Ingesting 10X Visium data with Panpipes
+# Ingesting 10X Visium data with Panpipes
 
 Let's run through an example of reading `10X Visium` data into `MuData` objects and computing QC metrics using `Panpipes`. The [workflow](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/ingest_spatial.md) describes the steps run by the pipeline in detail. 
 

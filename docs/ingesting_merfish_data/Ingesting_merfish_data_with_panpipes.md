@@ -1,4 +1,4 @@
-## Ingesting MERFISH data with Panpipes
+# Ingesting MERFISH data with Panpipes
 
 This tutorial guides you through the ingestion of `MERFISH` datasets using `Panpipes`. The [workflow](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/ingest_spatial.md) describes the steps run by the pipeline in detail. 
 
