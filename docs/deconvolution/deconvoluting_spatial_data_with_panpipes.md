@@ -1,46 +1,121 @@
-Deconvoluting spatial data with panpipes
-----------------------------------------
+# Deconvoluting spatial data with Panpipes
 
-The `deconvolution_spatial` workflow provides the possibility to run deconvolution for spatial data. 
-Let's run the following commands to create the directory `deconvolution` and to create the `pipeline.yml` and `pipeline.log` files: 
+The `deconvolution_spatial` workflow provides the possibility to run deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/deconvolute_spatial.md).
+
+For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
+
+
+## Directories and data
+
+For the deconvolution tutorial, we will work in the main directory `spatial` and create a `deconvolution` directory for the deconvolution: 
+
 ```
-mkdir deconvolution & cd $_
-panpipes deconvolution_spatial config --local
+# mkdir spatial # <- if you don't have the spatial directory already 
+# cd spatial
+mkdir deconvolution deconvolution/data deconvolution/data/spatial_data
+cd deconvolution
 ```
 
-As with the other workflows of panpipes, the deconvolution uses muData objects and expects those as input. For each spatial slide, it expects one muData, with the spatial assay saved under `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects one muData, with the RNA assay saved under `mudata.mod['rna']`. 
-With panpipes, we can run the deconvolution for multiple slides and the same reference in parallel. For that, the muDatas of the spatial data need to be located in the same folder. The pipeline will treat every muData in that folder as a spatial mudata. Therefore, the reference muData should be saved at a different location. Let's look at an example folder structure: 
+In this tutorial, we will use human heart spatial transcriptomics and scRNA-Seq data published by [Kuppe et al](https://www.nature.com/articles/s41586-022-05060-x). 
+You can use the following python code to download and save the data as `MuData` files: 
+
+```
+import scanpy as sc
+import muon as mu
+
+# Loading the spatial data: 
+adata_st = sc.read(
+    filename="kuppe_visium_human_heart_2022_control.h5ad",
+    backup_url="https://figshare.com/ndownloader/files/39347357",
+)
+# In this tutorial, we will only use the spatial slide of patient 'P1'
+adata_st = adata_st[adata_st.obs["patient"] == "P1"]
+del adata_st.uns["spatial"]["control_P17"]
+del adata_st.uns["spatial"]["control_P7"]
+del adata_st.uns["spatial"]["control_P8"]
+mu.MuData({"spatial": adata_st}).write_h5mu("./data/spatial_data/Human_Heart.h5mu")
+
+# Loading the single-cell reference
+adata_sc = sc.read(
+    filename="kuppe_snRNA_human_heart_2022_control.h5ad",
+    backup_url="https://figshare.com/ndownloader/files/39347573",
+)
+adata_sc.X = adata_sc.layers["counts"]
+adata_sc.var.index = adata_sc.var["feature_name"]
+mu.MuData({"rna": adata_sc}).write_h5mu("./data/Human_Heart_reference.h5mu")
+```
+
+The spatial slide and single-cell reference data we will be using looks as follows: 
+<p align="center">
+<img src="../../tutorials/deconvolute_spatial/human_heart_patientP1.png" alt="drawing" width="300"/>
+<img src="../../tutorials/deconvolute_spatial/human_heart_reference_umap.png" alt="drawing" width="400"/>
+</p>
+
+
+The structure of the `deconvolution` directory after downloading the data: 
+```
+deconvolution
+└──  data
+	|── Human_Heart_reference.h5mu
+	└──  spatial_data
+		└── Human_Heart.h5mu
+```
+
+
+**Note, that the `MuData` object of the reference data should not be saved into the same folder as the spatial data!**
+*When running the workflow, the workflow expects all spatial `MuData` objects to be saved in the same folder and reads in all `MuData` objects of that directory. When saving the reference `MuData` into the same folder as the spatial, the workflow would treat the reference `MuData` as spatial and would try to run deconvolution on it.*
+
+
+
+
+
+## Cell2Location
+
+### Edit yaml file 
+
+In `spatial/deconvolution`, create the pipeline.yml and pipeline.log files by running `panpipes deconvolution_spatial config` in the command line (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
+Modify the yaml file, or simply use the [pipeline.yml](../../tutorials/deconvolute_spatial/) that we provide (you potentially need to add the path of the conda environment in the yaml).  
+
+
+
+### Run Panpipes
+
+Run the full workflow with `panpipes deconvolution_spatial make full --local`.
+
+Once `Panpipes` has finished, the `spatial/deconvolution` directory will have the following structure:
 
 ```
 deconvolution
-|──	data
-	|── sc_reference.h5mu
-	|── spatial_data
-	|	|── slide1.h5mu
-	|	|── slide2.h5mu
+├── cell2location.output
+│   └── Human_Heart
+│		├── Cell2Loc_inf_aver.csv
+│		├── Cell2Loc_screference_output.h5mu
+│		└── Cell2Loc_spatial_output.h5mu
+├── figures
+│   └── Cell2Location
+│   	└── Human_Heart
+│       	├── ELBO_reference_model.png
+│       	├── ELBO_spatial_model.png
+│       	├── gene_filter.png
+│       	├── QC_reference_expression signatures_vs_avg_expression.png
+│       	├── QC_reference_reconstruction_accuracy.png
+│       	├── QC_spatial_reconstruction_accuracy.png
+│       	└── show_Cell2Loc_q05_cell_abundance_w_sf.png
+├── logs
+│   └── Cell2Location_Human_Heart.log
+├── pipeline.log
+└── pipeline.yml
 ```
 
-In the pipeline.yml file, we can now specify the paths of the input data, for our example `input_spatial = ./data/spatial_data` and `input_singlecell = ./data/sc_reference.h5mu`.
-
-
-### Cell2Location
-
-With the `deconvolution_spatial` workflow we can currently only run [Cell2Location](https://doi.org/10.1038/s41587-021-01139-4). 
-
-Before fitting the reference and the spatial mapping models, the workflow performs gene selection. 
-For the gene selection, we have two possibilities. One possibility is to use a pre-defined gene set. But please note, that all genes of that gene list need to be present in both, spatial slides and scRNA-Seq reference. The other possibility is to run [gene selection according to Cell2Location](https://cell2location.readthedocs.io/en/latest/cell2location.utils.filtering.html).
-
-The gene selection and the parameters of the models should be specified in the pipeline.yml file. 
-After specifying all parameters, we can run the pipeline with `panpipes deconvolution_spatial make full --local`.
 
 	
 In the folder `./cell2location.output` a folder for each slide will be created containing the following outputs: 
-* muData containing the spatial data together with the posterior of the spatial mapping model
-* muData containing the reference data together with the posterior of the reference model
+* `MuData` containing the spatial data together with the posterior of the spatial mapping model
+* `MuData` containing the reference data together with the posterior of the reference model
 * A csv-file `Cell2Loc_inf_anver.csv` containing the estimated expression of every gene in every cell type 
 * If `save_models = True`, the reference model and the spatial mapping model 
 	
-In the `./figures/Cell2Location` folder, there will be a folder for each slide created. Each folder will contain the following plots: 
+Also in the `./figures/Cell2Location` folder, a folder for each slide will be created. Each folder will contain the following plots: 
 * If gene selection according to Cell2Location is performed: a plot of the gene filtering
 * For both models:
   * QC plots
