@@ -1,0 +1,98 @@
+# ==============================================
+# Deconvolution
+# ==============================================
+
+
+
+# ----------------------
+# 0. Compute resource options
+# ------------------------
+resources:
+  # Number of threads used for parallel jobs
+  threads_high: 1 # Must be enough memory to load all input files and create MuDatas
+  threads_medium: 1  # Must be enough memory to load your mudata and do computationally light tasks
+  threads_low: 1 # Must be enough memory to load text files and do plotting, requires much less memory
+
+condaenv:  # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+
+
+
+# ----------------------
+# 1. Specify input 
+# ----------------------
+
+# One or multiple slides can be deconvoluted with the same reference in one run. For that, one MuData object for each slide is expected. 
+
+input_spatial: ./data/spatial_data # Path to folder containing one or multiple MuDatas of spatial data. For all MuData files in that folder, deconvolution is run by the pipeline.
+# In the MuData objects, the spatial data is expected to be saved in mudata.mod["spatial"]. For each spatial MuData, deconvolution is run with "input_singlecell" (see below) as a reference
+
+input_singlecell: ./data/Human_Heart_reference.h5mu # Path to the MuData file of the reference single-cell data, reference data expected to be saved in mudata.mod["rna"]
+
+
+
+# ----------------------
+## 2. Cell2Location
+# ----------------------
+Cell2Location: 
+  run: True # Whether to run Cell2Location 
+  
+  # -------------------------------
+  # Feature selection paramaters
+  # -------------------------------
+  
+  # Reduced feature set can either be given  a) via a csv file of genes or b) feature selection will be performed à la Cell2Location, i.e. via the function: cell2location.utils.filtering.filter_genes()
+  # If no file is given in a), b) will be run, i.e. feature selection is not optional. 
+  
+  #  a) Path to a csv file containing a reduced feature set
+  gene_list: # A header in the csv is expected in the first row
+  
+  # b) Parameters for Cell2Location's feature selection, leave empty to use defaults
+  # Whether to remove mitochondrial genes before feature selection 
+  remove_mt:  # Default True
+  # All genes detected in less than cell_count_cutoff cells will be excluded.
+  cell_count_cutoff: # Default 15, parameter of function cell2location.utils.filtering.filter_genes()
+  # All genes detected in at least this percentage of cells will be included.
+  cell_percentage_cutoff2: # Default 0.05, parameter of function cell2location.utils.filtering.filter_genes()
+  # Genes detected in the number of cells between the above-mentioned cutoffs are selected only when their average expression in non-zero cells is above this cutoff
+  nonz_mean_cutoff:  # Default 1.12, parameter of function cell2location.utils.filtering.filter_genes()
+
+
+  # -------------------------------
+  # Reference model paramaters
+  # Leave empty to use defaults
+  # -------------------------------
+  labels_key_reference: cell_type_original # Default None, key in adata.obs for label (cell type) information
+  batch_key_reference: # Default None, key in adata.obs for batch information
+  layer_reference: # Default None (if None, X will be used), Layer of the raw (!) counts
+  categorical_covariate_keys_reference: # Comma-separated without spaces; default None; keys in adata.obs that correspond to categorical data. These covariates can be added in addition to the batch covariate and are also treated as nuisance factors (i.e., the model tries to minimize their effects on the latent space)
+  continuous_covariate_keys_reference: # Comma-separated without spaces; default None; keys in adata.obs that correspond to continuous data. These covariates can be added in addition to the batch covariate and are also treated as nuisance factors (i.e., the model tries to minimize their effects on the latent space)
+  
+  max_epochs_reference: # Default np.min([round((20000 / n_cells) * 400), 400])
+
+
+  # -------------------------------
+  # Spatial mapping model paramaters
+  # Leave empty to use defaults
+  # -------------------------------
+  batch_key_st: # Default None, key in adata.obs for batch information
+  layer_st:  # Default None (if None, X will be used), Layer of the raw (!) counts
+  categorical_covariate_keys_st: # Comma-separated without spaces; default None; keys in adata.obs that correspond to categorical data. These covariates can be added in addition to the batch covariate and are also treated as nuisance factors (i.e., the model tries to minimize their effects on the latent space)
+  continuous_covariate_keys_st: # Comma-separated without spaces; default None; keys in adata.obs that correspond to continuous data. These covariates can be added in addition to the batch covariate and are also treated as nuisance factors (i.e., the model tries to minimize their effects on the latent space)
+  
+  # The following two parameters must be specified (cannot leave empty), otherwise an error will be thrown:
+  N_cells_per_location: 8 # Expected cell abundance per voxel
+  detection_alpha: 20 # Regularization of with-in experiment variation in RNA detection sensitivity
+  
+  max_epochs_st:  # Default np.min([round((20000 / n_cells) * 400), 400])
+
+
+ # -------------------------------
+  save_models: False # Whether to save the reference and spatial mapping models
+
+
+
+
+
+
+
+
