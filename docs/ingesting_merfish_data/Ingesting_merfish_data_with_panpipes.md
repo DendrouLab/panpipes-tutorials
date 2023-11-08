@@ -1,6 +1,6 @@
 # Ingesting MERFISH data with Panpipes
 
-This tutorial guides you through the ingestion of `MERFISH` datasets using `Panpipes`. The [workflow](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/ingest_spatial.md) describes the steps run by the pipeline in detail. 
+This tutorial guides you through the ingestion of `MERFISH` datasets using `Panpipes`. The [workflow](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/ingest_spatial.html) describes the steps run by the pipeline in greater detail. 
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -35,11 +35,11 @@ spatial
 ## Edit submission and yaml file 
 
 
-Create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_merfish_data/sample_file_qc_spatial.txt) and save it in`spatial/ingestion`. For this tutorial, you can use the provided submission file. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md) 
+Create a submission file like [the one we provide](sample_file_qc_spatial.txt) and save it in`spatial/ingestion`. For this tutorial, you can use the provided submission file. Detailed information about the submission file is provided in the [usage guidelines](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_spatial_workflows.html) 
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Customize the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_merfish_data/pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_merfish_data/pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
+Customize the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
 
 
 ## Run Panpipes
@@ -74,7 +74,7 @@ ingestion
 ```
 
 In the `qc.data` folder, the final `MuData` object with computed QC metrics is stored. The `MuData` object without QC metrics is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as tsv file, `mouse_brain_cell_metadata.tsv`.
-Using the [provided example yaml file](../../tutorials/ingesting_merfish_data/pipeline.yml), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
+Using the [provided example yaml file](pipeline.yml), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
 
 |                  | spatial:fov | spatial:volume | spatial:min_x | spatial:max_x | spatial:min_y | spatial:max_y
 ----------------------------------------|------------------|----------------------|----------------------|----------------------|------------------------|-----------------------
@@ -82,10 +82,10 @@ Using the [provided example yaml file](../../tutorials/ingesting_merfish_data/pi
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots, and histograms: 
 
-<img src="../../tutorials/ingesting_merfish_data/histograms.mouse_brain.png" alt="drawing" width="950"/>
+<img src="histograms.mouse_brain.png" alt="drawing" width="950"/>
 <p align="center">
-<img src="../../tutorials/ingesting_merfish_data/spatial_spatial_n_genes_by_counts.mouse_brain.png" alt="drawing" width="200"/>
-<img src="../../tutorials/ingesting_merfish_data/violin_obs_n_genes_by_counts_sample_id.mouse_brain.png" alt="drawing" width="200"/>
+<img src="spatial_spatial_n_genes_by_counts.mouse_brain.png" alt="drawing" width="200"/>
+<img src="violin_obs_n_genes_by_counts_sample_id.mouse_brain.png" alt="drawing" width="200"/>
 </p>
 
 

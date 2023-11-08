@@ -1,6 +1,6 @@
 # Ingesting 10X Visium data with Panpipes
 
-Let's run through an example of reading `10X Visium` data into `MuData` objects and computing QC metrics using `Panpipes`. The [workflow](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/ingest_spatial.md) describes the steps run by the pipeline in detail. 
+Let's run through an example of reading `10X Visium` data into `MuData` objects and computing QC metrics using `Panpipes`. The [workflow](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/ingest_spatial.html) describes the steps run by the pipeline in detail. 
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -67,18 +67,18 @@ data
 
 ## Edit submission and yaml file 
 
-In `spatial/ingestion`, create a submission file like the one we provide in the [tutorials](../../tutorials/ingesting_visium_data/sample_file_qc_spatial.txt). For this tutorial, you can use the provided. 
+In `spatial/ingestion`, create a submission file like [the one we provide](sample_file_qc_spatial.txt). For this tutorial, you can use the provided. 
 
 In general, the spatial submission file expects the following columns: 
 
 `sample_id` `spatial_path` `spatial_filetype` `spatial_counts` `spatial_metadata` `spatial_transformation` 
 
-For `10X Visium datasets`, only the first four columns need to be specified. With `Panpipes` you can ingest multiple spatial slides by creating one line for each in the submission file. For each slide, one `MuData` will be created by the pipeline. Detailed information about the submission file is provided in the [usage guidelines](https://github.com/DendrouLab/panpipes/blob/main/docs/usage/setup_for_spatial_workflows.md)
+For `10X Visium datasets`, only the first four columns need to be specified. With `Panpipes` you can ingest multiple spatial slides by creating one line for each in the submission file. For each slide, one `MuData` will be created by the pipeline. Detailed information about the submission file is provided in the [usage guidelines](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_spatial_workflows.html)
 
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` or simply replace it with the one we provide in [tutorials](../../tutorials/ingesting_visium_data/pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](../../tutorials/ingesting_visium_data/pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
+Modify the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
 
 ## Run Panpipes
 
@@ -116,7 +116,7 @@ ingestion
 └── V1_Human_Lymph_Node_cell_metadata.tsv # Metadata, i.e. .obs
 ```
 In the `qc.data` folder, the final `MuData` objects with computed QC metrics are stored. `MuData` objects without QC metrics are also available and stored in the `tmp` folder. The metadata of the final `Mudata` objects is additionally extracted and saved as tsv files, `V1_Human_Heart_cell_metadata.tsv` `V1_Human_Lymph_Node_cell_metadata.tsv`.
-Using the [provided example yaml file](../../tutorials/ingesting_visium_data/pipeline.yml), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
+Using the [provided example yaml file](pipeline.yml), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
 
 |                   | spatial:in_tissue | spatial:array_row | spatial:array_col | spatial:sample_id | spatial:MarkersNeutro_score | spatial:n_genes_by_counts
 -------------------|-------------------|-------------------|-------------------|-------------------|-----------------------------|--------------------------
@@ -124,8 +124,8 @@ AAACAAGTATCTCCCA-1 |	     1         |        50	       |        102	       |  V1
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots: 
 <p align="center">
-<img src="../../tutorials/ingesting_visium_data/spatial_spatial_total_counts.V1_Human_Heart.png" alt="drawing" width="300"/>
-<img src="../../tutorials/ingesting_visium_data/violin_obs_total_counts_sample_id.V1_Human_Heart.png" alt="drawing" width="300"/>
+<img src="spatial_spatial_total_counts.V1_Human_Heart.png" alt="drawing" width="300"/>
+<img src="violin_obs_total_counts_sample_id.V1_Human_Heart.png" alt="drawing" width="300"/>
 </p>
 
 

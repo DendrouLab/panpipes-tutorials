@@ -1,6 +1,6 @@
 # Deconvoluting spatial data with Panpipes
 
-The `deconvolution_spatial` workflow provides the possibility to run deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/deconvolute_spatial.md).
+The `deconvolution_spatial` workflow provides the possibility to run deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/deconvolute_spatial.html).
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -47,8 +47,8 @@ mu.MuData({"rna": adata_sc}).write_h5mu("./data/Human_Heart_reference.h5mu")
 
 The spatial slide and single-cell reference data we will be using looks as follows: 
 <p align="center">
-<img src="../../tutorials/deconvolute_spatial/human_heart_patientP1.png" alt="drawing" width="300"/>
-<img src="../../tutorials/deconvolute_spatial/human_heart_reference_umap.png" alt="drawing" width="400"/>
+<img src="human_heart_patientP1.png" alt="drawing" width="300"/>
+<img src="human_heart_reference_umap.png" alt="drawing" width="400"/>
 </p>
 
 
@@ -74,7 +74,7 @@ deconvolution
 ### Edit yaml file 
 
 In `spatial/deconvolution`, create the pipeline.yml and pipeline.log files by running `panpipes deconvolution_spatial config` in the command line (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the yaml file, or simply use the [pipeline.yml](../../tutorials/deconvolute_spatial/) that we provide (you potentially need to add the path of the conda environment in the yaml).  
+Modify the yaml file, or simply use the [pipeline.yml](pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml).  
 
 
 
@@ -91,6 +91,10 @@ deconvolution
 │		├── Cell2Loc_inf_aver.csv
 │		├── Cell2Loc_screference_output.h5mu
 │		└── Cell2Loc_spatial_output.h5mu
+├── data
+│	|── Human_Heart_reference.h5mu
+│	└──  spatial_data
+│		└── Human_Heart.h5mu
 ├── figures
 │   └── Cell2Location
 │   	└── Human_Heart
@@ -115,11 +119,20 @@ In the folder `./cell2location.output` a folder for each slide will be created c
 * A csv-file `Cell2Loc_inf_anver.csv` containing the estimated expression of every gene in every cell type 
 * If `save_models = True`, the reference model and the spatial mapping model 
 	
-Also in the `./figures/Cell2Location` folder, a folder for each slide will be created. Each folder will contain the following plots: 
+Also in `./figures/Cell2Location`, a folder for each slide will be created. Each folder will contain the following plots: 
 * If gene selection according to Cell2Location is performed: a plot of the gene filtering
+<p align="center">
+<img src="gene_selection.png" alt="drawing" width="250"/>
+</p>
+
 * For both models:
   * QC plots
-  * ELBO plot
+<p align="center">
+<img src="QC_reference_reconstruction_accuracy.png" alt="drawing" width="250"/>
+<img src="QC_reference_expression signatures_vs_avg_expression.png" alt="drawing" width="250"/>
+</p>
+
+  * ELBO plots
 * Spatial plot where the spots of the slide are colored by the estimated cell type abundances 
 
 

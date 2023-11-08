@@ -1,6 +1,6 @@
 # Preprocessing spatial data with Panpipes
 
-The `preprocess_spatial` workflow expects one or multiple `MuData` objects as input, each with a `spatial` slot. The workflow filters the data, followed by normalization, HVG selection, and PCA computation. The steps of the workflow are explained in greater detail [here](https://github.com/DendrouLab/panpipes/blob/main/docs/workflows/preprocess_spatial.md).
+The `preprocess_spatial` workflow expects one or multiple `MuData` objects as input, each with a `spatial` slot. The workflow filters the data, followed by normalization, HVG selection, and PCA computation. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/preprocess_spatial.html).
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -43,7 +43,7 @@ The `preprocess_spatial` workflow allows you to preprocess one or multiple `MuDa
 ## Edit yaml file 
 
 In `spatial/preprocess`, create the pipeline.yml and pipeline.log files by running `panpipes preprocess_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the yaml file, or simply use the [pipeline.yml](../../tutorials/preprocess_spatial/pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
+Modify the yaml file, or simply use the [pipeline.yml](pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
 
 
 
@@ -91,14 +91,14 @@ You can find the final `MuData` objects in the `spatial/preprocess/filtered.data
 Post-filter plots are stored in `spatial/preprocess/figures/spatial`.  The plots include visualizations of the spatial embeddings, as well as violin plots: 
 
 <p align="center">
-<img src="../../tutorials/preprocess_spatial/spatial_spatial_total_counts.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
-<img src="../../tutorials/preprocess_spatial/violin_obs_total_counts_.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
+<img src="spatial_spatial_total_counts.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
+<img src="violin_obs_total_counts_.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
 </p>
 
 The PCA and the elbow plot are also plotted: 
 <p align="center">
-<img src="../../tutorials/preprocess_spatial/pca_variance_ratio.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
-<img src="../../tutorials/preprocess_spatial/pca_vars.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
+<img src="pca_variance_ratio.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
+<img src="pca_vars.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
 </p>
 
 
