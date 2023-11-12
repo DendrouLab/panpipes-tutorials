@@ -116,7 +116,7 @@ Some atac useful metrics are also plotted, including percentage fragments in pea
 
 To aid with the filtering of the data, we also produce outputs that simulate common filtering scenarios, the height of the bar shows the percentage of cells retained if the threshold is applied. 
 
-<img src="./ingesting_multiome/../barplot_cellcounts_thresholds_filter.png" alt="drawing" width = "300"/>
+<img src="./ingesting_multiome/../barplot_cellcounts_thresholds_filter.png" alt="drawing"/>
 
 Users can also inspect the unfiltered mudata generated file by reading it in a python session:
 
