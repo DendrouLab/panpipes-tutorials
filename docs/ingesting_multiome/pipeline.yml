@@ -24,13 +24,13 @@
 resources:
   # Number of threads used for parallel jobs
   # this must be enough memory to create to load all you input files and once and create the mudatafile
-  threads_high: 1
+  threads_high: 8
   # this must be enough memory to load your mudata and do computationally light tasks
-  threads_medium: 1
+  threads_medium: 4
   # this must be enough memory to load text files and do plotting, requires much less memory than the other two
-  threads_low: 1
+  threads_low: 2
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
 
 # ------------------------------------------------------------------------------------------------
 # Loading and concatenating data options
@@ -38,18 +38,18 @@ condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
 # ------------------------
 # Project name and data format
 # ------------------------
-project: Teaseq
-sample_prefix: teaseq
+project: "mome"
+sample_prefix: "mome"
 # if you have an existing h5mu object that you want to run through the pipeline then
 # store it in the folder where you intend to run the folder, and call it
 # ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above
 use_existing_h5mu: False
 
 # submission_file format:
-# For qc_mm the required columns are
+# For ingest the required columns are
 # sample_id  rna_path  rna_filetype  (prot_path  prot_filetype tcr_path  tcr_filetype etc.)
 # Example at resources/sample_file_mm.txt
-submission_file: sample_file_qc.txt
+submission_file: multiomecaf.txt 
 
 # which metadata cols from the submission file do you want to include in the anndata object
 # as a comma-separated string e.g. batch,disease,sex
@@ -68,7 +68,7 @@ concat_join_type: inner
 
 modalities:
   rna: True
-  prot: True
+  prot: False
   bcr: False
   tcr: False
   atac: True
@@ -89,7 +89,7 @@ barcode_mtd:
 #---------------------------------------
 # Loading prot data - additional options
 #---------------------------------------
-# As default the qc_mm will choose the first column of the cellranger features.tsv.gz
+# As default the ingest will choose the first column of the cellranger features.tsv.gz
 # To merge extra information about the antibodies e.g. whether they are hashing antibodies or isotypes,
 # Create a table with the first column equivalent to the first column of cellrangers features.tsv.gz
 # and specify it below (save as txt file)
@@ -117,10 +117,10 @@ subset_prot_barcodes_to_rna: False
 # ------------------------
 # 10X qc files processing
 # ------------------------
-plot_10X_metrics: False
-kneeplot: False
+plot_10X_metrics: True 
+kneeplot: True
 # ------------
-## Doublets on GEX - Scrublet
+## Doublets on RNA - Scrublet
 # ------------
 scr:
   run: True
@@ -168,7 +168,7 @@ ccgenes: default
 # It's often practical to rely on known gene lists, for a series of tasks, like evaluating % of mitochondrial genes or
 # ribosomal genes, or excluding IGG genes from HVG selection. We collect useful gene lists in a file, resources/custom_gene_lists_v1.tsv, 
 # and define "actions" on them as follows:
-# (for pipeline_qc_mm.py)
+# (for pipeline_ingest.py)
 # calc_proportions: calculate proportion of reads mapping to X genes over total number of reads, per cell
 # score_genes: using scanpy.score_genes function, 
 # (for pipeline_integration.py)
@@ -177,8 +177,8 @@ ccgenes: default
 # 
 # custom genes actions
 
-custom_genes_file: /Users/fabiola.curion/Documents/devel/github/panpipes_reproducibility/docs/ingesting_data/qc_genelist_1.0.csv
-calc_proportions: hb,mt,rp,ig
+custom_genes_file: /Users/fabiola.curion/Documents/devel/github/panpipes/panpipes/resources/qc_genelist_1.0.csv
+calc_proportions: hb,mt,rp
 score_genes: MarkersNeutro
 
 # ------------
@@ -187,7 +187,7 @@ score_genes: MarkersNeutro
 # all metrics should be inputted as a comma separated string e.g. a,b,c
 
 # likely a combination of metadatacolumns and demultiplex_metadatacols
-plotqc_grouping_var: orig.ident
+plotqc_grouping_var: sample_id
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
 
@@ -218,7 +218,6 @@ identify_isotype_outliers: True
 isotype_upper_quantile: 90
 isotype_n_pass: 2
 
-
 ### Investigate per channel antibody staining:
 # This can help determine any inconsistencies in staining per channel and other QC concerns.
 # If you want to run clr normalsiation on a per channel basis, then you need to 
@@ -227,7 +226,7 @@ isotype_n_pass: 2
 # i.e. the 10X channel. 
 # this is usually the sample_id column (otherwise leave the next parameter blank)
 channel_col: sample_id
-# It is important to note that in qc_mm the per channel normalised prot scores are not saved in the mudata object
+# It is important to note that in ingest the per channel normalised prot scores are not saved in the mudata object
 #  this is because if you perform feature normalisation (clr normalisation margin 0 or dsb normalisation), 
 #  on subsets of cells then the normalised values cannot be simply concatenated. 
 # The PROT normalisation is rerun pn the complete object in the preprocess pipeline 
@@ -245,11 +244,12 @@ normalisation_methods: clr
 
 # CLR parameters:
 # margin determines whether you normalise per cell (as you would RNA norm), 
-# or by feature (recommended, due to the variable nature o prot assays). 
+# or by feature (recommended, due to the variable nature of prot assays). 
 # CLR margin 0 is recommended for informative qc plots in this pipeline
 # 0 = normalise colwise (per feature)
 # 1 = normalise rowwise (per cell)
-clr_margin: 1
+clr_margin: 0
+
 
 # DSB parameters:
 # quantile clipping, even with normalisation, 
@@ -281,7 +281,6 @@ features_tss: #resources/features_tss_hg19.tsv
 #these will be used to plot and saved in the metadata
 # all metrics should be inputted as a comma separated string e.g. a,b,c
 plotqc_atac_metrics: n_genes_by_counts,total_counts,pct_fragments_in_peaks,atac_peak_region_fragments,atac_mitochondrial_reads,atac_TSS_fragments
-
 
 # ------------
 # Plot Repertoire QC metrics
@@ -328,10 +327,12 @@ plotqc_rep_metrics:
 
   
 # ------------
-# Profiling Ambient background
+# Profiling Protein Ambient background
 # ------------
-# This pipeline does not include removal of background contamination as you would with soupX or cellblender.
-# However it is useful to chararcterise the background of your gene expression assay and antibody binding assay
+# It is useful to chararcterise the background of your gene expression assay and antibody binding assay
+# Inspect the plots and decide if to apply corrections, for example see Cellbender or SoupX.
+# Please note that this analysis only makes sense if you are providing a RAW input (so the "empty" droplets can be used to
+# estimate the BG )
 # Setting `assess_background` to True will:
 # 1. create h5mu from raw data inputs (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
 # 2. Plot comparitive QC plots to compare distribution of UMI and feature counts in background and foreground

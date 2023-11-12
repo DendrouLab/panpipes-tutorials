@@ -1,7 +1,7 @@
 ## Ingesting spatial data with panpipes
 You can now generate consistent analyses of your spatial transcriptomics data!
 
-Let's run through an example of reading data from  `10X visium` outputs (`vizgen-merfish` tutorials coming soon!) 
+Let's run through an example of reading data from  `10X visium` outputs.
 For all the tutorials we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
 ### Start from 10X directories
