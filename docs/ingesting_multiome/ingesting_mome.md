@@ -99,17 +99,31 @@ Let's take a look at the figures folder to demonstrate how we have used the work
 
 `panpipes ingest` workflow computes qc metrics for each modality given as input. For a multiome sample it may be useful to check RNA metrics such as number of genes detected in cells, percentage of mitochondrial reads per cell and library size.
 
-![image1](./ingesting_multiome/../scatter_sample_id_rna-nUMI_v_rna-genes.png)
-![image2](./ingesting_multiome/../scatter_sample_id_rna-nUMI_v_rna-pct_mt.png)
 
-![image3](./ingesting_multiome/../violin_sample_id_rna-doublet_scores.png)
+<div>
+	<img src="./ingesting_multiome/../scatter_sample_id_rna-nUMI_v_rna-genes.png" alt="img1" width = "250" height="250"/>
+	<img src="./ingesting_multiome/../scatter_sample_id_rna-nUMI_v_rna-pct_mt.png" alt="img2" width = "250" height="250"/>
+	<img src="./ingesting_multiome/../violin_sample_id_rna-doublet_scores.png" alt="img3" width = "250" height="250"/>
+</div>
 
-Some atac useful metrics are also plotted, including percentage fragments in peaks, mitochondrial reads in the open chromatin regions, tss enrichment.
+Some atac useful metrics are also plotted, including percentage fragments in peaks, mitochondrial reads mapping to the open chromatin regions, tss enrichment.
+
+<img src="./ingesting_multiome/../violinatac_metrics_violin.png" alt="img4" width = "1800"/>
 
 
-![image4](./ingesting_multiome/../violinatac_metrics_violin.png){width=20%}
-![image4](./ingesting_multiome/../tss_enrichment.png)
+<img src="./ingesting_multiome/../tss_enrichment.png" alt="img5" width = "400"/>
 
-We produce a plot to simulate common filtering scenarios, 
 
-![image](./ingesting_multiome/../barplot_cellcounts_thresholds_filter.png)
+To aid with the filtering of the data, we also produce outputs that simulate common filtering scenarios, the height of the bar shows the percentage of cells retained if the threshold is applied. 
+
+<img src="./ingesting_multiome/../barplot_cellcounts_thresholds_filter.png" alt="drawing" width = "300"/>
+
+Users can also inspect the unfiltered mudata generated file by reading it in a python session:
+
+```
+import muon as mu
+mu.read("mome_unfilt.h5mu")
+```
+
+We have demonstrated how to run the `ingest` workflow on multiome data. Filtering of cells and genes is not applied in the `ingest` workflow but in the `preprocess`. Inspecting these output should help the user to choose appropriate filters for their data!
+
