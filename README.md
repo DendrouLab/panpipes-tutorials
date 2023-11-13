@@ -9,6 +9,8 @@ For installation please check the [documentation](https://github.com/DendrouLab/
 ## List of tutorials
 
 - [Ingesting multimodal data with panpipes](https://github.com/DendrouLab/panpipes_reproducibility/blob/main/docs/ingesting_data/Ingesting_data_with_panpipes.md) 
+  
+- [Ingesting multiome data from cellranger outputs](https://github.com/DendrouLab/panpipes_reproducibility/blob/main/docs/ingesting_multiome/ingesting_mome.md) 
 - [Filtering data with panpipes](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/filtering_data/filtering_data_with_panpipes.md)
 - [Uni and multimodal integration](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/uni_multi_integration/Integrating_data_with_panpipes.md)
 - [Clustering multimodal data](https://github.com/DendrouLab/panpipes_reproducibility/tree/main/docs/clustering/clustering_tutorial.md)
