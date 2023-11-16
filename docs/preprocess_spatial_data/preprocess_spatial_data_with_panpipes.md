@@ -91,14 +91,14 @@ You can find the final `MuData` objects in the `spatial/preprocess/filtered.data
 Post-filter plots are stored in `spatial/preprocess/figures/spatial`.  The plots include visualizations of the spatial embeddings, as well as violin plots: 
 
 <p align="center">
-<img src="spatial_spatial_total_counts.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
-<img src="violin_obs_total_counts_.V1_Human_Lymph_Node.png" alt="drawing" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/preprocess_spatial_data/spatial_spatial_total_counts.V1_Human_Lymph_Node.png?raw=true" alt="Spatial embedding, total_counts" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/preprocess_spatial_data/violin_obs_total_counts_.V1_Human_Lymph_Node.png?raw=true" alt="Violin plot, total_counts" width="300"/>
 </p>
 
 The PCA and the elbow plot are also plotted: 
 <p align="center">
-<img src="pca_variance_ratio.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
-<img src="pca_vars.V1_Human_Lymph_Node.png" alt="drawing" width="270"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/preprocess_spatial_data/pca_variance_ratio.V1_Human_Lymph_Node.png?raw=true" alt="PCA variance ratio" width="270"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/preprocess_spatial_data/pca_vars.V1_Human_Lymph_Node.png?raw=true" alt="PCA" width="270"/>
 </p>
 
 

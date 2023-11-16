@@ -47,8 +47,8 @@ mu.MuData({"rna": adata_sc}).write_h5mu("./data/Human_Heart_reference.h5mu")
 
 The spatial slide and single-cell reference data we will be using looks as follows: 
 <p align="center">
-<img src="human_heart_patientP1.png" alt="drawing" width="300"/>
-<img src="human_heart_reference_umap.png" alt="drawing" width="400"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/deconvolution/human_heart_patientP1.png?raw=true" alt="Human Heart, patient P1" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/deconvolution/human_heart_reference_umap.png?raw=true" alt="Single-cell reference" width="400"/>
 </p>
 
 
@@ -121,15 +121,16 @@ In the folder `./cell2location.output` a folder for each slide will be created c
 	
 Also in `./figures/Cell2Location`, a folder for each slide will be created. Each folder will contain the following plots: 
 * If gene selection according to Cell2Location is performed: a plot of the gene filtering
+
 <p align="center">
-<img src="gene_selection.png" alt="drawing" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/deconvolution/gene_selection.png?raw=true" alt="Cell2Location, gene selection" width="250"/>
 </p>
 
 * For both models:
   * QC plots
 <p align="center">
-<img src="QC_reference_reconstruction_accuracy.png" alt="drawing" width="250"/>
-<img src="QC_reference_expression signatures_vs_avg_expression.png" alt="drawing" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/deconvolution/QC_reference_reconstruction_accuracy.png?raw=true" alt="Cell2Location, QC plot" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/deconvolution/QC_reference_expression signatures_vs_avg_expression.png?raw=true" alt="Cell2Location, QC plot" width="250"/>
 </p>
 
   * ELBO plots

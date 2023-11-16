@@ -82,10 +82,11 @@ Using the [provided example yaml file](pipeline.yml), the first rows and columns
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots, and histograms: 
 
-<img src="histograms.mouse_brain.png" alt="drawing" width="950"/>
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_merfish_data/histograms.mouse_brain.png?raw=true" alt="Histograms for MERFISH" width="950"/>
 <p align="center">
-<img src="spatial_spatial_n_genes_by_counts.mouse_brain.png" alt="drawing" width="200"/>
-<img src="violin_obs_n_genes_by_counts_sample_id.mouse_brain.png" alt="drawing" width="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_merfish_data/spatial_spatial_n_genes_by_counts.mouse_brain.png?raw=true" alt="Spatial Embedding, n_genes_by_counts" width="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_merfish_data/violin_obs_n_genes_by_counts_sample_id.mouse_brain.png?raw=true" alt="Violin plot, n_genes_by_counts" width="200"/>
 </p>
 
 

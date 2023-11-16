@@ -123,9 +123,10 @@ Using the [provided example yaml file](pipeline.yml), the first rows and columns
 AAACAAGTATCTCCCA-1 |	     1         |        50	       |        102	       |  V1_Human_Heart   |     0.46748291571753986	 |           1924	
 
 With the plots in `spatial/ingestion/figures/spatial` you can now decide on cutoffs for filtering. The plots include visualizations of the spatial embeddings, as well as violin plots: 
+
 <p align="center">
-<img src="spatial_spatial_total_counts.V1_Human_Heart.png" alt="drawing" width="300"/>
-<img src="violin_obs_total_counts_sample_id.V1_Human_Heart.png" alt="drawing" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_visium_data/spatial_spatial_total_counts.V1_Human_Heart.png?raw=true" alt="Spatial embedding, total_counts" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_visium_data/violin_obs_total_counts_sample_id.V1_Human_Heart.png?raw=true" alt="Violin plot, total_counts" width="300"/>
 </p>
 
 
