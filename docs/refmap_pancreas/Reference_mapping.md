@@ -8,7 +8,7 @@ Panpipes supports the use of `scvi-tools` for constructing and leveraging refere
 We will show how panpipes allows to map the same query to two different references models, an scvi and a scanvi reference model, respectively.
 In this case, the underlying data used for the two reference models is exactly the same, but we're going to use it just as an example of panpipes' functionality to map the same query in parallel to two reference models. 
 
-Download the data for the reference and query used in this example:
+[Download the data](https://figshare.com/articles/dataset/refmap_inputs_for_panpipes/24573961) for the reference and query used in this example.
 
 Now create a directory where you will run the refmap workflow:
 
@@ -18,7 +18,7 @@ mkdir data.dir
 mkdir models
 ```
 ensure the data and the models you downloaded are in the data.dir and models folders respectively
-
+Please note that the we shared the model files with two separate models, but scvi-tools require them to be supplied as `model.pt` instead of a custom name. This is not a requirement of panpipes, but a standard requirement when dealing with `scvi-tools` pytorch models. We therefore create two folders, one for the scvi and one for the scanvi models and save the two models in each folder. The name you use for each of them will be reused by the pipeline to save model-specific outputs, so make them as informative as you can!
 
 ```
 ls data.dir
