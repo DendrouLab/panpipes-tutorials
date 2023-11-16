@@ -1,0 +1,2 @@
+sample_id   rna_path    rna_filetype    prot_path   prot_filetype
+Sample_587  /CITEseq_data/cr_gex_rev0/report1013/cellranger/Sample587/count_matrices/cellranger cellranger  /CITEseq_data/cr_gex_rev0/report1013/cellranger/Sample587/count_matrices/cellranger cellranger  
