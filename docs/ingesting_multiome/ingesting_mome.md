@@ -99,7 +99,7 @@ tree ../momedocs -L 1
 
 ```
 
-| Output file                         | type file | info                                                                                                                                                         |
+| file                         | type file | info                                                                                                                                                         |
 | ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 10Xmultiome_granulocytes            | directory | the folder we downloaded                                                                                                                                     |
 | 10x_metrics.csv                     | text file | output file from parsing the cellranger summary_metrics file                                                                                                 |
