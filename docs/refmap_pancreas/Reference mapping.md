@@ -1,7 +1,7 @@
 Reference mapping
 ===================
 
-Reference mapping is the process of aligning a new single cell dataset to an existing single cell atlas generated with a deep learning model that allows to see the new data in the context of a pre-genererated latent space (using the reference atlas).
+Reference mapping is the process of aligning a new single cell dataset to an existing single cell atlas generated with a deep learning model that allows to see the new data (referred to as query) in the context of a pre-genererated latent space (normally called reference).
 
 Panpipes supports the use of `scvi-tools` for constructing and leveraging reference models to do query to reference mapping (scvi, scanvi and TotalVI).
 
@@ -38,7 +38,7 @@ which will generate the `pipeline.yml` file that is used as input.
 We provide the pipeline yml file for this tutorial [here](../../../docs/refmap_pancreas/).
 
 
-In the config file, we only have to specify the path to the query and whether the query has a batch covariate and if it has a celltype annotation column:
+In the config file, we only have to specify the path to the query, if the query has a batch covariate and if it has a celltype annotation column:
 
 ```
 #----------------------
@@ -82,11 +82,10 @@ scanvi:
 
 ```
 
-Panpipes doesn't require the reference anndata.mudata to run, the reference models are suffucuent. This is to mimic the scenario in which the reference is too big to be shared or there are some privacy concernts. 
+Panpipes doesn't require the reference `anndata/mudata` to run, the reference models are sufficient. This may be a common scenario for many users, for example when the reference is too big to be shared or there are some privacy issues and the data can't be shared. 
 However, if the reference data is supplied, `panpipes refmap` will use it to update the latent representation and plot the query and reference cells in the same umap.
 
-
-now run the workflow with
+You can run the workflow with
 
 `panpipes refmap make full`
 
@@ -155,4 +154,4 @@ Please note that `panpipes` supports the use of both `h5ad` or `h5mu` input data
 
 The reference mapping models require that the query is formatted to match the features in the reference. It is therefore common practice to share the list of the highly variable genes (or the equivalent set of features) that was used to build the reference, alongside the model itself. We had already formatted the data for this tutorial, but if you're interested in using your own query you should pay special attention to this.
 
-Checkout the [workflows]() section of the documentation for more info on how to format your query data.
+Checkout the [workflows](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/refmap.html) section of the documentation for more info on how to format your query data.
