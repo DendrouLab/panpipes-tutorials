@@ -1,7 +1,7 @@
 # Filtering data with panpipes
 
 ## Running the pipeline
-Following the [ingest tutorial](../ingesting_data/Ingesting_data_with_panpipes.md) means that your single cell data is combined into  a `.h5mu` object. Within the `.h5mu` object there are also qc metrics stored.
+Following the [ingest tutorial](../ingesting_data/Ingesting_data_with_panpipes.md) we now have all the single cell data  combined into a single `.h5mu` object. In the previous tutorial we specified the `sample_id: teaseq` in the pipeline.yml config file, which ensured we saved the teaseq_unfilt.h5mu object as the main output of the ingest workflow. Within the `.h5mu` object we stored the computed qc metrics.
 
 It's time to filter the cells to make sure to exclude bad quality cells for downstream analysis.
 
@@ -13,12 +13,11 @@ In your previously created `teaseq` directory, create a new folder to run `panpi
 mkdir preprocessing && cd preprocessing
 ```
 
-
 In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
 
-
-
 Open the yml file to inspect the parameters choice. 
+
+
 
 
 If you have run the previous step, [Ingesting data with panpipes](../ingesting_data/Ingesting_data_with_panpipes.md) you will have a `*.unfilt.h5mu` object that you want to apply filtering on. 
