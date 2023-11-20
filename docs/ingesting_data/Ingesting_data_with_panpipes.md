@@ -121,11 +121,52 @@ scr:
 ```
 - normalization choice of protein data
 
+```
+normalisation_methods: clr
+# CLR parameters:
+# margin determines whether you normalise per cell (as you would RNA norm), 
+# or by feature (recommended, due to the variable nature of adts). 
+# CLR margin 0 is recommended for informative qc plots in this pipeline
+# 0 = normalise colwise (per feature)
+# 1 = normalise rowwise (per cell)
+clr_margin: 1
+```
 
 - qc covariates to plot for each modality.
 
+```
+# ------------
+# Plot RNA QC metrics
+# ------------
+# all metrics should be inputted as a comma separated string e.g. a,b,c
+# base of the plots, normally is the channel also referred to "sample_id"
+plotqc_grouping_var: orig.ident
+# other cell covariates
+plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
-Inspect the configuration file to familiarize with all the options.
+# ------------
+# Plot PROT QC metrics
+# ------------
+# requires prot_path to be included in the submission file
+# all metrics should be inputted as a comma separated string e.g. a,b,c
+
+# as standard the following metrics are calculated for prot data
+# per cell metrics:
+# total_counts,log1p_total_counts,n_adt_by_counts,log1p_n_adt_by_counts
+# if isotypes can be detected then the following are calculated also:
+# total_counts_isotype,pct_counts_isotype
+# choose which ones you want to plot here
+plotqc_prot_metrics: total_counts,log1p_total_counts,n_adt_by_counts,pct_counts_isotype
+# Since the protein antibody panels usually count fewer features than the RNA, it may be interesting to
+# visualize breakdowns of single proteins plots describing their count distribution and other qc options.
+# choose which ones you want to plot here, for example
+# n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
+prot_metrics_per_prot: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
+
+
+```
+
+Inspect the configuration `pipeline.yml` file to familiarize with all the options.
 You can modify the `pipeline.yml` with custom parameters, or simply replace with the one we provide [here](pipeline_yml.md).
 Please note that the parameters specified for modalities that are not part of the experiment are ignored by the worlfow (in this case we are not processing bcr and tcr).
 
@@ -135,7 +176,7 @@ Please note that the parameters specified for modalities that are not part of th
 As part of the ingest workflow, we additionally specify a series of custom paths to the files that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes.
 These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads.
 
-Download this file from [here](./qc_genelist_1.0.csv)
+Download this file [here](./qc_genelist_1.0.csv)
 
 remember to change the following paths to the files on your local machine! 
 
