@@ -280,19 +280,45 @@ Particularly interesting may be plots comparing one modality to the other, for e
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/rna_v_prot/scatter_atac.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png?raw=true" alt="img1" >
 
+The same plot can be produced for different grouping covariates. In this example we used the "sample_id" which is the value we specified in the submission file, that will become the sample name of the concatenated MuData object produced after the ingestion.
 
-You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the multimodal assays.
+Since the the unimodal `annadata` we used for the tutorial also had the original samples covariates stored in the `.obs`,  we have used the covariate "orig.ident" from the protein modality to show the scatterplot of log1p_nUMI in RNA vs PROT across the 3 teaseq samples of the original experiment.
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/rna_v_prot/scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png?raw=true" alt="img1" >
+
+the naming of the plots allows to identify the output:
+
+scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png:
+
+**scatter**: the type of plot (values: scatter/violin/barplot)
+**prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
+**log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
+
+
+You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the each of the multimodal assays.
 
 
 ```
 @follows(run_rna_qc, run_prot_qc, run_repertoire_qc, run_atac_qc)
 def run_qc():
     pass
+
+@follows(run_qc)
+@originate("logs/plot_qc.log", orfile())
+def plot_qc(log_file, cell_file):
+    qcmetrics = PARAMS['plotqc_rna_metrics']
+    cmd = """
+    Rscript %(r_path)s/plotQC.R 
+    --prefilter TRUE
+    --cell_metadata %(cell_file)s 
+    --sampleprefix %(sample_prefix)s
+    --groupingvar %(plotqc_grouping_var)s
+[...]
 ```
 
-If you have run a full workflow and want to reproduce the output of one task (for example you have changed some of the parameters in the yml file), you will have to remove the outputs of the task from the directory, so the pipeline knows where to start from!  
-
-The workflow will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
+If you have run a full workflow and want to reproduce the output of one task (for example you have changed some of the parameters in the yml file), you have to remove the outputs of that task from the directory, so the pipeline knows where to start from.  
+To reproduce the plots, you have to remove the `plot_qc.log` file from the logs folder, and the workflow will pick up from there.
+Please note that there are more complex tasks involving multiple output files, so in order to reproduce a step or the entire workflow for a different set of parameters it's advisable to remove all outputs.
 
 ## Next Steps: 
 
