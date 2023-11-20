@@ -197,9 +197,9 @@ score_genes: MarkersNeutro
 # Plot RNA QC metrics
 # ------------
 # all metrics should be inputted as a comma separated string e.g. a,b,c
-
-# likely a combination of metadatacolumns and demultiplex_metadatacols
+# base of the plots, normally is the channel also referred to "sample_id"
 plotqc_grouping_var: orig.ident
+# other cell covariates
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
 # ------------
@@ -295,7 +295,7 @@ features_tss: #resources/features_tss_hg19.tsv
 plotqc_atac_metrics: n_genes_by_counts,total_counts,pct_fragments_in_peaks,atac_peak_region_fragments,atac_mitochondrial_reads,atac_TSS_fragments
 
 # ------------
-# Plot epertoire QC metrics
+# Plot Repertoire QC metrics
 # ------------
 # Repertoire data will be stored in one modality called "rep", if you provide both TCR and BCR data then this will be merged, 
 # but various functions will be fun on TCR and BCR separately
