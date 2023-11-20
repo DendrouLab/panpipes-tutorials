@@ -124,14 +124,14 @@ Let's take a look at the figures folder to demonstrate how we have used the work
 
 
 <div>
-	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img1" width = "250" height="250"/>
-	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img2" width = "250" height="250"/>
-	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/violin_sample_id_rna-doublet_scores.png?raw=true" alt="img3" width = "250" height="250"/>
+	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img1" width = "350" height="350"/>
+	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img2" width = "350" height="350"/>
+	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/violin_sample_id_rna-doublet_scores.png?raw=true" alt="img3" width = "350" height="350"/>
 </div>
 
 Some atac useful metrics are also plotted, including percentage fragments in peaks, mitochondrial reads mapping to the open chromatin regions, tss enrichment.
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/violinatac_metrics_violin.png?raw=true" alt="img4" width = "1800"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/violinatac_metrics_violin.png?raw=true" alt="img4"/>
 
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/tss_enrichment.png?raw=true" alt="img5" width = "400"/>
@@ -139,7 +139,7 @@ Some atac useful metrics are also plotted, including percentage fragments in pea
 
 To aid with the filtering of the data, we also produce outputs that simulate common filtering scenarios, the height of the bar shows the percentage of cells retained if the threshold is applied. 
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/barplot_cellcounts_thresholds_filter.png?raw=true" alt="drawing" width = "400" height = "350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multiome/barplot_cellcounts_thresholds_filter.png?raw=true" alt="drawing" width = "500" height = "450"/>
 
 Users can also inspect the unfiltered mudata generated file by reading it in a python session:
 
