@@ -54,7 +54,7 @@ submission_file: sample_file_qc.txt
 # as a comma-separated string e.g. batch,disease,sex
 metadatacols: 
 
-# which concat join to you want to perform on your mudata objects, recommended inner
+# which concat join do you want to perform on your mudata objects, recommended inner
 # see https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins for details
 concat_join_type: inner
 
@@ -86,9 +86,9 @@ barcode_mtd:
   metadatacols:  
 
 #---------------------------------------
-# Loading adt data - additional options
+# Loading PROT data - additional options
 #---------------------------------------
-# As default the qc_mm will choose the first column of the cellranger features.tsv.gz
+# As default the ingest will choose the first column of the cellranger features.tsv.gz
 # To merge extra information about the antibodies e.g. whether they are hashing antibodies or isotypes,
 # Create a table with the first column equivalent to the first column of cellrangers features.tsv.gz
 # and specify it below (save as txt file)
@@ -114,13 +114,17 @@ subset_prot_barcodes_to_rna: False
 # QC options
 # ------------------------------------------------------------------------------------------------
 # ------------------------
-# 10X qc files processing
+# 10X cellranger files processing
 # ------------------------
-plot_10X_metrics: False
+# if starting from cellranger outputs, you can parse multiple metrics_summary.csv files and plot them together
+# the workflow looks for the metrics_summary file in the "outs" folder and will stop if it doesn't find it.
+plot_10X_metrics: True #Set to False if not using cellranger folders as input
+# if starting from cellranger outputs, you can parse the raw cell counts and plot kneeplots
 kneeplot: False
-# ------------
-## Doublets on GEX - Scrublet
-# ------------
+
+# ------------------------
+# Doublets on RNA - Scrublet
+# ------------------------
 scr:
   run: True
   # The values here are the default values, if you were to leave a paramter pblank, it would default to these value,
@@ -154,33 +158,42 @@ scr:
   #if use_thr is True, this thr will be used to define doublets
 
 # ------------
-# GEX QC
+# RNA QC
 # ------------
 # this part of the pipeline allows to generate the QC parameters that will be used to 
-# evaluate inclusion/ exclusion criteria. Filtering of cells/genes happens in the following pipeline
-# pipeline_integration.py.
-
+# evaluate inclusion/ exclusion criteria. Filtering of cells/genes happens in the next workflow (preprocess)
 # leave options blank to avoid running, "default" (the data stored within the package) 
-# cell cycle action
-# ccgenes will plot the proportions of cell cycle genes (recommended to leave as default)
-ccgenes: default
+
 # It's often practical to rely on known gene lists, for a series of tasks, like evaluating % of mitochondrial genes or
-# ribosomal genes, or excluding IGG genes from HVG selection. We collect useful gene lists in a file, resources/custom_gene_lists_v1.tsv, 
-# and define "actions" on them as follows:
-# (for pipeline_qc_mm.py)
+# ribosomal genes, or excluding IGG genes from HVG selection. For the ingest workflow, 
+# We collect the cellcycle genes used in scanpy.score_genes_cell_cycle [Satija et al. (2015), Nature Biotechnology.] 
+# in in a file, panpipes/resources/cell_cicle_genes.tsv
+# and an example gene list in panpipes/resources/qc_genelist_1.0.csv 
+
+# We define "actions" on them as follows:
+# (for pipeline_ingest.py)
 # calc_proportions: calculate proportion of reads mapping to X genes over total number of reads, per cell
 # score_genes: using scanpy.score_genes function, 
+
 # (for pipeline_integration.py)
 # exclude: exclude these genes from the HVG selection, if they are deemed HV.
 # plot_markers: plot these genes
-# 
+
+#-------------------------
+# cell cycle action
+#-------------------------
+# ccgenes will plot the proportions of cell cycle genes (recommended to leave as default)
+ccgenes: default
+
+#-------------------------
 # custom genes actions
+#-------------------------
 
 custom_genes_file: panpipes-tutorials/tutorials/ingesting_data/qc_genelist_1.0.csv
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 
-
+# ------------
 # Plot RNA QC metrics
 # ------------
 # all metrics should be inputted as a comma separated string e.g. a,b,c
@@ -189,14 +202,12 @@ score_genes: MarkersNeutro
 plotqc_grouping_var: orig.ident
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
-
-
 # ------------
-# ADT qc - requires prot_path to be included in the submission file
+# Plot PROT QC metrics
 # ------------
+# requires prot_path to be included in the submission file
 # all metrics should be inputted as a comma separated string e.g. a,b,c
 
-###  ADT QC metrics:
 # as standard the following metrics are calculated for prot data
 # per cell metrics:
 # total_counts,log1p_total_counts,n_adt_by_counts,log1p_n_adt_by_counts
@@ -204,11 +215,11 @@ plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct
 # total_counts_isotype,pct_counts_isotype
 # choose which ones you want to plot here
 plotqc_prot_metrics: total_counts,log1p_total_counts,n_adt_by_counts,pct_counts_isotype
-
-# per antibody metrics
+# Since the protein antibody panels usually count fewer features than the RNA, it may be interesting to
+# visualize breakdowns of single proteins plots describing their count distribution and other qc options.
+# choose which ones you want to plot here, for example
 # n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
-# choose which ones you want to plot here:
-prot_metrics_per_adt: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
+prot_metrics_per_prot: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
 
 # isotype outliers: one way to determine which cells are very sticky is to work out which cells have the most isotype UMIs
 # associated to them, to label a cell as an isotype outlier, it must meet or exceed the following crietria:
@@ -217,7 +228,6 @@ prot_metrics_per_adt: total_counts,log1p_total_counts,n_cells_by_counts,mean_cou
 identify_isotype_outliers: True
 isotype_upper_quantile: 90
 isotype_n_pass: 2
-# TODO: work out how to plot this.
 
 ### Investigate per channel antibody staining:
 # This can help determine any inconsistencies in staining per channel and other QC concerns.
@@ -263,10 +273,8 @@ quantile_clipping: True
 # see details for how to make sure your files are compatible in the assess background section below
 
 
-
-
 # ------------
-# ATAC qc 
+# Plot ATAC QC metrics 
 # ------------
 
 # we require initializing one csv file per aggregated ATAC/multiome experiment.
@@ -286,9 +294,8 @@ features_tss: #resources/features_tss_hg19.tsv
 # all metrics should be inputted as a comma separated string e.g. a,b,c
 plotqc_atac_metrics: n_genes_by_counts,total_counts,pct_fragments_in_peaks,atac_peak_region_fragments,atac_mitochondrial_reads,atac_TSS_fragments
 
-
 # ------------
-# Repertoire QC
+# Plot epertoire QC metrics
 # ------------
 # Repertoire data will be stored in one modality called "rep", if you provide both TCR and BCR data then this will be merged, 
 # but various functions will be fun on TCR and BCR separately
@@ -332,14 +339,16 @@ plotqc_rep_metrics:
 
   
 # ------------
-# Profiling Ambient background
+# Profiling Protein Ambient background
 # ------------
-# This pipeline does not include removal of background contamination as you would with soupX or cellblender.
-# However it is useful to chararcterise the background of your gene expression assay and antibody binding assay
+# It is useful to characterise the background of your gene expression assay and antibody binding assay.
+# Inspect the plots and decide if to apply corrections, for example see Cellbender or SoupX. (currently not included in panpipes)
+# Please note that this analysis can only be performed if you are providing a RAW input starting from cellranger outputs
+# (so the "empty" droplets can be used to  estimate the BG )
 # Setting `assess_background` to True will:
 # 1. create h5mu from raw data inputs (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
 # 2. Plot comparitive QC plots to compare distribution of UMI and feature counts in background and foreground
-# 3. Create heatmaps of the top features in the background, so you can compare teh background contaimation per channel
+# 3. Create heatmaps of the top features in the background, so you can compare the background contamination per channel
 assess_background: False
 # typically there is a lot of cells in the full raw cellranger outputs, 
 # since we just want to get a picture of the background then we can subsample the data 
