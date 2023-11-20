@@ -32,11 +32,6 @@ unfiltered_obj: teaseq_unfilt.h5mu
 #4. set filtering run: to False below.
 
 
-
-# leave empty if you don't want to save an intermediate muData with normalized expression 
-# stored in X for the RNA object
-output_logged_mudata:
-
 modalities:
   rna:  True
   prot: True
@@ -208,13 +203,19 @@ run_scale: True
 # scale, clip values as per: https://scanpy.readthedocs.io/en/stable/api/scanpy.pp.scale.html
 scale_max_value:
 
-
-# run pca upstream correction methods.  
+#----------------------------
+# RNA Dimensionality reduction
+#----------------------------
 pca:
-  scree_n_pcs: 50
+  # number of components to compute
+  n_pcs: 50
+  # set "default" will use 'arpack'. 
+  # Otherwise specify a different solver, see https://scanpy.readthedocs.io/en/stable/generated/scanpy.tl.pca.html
+  solver: default 
+  # color to use when plotting the PCA
   color_by: sample_id
 
-
+# --------------------------------------------------------------------------------------------------------
 # Protein (ADT) normalisation
 # --------------------------------------------------------------------------------------------------------
 prot:
@@ -251,6 +252,19 @@ prot:
 
   # do you want to save the prot normalised assay additionally as a txt file:
   save_norm_prot_mtx: False
+  #----------------------------
+  # Prot Dimensionality reduction
+  #----------------------------
+  # it may be useful to run PCA on the protein assay, when you have more than 50 features.
+  # Set to False by default
+  pca: True
+  # number of components. Specify at least n_pcs <= number of features -1 
+  n_pcs: 50
+  # which solver to use
+  solver: default
+  # column to be fetched from the protein layer .obs
+  color_by: sample_id
+
 
 # ATAC preprocessing and normalisation
 # --------------------------
