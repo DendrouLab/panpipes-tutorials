@@ -3,14 +3,14 @@
 Panpipes is a single cell multimodal analysis pipeline with a lot of functionalities to streamline and speed up your single cell projects.
 
 Arguably, the most important part of a pipeline is the ingestion of the data into a format that allows efficient storage and agile processing. We believe that `AnnData` and `MuData` offer all those advantages and that's why we built `panpipes` with these data structure at its core. 
-Please check the [`scverse` webpage](https://scverse.org/) for more information!
+Please check the [`scverse` webpage](https://scverse.org/) for more information on these formats!
 
-We will give you a couple of examples of reading data from a 10X directory or directly from existing anndata objects, but we offer functionalities to read in any tabular format and assay-specific data types (check out Spatial Transcriptomics and Repertoire analysis)
+We provide examples of how to ingest single cell data from a 10X directory (see the [multiome tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_multiome/ingesting_mome.html) or the [citeseq tutorial]()) or directly from existing anndata objects, but we offer readers to load in any tabular format and assay-specific data types into a MuData object (check the [Supported Input Filetypes](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#supported-input-filetypes:~:text=per_barcode_metrics_file-,Supported%20input%20filetypes,-%EF%83%81) section and our [Ingesting Spatial Transcriptomics Tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.html))
 
-For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
+For all the tutorials we will append the `--local` command which instructs the pipeline to run on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a HPC cluster.
 
 
-In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, there is lots of information [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
+In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, check out the other tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
 
 
 ## Starting from pre-existing h5ad objects
@@ -42,19 +42,32 @@ mkdir ingest && cd ingest
 mkdir data.dir
 ```
 
-Now move the 3 anndata you downloaded to the `data.dir` folder you have just created.
+Now move the 3 input anndata you downloaded into the `data.dir` folder you have just created.
+
+```
+>ls ingest/data.dir 
+
+adt.h5ad
+atac.h5ad
+rna.h5ad
+```
 
 in `teaseq/ingest` call `panpipes ingest config`.
 this will generate a `pipeline.log` and a `pipeline.yml` file.
 
 
 Modify the `pipeline.yml` with custom parameters: you can simply replace with the one we provide [here](pipeline_yml.md).
+Inspect the `pipeline.yml` file to familiarize with the input parameters.
+
+
+
+
 We specify a series of custom paths such as the conda environment or the path to the file that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes.
 These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads.
 
 Download this file from [here](./qc_genelist_1.0.csv)
 
-Inspect the `pipeline.yml` file to familiarize with the input parameters. 
+ 
 
 NOTE: remember to change the following paths to the files on your local machine! 
 
