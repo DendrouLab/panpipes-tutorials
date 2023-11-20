@@ -218,15 +218,67 @@ Task = 'pipeline_ingest.process_all_tenx_metrics'
 Task = 'pipeline_ingest.full'
 ```
 
-To run the ingest complete workflow 
+Now to run the complete ingest workflow type:
 
 ```
 panpipes ingest make full --local
 ``` 
+That's it. If running successfully you should see that the pipeline prints the tasks it's running to the stdout.
 
-`panpipes ingest` will produce a different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
+
+This output is also appended to the `pipeline.log` file that was generated when configuring the workflow, so you can keep track of what is happening.
+
+```
+# 2023-11-20 14:37:45,205 INFO running statement: \
+#                              python /Users/fabiola.curion/Documents/devel/github/panpipes/panpipes/python_scripts/make_adata_from_csv.py          --mode_dictionary "{'rna': True, 'prot': True, 'bcr': False, 'tcr': False, 'atac': True}"         --sample_id teaseq         --output_file ./tmp/teaseq.h5mu       --use_muon True --rna_infile data.dir/rna.h5ad --rna_filetype h5ad --prot_infile data.dir/adt.h5ad --prot_filetype h5ad --subset_prot_barcodes_to_rna False --atac_infile data.dir/atac.h5ad --atac_filetype h5ad > logs/load_mudatas_teaseq.log
+
+# 2023-11-20 14:38:36,863 INFO {"task": "pipeline_ingest.load_mudatas", "engine": "LocalExecutor", "statement": "python /Users/fabiola.curion/Documents/devel/github/panpipes/panpipes/python_scripts/make_adata_from_csv.py          --mode_dictionary \"{'rna': True, 'prot': True, 'bcr': False, 'tcr': False, 'atac': True}\"         --sample_id teaseq         --output_file ./tmp/teaseq.h5mu       --use_muon True --rna_infile data.dir/rna.h5ad --rna_filetype h5ad --prot_infile data.dir/adt.h5ad --prot_filetype h5ad --subset_prot_barcodes_to_rna False --atac_infile data.dir/atac.h5ad --atac_filetype h5ad > logs/load_mudatas_teaseq.log", "job_id": 71009, "slots": 1, "start_time": 1700487466.1516511, "end_time": 1700487516.860606, "submission_time": 1700487466.1516511, "hostname": "MB084405", "total_t": 50.70895481109619, "exit_status": 0, "user_t": 44.91, "sys_t": 2.33, "wall_t": 50.67, "shared_data": 0, "io_input": 0, "io_output": 0, "average_memory_total": 0, "percent_cpu": 93.15908832272535, "average_rss": 0, "max_rss": 712700, "max_vmem": 712700, "minor_page_faults": 285052, "swapped": 0, "context_switches_involuntarily": 22936, "context_switches_voluntarily": 6284, "average_uss": 0, "signal": 1, "major_page_fault": 3860, "unshared_data": 0, "cpu_t": 47.239999999999995}
+
+# 2023-11-20 14:38:36,869 INFO {"task": "'pipeline_ingest.load_mudatas'", "task_status": "completed", "task_total": 1, "task_completed": 0, "task_completed_percent": 0.0}
+# 2023-11-20 14:38:36,869 INFO Completed Task = 'pipeline_ingest.load_mudatas' 
+
+```
 
 
+`panpipes ingest` will produce a host of different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
+
+##########TODO CHANGE THIS
+| file                         | type file | info                                                                                                                                                         |
+| ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| data.dir                            | directory | the folder with input files we organized                                                                                                                     |
+| figures                             | directory | folder storing plots generated throughout the ingest workflow                                                                                                |
+| logs                                | directory | folder storing logs generated throughout the ingest workflow                                                                                                 |
+| teaseq_cell_metadata.tsv              | text file | the cell metadata of the experiment (the .obs slot of the mudata object) saved as a tsv file                                                                 |
+| teaseq_threshold_filter.tsv           | text file | summary file showing percentage of cells remaining for commonly used QC thresholds on genes and cells. This filtering is not applied in the ingest workflow. |
+| teaseq_threshold_filter_explained.tsv | text file | file containing the thresholds used to produce the previous file                                                                                             |
+| teaseq_unfilt.h5mu                    | h5mu      | the mudata generated from the input files                                                                                                                    |
+| sample_file_qc.txt                     | text file | input sample submission file                                                                                                                                 |
+| pipeline.log                        | log       | pipeline log file, stores all the info on the commands run                                                                                                   |
+| pipeline.yml                        | yaml      | input yaml file                                                                                                                                              |
+| scrublet                            | directory | directory storing the scrublet analysis results                                                                                                              |
+| tmp                                 | directory | directory storing temporary h5mu files (one for each sample in the submission file)                                                                          |
+|                                     |           |                                                                                                                                                              |
+
+Some example figures include: 
+- Scatterplots and violin plots for each modality 
+
+In this example, a violin plot of the computed atac metrics
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/atac/violinatac_metrics_violin.png?raw=true" alt="img1" >
+
+
+Or a scatterplot of the RNA total counts vs percentage genes mapping to mitochondrial reads in each cell.
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/rna/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img1" >
+
+
+- Ridgeplots of CLR normalized protein values in the experiment
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/prot/teaseq_clr_ridgeplot.png?raw=true" alt="img1" height=100 width =2000>
+	
+
+Particularly interesting may be plots comparing one modality to the other, for example exploration of normalized PROT vs RNA counts can provide a quick overview of cells where one modality may be incomplete or sparser than expected (see the cells that strongly deviate from the expected correlation)
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/rna_v_prot/scatter_atac.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png?raw=true" alt="img1" >
 
 
 You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the multimodal assays.
@@ -237,8 +289,10 @@ You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` w
 def run_qc():
     pass
 ```
-So the pipeline will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
-If you have run a full workflow and want to change the parameters in the yaml and reproduce the output of one task, you will have to remove the log file for that task so the pipeline knows where to start from!  
+
+If you have run a full workflow and want to reproduce the output of one task (for example you have changed some of the parameters in the yml file), you will have to remove the outputs of the task from the directory, so the pipeline knows where to start from!  
+
+The workflow will try to pick up from there, or produce the qc outputs that are missing in order to have the inputs for this task.
 
 ## Next Steps: 
 

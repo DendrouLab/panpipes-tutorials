@@ -118,7 +118,7 @@ subset_prot_barcodes_to_rna: False
 # ------------------------
 # if starting from cellranger outputs, you can parse multiple metrics_summary.csv files and plot them together
 # the workflow looks for the metrics_summary file in the "outs" folder and will stop if it doesn't find it.
-plot_10X_metrics: True #Set to False if not using cellranger folders as input
+plot_10X_metrics: False #Set to False if not using cellranger folders as input
 # if starting from cellranger outputs, you can parse the raw cell counts and plot kneeplots
 kneeplot: False
 
