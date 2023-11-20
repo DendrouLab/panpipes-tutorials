@@ -10,7 +10,7 @@ We will give you a couple of examples of reading data from a 10X directory or di
 For all the tutorials we will prepend the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
 
-In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, there is lots of information [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
+In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, there is lots of information [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html)
 
 
 ## Starting from pre-existing h5ad objects
@@ -44,8 +44,11 @@ mkdir data.dir
 
 Now move the 3 anndata you downloaded to the `data.dir` folder you have just created.
 
+## Preparing the Submission file for ingest pipeline
+
 in `teaseq/ingest` call `panpipes ingest config`.
-this will generate a `pipeline.log` and a `pipeline.yml` file.
+This command will generate a `pipeline.log` and a `pipeline.yml` file. The `pipeline.yml` file provides the workflow with some essential information, such as the path to the input data, the formats used, and holds the parameters of your analysis. The `ingest` workflow is the only one of the panpipes workflows that requires both a pipeline.yml and a submission file to perform its task (reading in single cell data and formatting it into a MuData object).
+This is the sumbission file we are using for this tutorial 
 
 
 Modify the `pipeline.yml` with custom parameters: you can simply replace with the one we provide [here](pipeline_yml.md).
