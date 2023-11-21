@@ -1,6 +1,6 @@
-## Ingesting a CITEseq dataset produced by cellranger 
+## Ingesting a CITEseq dataset produced by cellranger <small>by Yohana Berhe</small>
                    
-In this tutorial, we will use Panpipes ingest workflow to analyze paired RNA and protein CITEseq data. The dataset for this analysis was generated using cellranger and is stored in the 'outs' folder. We'll walk you through the process of preparing the submission file necessary for the ingest pipeline, and we'll also demonstrate how to make edits to the 'pipeline.yml' file created by 'panpipes ingest config'.
+In this tutorial, we will use Panpipes ingest workflow. Panpipes is a single cell multimodal analysis pipeline with a lot of functionalities to streamline and speed up your single cell projects. We will ingest a paired RNA and protein (CITEseq data). The dataset for this analysis was generated using cellranger and is stored in the 'outs' folder. We'll walk you through the process of preparing the submission file necessary for the ingest pipeline, and we'll also demonstrate how to make edits to the 'pipeline.yml' file created by 'panpipes ingest config'.
 
 Before we begin, make sure to install panpipes by following the installation instructions provided here: [Installation Instructions](https://panpipes-pipelines.readthedocs.io/en/latest/install.html)
 
@@ -25,6 +25,12 @@ The last code would create two files: 'pipeline.log' and 'pipeline.yml'.
 Panpipes requires a specific format for the submission file. For detailed instructions on how to structure this file correctly, please refer to the following documentation: [Panpipes Submission File Instructions](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html)
 
 The submission file used for this tutorial can be found here. [Submission_file_CITEseq_output_cellranger.txt](https://github.com/DendrouLab/panpipes-tutorials/blob/yohana_tutorials/docs/ingesting_data/submission_file_CITEseq_output_cellranger.txt)
+
+
+To easily comply with Panpipes' submission format (i.e Tab-delimited), create an Excel file (e.g shown below) and save it in the 'tab-delimited' format.
+
+
+![Excel_example_image](./subfile_excel.png)
 
 
 ### Submission File Structure
