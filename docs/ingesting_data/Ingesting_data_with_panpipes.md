@@ -242,7 +242,7 @@ This output is also appended to the `pipeline.log` file that was generated when 
 
 `panpipes ingest` will produce a host of different files including tab-separated metadata, plots and most notably a `*_unfilt.h5mu` object containing all the cells and the metadata, with calculated QC metrics such as `pct_counts_mt`,`pct_counts_mt` for percentage mitochondrial/ribosomal reads, `total_counts` for any of the supported modalities that use this info (such as rna, prot or atac), and other custom ones you may speficy by customizing the `pipeline.yml`.
 
-##########TODO CHANGE THIS
+
 | file                         | type file | info                                                                                                                                                         |
 | ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | data.dir                            | directory | the folder with input files we organized                                                                                                                     |
