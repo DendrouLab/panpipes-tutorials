@@ -28,7 +28,7 @@ The last code would create two files: 'pipeline.log' and 'pipeline.yml'.
 ## Preparing the Submission file for ingest pipeline
 Panpipes requires a specific format for the submission file. For detailed instructions on how to structure this file correctly, please refer to the following documentation: [Panpipes Submission File Instructions](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html)
 
-The submission file used for this tutorial can be found here. [Submission_file_CITEseq_output_cellranger.txt](https://github.com/DendrouLab/panpipes-tutorials/blob/yohana_tutorials/docs/submission_file_CITEseq_output_cellranger.txt)
+The submission file used for this tutorial can be found here. [Submission_file_CITEseq_output_cellranger.txt](https://github.com/DendrouLab/panpipes-tutorials/blob/yohana_tutorials/docs/ingesting_data/submission_file_CITEseq_output_cellranger.txt)
 
 
 ### Submission File Structure
