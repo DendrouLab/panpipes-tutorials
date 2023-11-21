@@ -1,0 +1,99 @@
+# Visualizing data with Panpipes
+
+This tutorial guides you through the visualization of single-cell data using `Panpipes`. The [workflow](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/vis.html) describes the steps run by the pipeline in greater detail.
+The `vis` workflow can be run after any of the other `Panpipes` workflows and visualizes the data in e.g. UMAPs, PCA, barplots etc. It expects a `MuData` object as input. 
+
+For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
+
+## Directories and data 
+
+In this tutorial, we will use the subset of the [teaseq datasets](https://elifesciences.org/articles/63632) that we also used in the [Ingesting](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_data/Ingesting_data_with_panpipes.html), [Preprocessing](https://panpipes-tutorials.readthedocs.io/en/latest/filtering_data/filtering_data_with_panpipes.html#), [Integration](https://panpipes-tutorials.readthedocs.io/en/latest/uni_multi_integration/Integrating_data_with_panpipes.html), and [Clustering](https://panpipes-tutorials.readthedocs.io/en/latest/clustering/clustering_tutorial.html) tutorials. The data contains three modalities - RNA, ATAC, and protein. We will use the `MuData` object that we obtain after running the `ingest`, `preprocess`, and `clustering` workflows. 
+
+For the RNA modality, multiple QC metrics, as well as PCA and UMAP are present in the `mdata.mod["rna"]` slot: 
+<p align="left">
+<img src="input_rna.png" alt="Input MuData, RNA slot" width="500"/>
+</p>
+
+Same goes for ATAC:
+<p align="left">
+<img src="input_atac.png" alt="Input MuData, ATAC slot" width="500"/>
+</p>
+
+and protein:
+<p align="left">
+<img src="input_protein.png" alt="Input MuData, protein slot" width="500"/>
+</p>
+
+
+
+
+
+We will be working in in the `teaseq/vis` directory and save the input `MuData` object into `teaseq/vis/data`:
+```
+mkdir teaseq teaseq/vis teaseq/vis/data
+cd teaseq/vis
+```
+You can download the `MuData` object we will use for this tutorial [here]() and save it to `teaseq/vis/data`.
+
+After creating the directories and downloading the data, the folder structure looks as follows: 
+```
+teaseq
+├── vis
+│   └── data
+│       └──  teaseq_clustered.h5mu
+```
+
+
+## Edit yaml file 
+
+To create a pipeline.log and a pipeline.yml file, call `panpipes vis config` in `teaseq/vis` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
+Modify the pipeline.yml or simply replace it with [the yaml file we provide](./pipeline.yml). In the yaml file you can specify which categorical and continuous variables to plot and on which embeddings. 
+
+If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial, you may also download the needed csv-files of [custom markers](./custom_markers.csv), [paired markers](./paired_scatters_markers.csv), and  [paired metrics](./paired_scatters.csv). 
+
+
+## Run Panpipes 
+
+In `teaseq/vis`, run `panpipes vis make full --local` to visualize your data. 
+
+
+After successfully running the pipeline with the [the provided yaml file](./pipeline.yml) , the `vis` folder looks as follows: 
+
+```
+TODO
+```
+
+A folder for each modality is created, in this case `rna`, `atac`, and `prot`. 
+
+In each folder, you can f.ex. find the embeddings (in our case UMAP, PCA) coloured by continuous variables: 
+<p align="center">
+<img src="./X_pca_rna_continuous_vars.png" alt="PCA, RNA, total_counts" width="250"/>
+<img src="./X_umap_mindist_0.5_rna_continuous_vars.png" alt="UMAP, RNA, total_counts" width="250"/>
+</p>
+
+And coloured by categorical variables: 
+<p align="center">
+<img src="./X_pca_rna_categorical_vars.png" alt="PCA, RNA, categorical" width="550"/>
+</p>
+<p align="center">
+<img src="./X_umap_mindist_0.5_rna_categorical_vars.png" alt="UMAP, RNA, categorical" width="550"/>
+</p>
+
+
+
+Plots of the custom markers that were specified in the [custom markers]() csv file are also provided: 
+
+<p align="center">
+<img src="./X_umap_mindist_0.5_rna_logged_counts_Tcellmarkers.png" alt="UMAP, RNA, Tcellmarkers" width="450"/>
+</p>
+<p align="center">
+<img src="./dotplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="450"/>
+</p>
+<p align="center">
+<img src="./matrixplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="450"/>
+</p>
+
+
+
+*Note: We find that keeping the suggested directory structure (one main directory by project with all the individual steps in separate folders) is useful for project management. You can of course customize your directories as you prefer, and change the paths accordingly in the `pipeline.yml` config files!*
+

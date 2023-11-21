@@ -11,8 +11,8 @@ For installation please check the [documentation](https://github.com/DendrouLab/
 ingesting_data/Ingesting_data_with_panpipes.md
 filtering_data/filtering_data_with_panpipes.md
 uni_multi_integration/Integrating_data_with_panpipes.md
-clustering_tutorial.md
-vis_tutorial.md
+clustering/clustering_tutorial.md
+visualization/vis_with_panpipes.md
 
 ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.md
 ingesting_processing_merfish_data/merfish_analysis_with_panpipes.md
