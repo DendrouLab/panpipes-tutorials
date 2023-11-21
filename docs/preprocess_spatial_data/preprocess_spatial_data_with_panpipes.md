@@ -103,8 +103,4 @@ The PCA and the elbow plot are also plotted:
 
 
 
-
-
-### [Next: Clustering the data using `panpipes_clustering`]()
-
 *Note: We find that keeping the suggested directory structure (one main directory by project with all the individual steps in separate folders) is useful for project management. You can of course customize your directories as you prefer, and change the paths accordingly in the `pipeline.yml` config files!*
