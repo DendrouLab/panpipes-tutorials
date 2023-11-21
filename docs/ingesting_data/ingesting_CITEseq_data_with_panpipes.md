@@ -1,9 +1,6 @@
-Title: Using Panpipes:ingest on a CITEseq dataset produced by cellranger 
-author: yohana Berhe
-github: Yohana-Berhe
-
-
-In this tutorial, we will use panpipes ingest workflow to analyze paired RNA and protein CITEseq data. The dataset for this analysis was generated using cellranger and is stored in the 'outs' folder. We'll walk you through the process of preparing the submission file necessary for the ingest pipeline, and we'll also demonstrate how to make edits to the 'pipeline.yml' file created by 'panpipes ingest config'.
+## Ingesting a CITEseq dataset produced by cellranger 
+                   
+In this tutorial, we will use Panpipes ingest workflow to analyze paired RNA and protein CITEseq data. The dataset for this analysis was generated using cellranger and is stored in the 'outs' folder. We'll walk you through the process of preparing the submission file necessary for the ingest pipeline, and we'll also demonstrate how to make edits to the 'pipeline.yml' file created by 'panpipes ingest config'.
 
 Before we begin, make sure to install panpipes by following the installation instructions provided here: [Installation Instructions](https://panpipes-pipelines.readthedocs.io/en/latest/install.html)
 
