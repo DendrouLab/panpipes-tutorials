@@ -9,10 +9,12 @@ For installation please check the [documentation](https://github.com/DendrouLab/
 :maxdepth: 1
 
 ingesting_data/Ingesting_data_with_panpipes.md
+ingesting_multiome/ingesting_mome.md
 filtering_data/filtering_data_with_panpipes.md
 uni_multi_integration/Integrating_data_with_panpipes.md
 clustering/clustering_tutorial.md
 visualization/vis_with_panpipes.md
+refmap_pancreas/Reference_mapping.md
 
 ingesting_visium_data/Ingesting_visium_data_with_panpipes.md
 ingesting_merfish_data/Ingesting_merfish_data_with_panpipes.md
