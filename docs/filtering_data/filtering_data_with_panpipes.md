@@ -155,6 +155,9 @@ but in the RNA modality, the low-counts cells are distributed across multiple ce
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/rna/pca_vars.png?raw=true" alt="img2" >
 
+and same for the ATAC:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/atac/pca_vars.png?raw=true" alt="img2" >
 
 
 As usual, you can choose to modify the parameters and re-run a specific task, for example after removing the log file `logs/preprocess_rna.log` , running `panpipes preprocess make rna_preprocess` will specifically run the filtering task on the rna and exit the pipeline.
