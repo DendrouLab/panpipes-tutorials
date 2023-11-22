@@ -1,0 +1,117 @@
+# Pipeline pipeline_refmap.py configuration file
+# ==============================================
+
+# compute resource options
+# ------------------------
+# customize this depending on the cluster you're using
+resources:
+  # Number of threads used for parallel jobs
+  # this must be enough memory to load your mudata and do computationally intensive tasks
+  threads_high: 1
+  # this must be enough memory to load your mudata and do computationally light tasks
+  threads_medium: 1
+  # this must be enough memory to load text files and do plotting, requires much less memory than the other two
+  threads_low: 1
+# path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pp_env
+
+# allows for tweaking which queues jobs get submitted to, 
+# in case there is a special queue for long jobs or you have access to a gpu-sepcific queue
+# the default queue should be specified in your .cgat.yml file
+# leave as is if you do not want to use the alternative queues
+queues:
+  long: 
+  gpu:  
+
+#----------------------
+# query dataset
+#----------------------
+query: data.dir/pancreas_querydata.h5ad
+# we support raw10x formats, or preprocessed quality filtered mudata or anndata as input query
+modality: rna
+# if you supplied a mu data, specify the modality to be used
+# currently only RNA query supported
+# does your query data have a batch effect, what column?
+query_batch:
+# does your query have a celltype annotation you want to use to compare to
+# the transferred label?
+# leave empty if not
+query_celltype: celltype
+#----------------------
+# scvi tools params
+#----------------------
+# specify one or more reference models that you would like to use as reference
+# you can use your own reference that you built using pipeline_integration here
+# leave blank for no model specification
+
+# specify the reference anndata/mudata with RNA. you need this only if you want to calc umap on both reference and query data.
+# or leave blank and only provide model paths
+reference_data: data.dir/pancreas_refdata.h5mu
+# path to tovalvi saved model
+totalvi: 
+impute_proteins: True
+transform_batch:
+# if you did not run scanvi, and you want to simply map query onto reference, 
+# path_to_scvi will be used to initialize scanvi for label transfer.
+# if you have an initialized scanvi model instead, add it here
+scvi:
+  - /Users/fabiola.curion/Documents/devel/data_test.dir/data_for_scvi_test/pancreas_model/model.pt
+scanvi: 
+  - /Users/fabiola.curion/Documents/devel/data_test.dir/data_for_scvi_test/pancreas_model_scanvi/model.pt
+# for scvi and totalvi, if the reference model has a trained random forest classifier, use to
+# classify cells in the query
+run_randomforest: False
+
+
+
+#----------------------
+# training params
+#----------------------
+
+# to reuse these params, (for example for WNN) please use anchors (&) and scalars (*) in the relevant place
+# i.e. &rna_neighbors will be called by *rna_neighbors where referenced
+
+training_plan:
+  totalvi: &totalvitraining 
+    # example params here https://docs.scvi-tools.org/en/0.14.1/api/reference/scvi.model.TOTALVI.train.html
+    max_epochs: 200
+      # recommended weight decay is 0.0
+      # This ensures the latent representation of the reference cells will remain exactly the same if passing them through this new query model.
+    weight_decay: 0.0
+  scvi: *totalvitraining
+  scanvi: *totalvitraining
+#----------------------
+# neighbors params to calculate umaps on either query alone, or query+ reference dataset
+#----------------------
+
+neighbors: 
+  # number of Principal Components to calculate for neighbours and umap:
+  #   -if no correction is applied, PCA will be calculated and used to run UMAP and clustering on
+  #   -if Harmony is the method of choice, it will use these components to create a corrected dim red.)
+  # note: scvelo default is 30
+    npcs: 30
+    # number of neighbours
+    k: 30
+    # metric: euclidean | cosine
+    metric: euclidean
+    # scanpy | hnsw (from scvelo)
+    method: scanpy
+
+
+#----------------------
+# Run scib metrics on query, specify params:
+#----------------------
+# see documentation for the metrics used at https://scib.readthedocs.io/en/latest/
+# running scib on query data after trasferring labels, where available (totalvi and scanvi), or using default leiden clustering after training the vae model (scvi)
+scib:
+  run: True
+  #used for ARI and NMI (if left empty will default to leiden clustering calculated on the new latent representation after reference mapping)
+  cluster_key: 
+  #used for clisi_graph_embed (if left empty will default to query_batch specified above)
+  batch_key:
+  #ground truth label (if left empty it will default to query_celltype specified above )
+  celltype_key: 
+
+
+
+  
