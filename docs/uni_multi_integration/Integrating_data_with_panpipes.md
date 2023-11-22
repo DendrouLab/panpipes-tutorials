@@ -8,7 +8,7 @@ Go to your previously created `teaseq` directory and create a new folder to run 
 ```
 # if you are in teaseq/preprocessing
 # cd ..
-mkdir integration & cd integration
+mkdir integration && cd integration
 ```
 You can now create the pipeline.yml by launching 
 
@@ -18,7 +18,7 @@ panpipes integration config
 
 Review and download a [preconfigured yml here](pipeline_yml.md).
 
-As we did before, link the preprocessed h5mu object in the present directory where the 
+As we did before, we can link the preprocessed `h5mu` object in the present directory where we will run the integration.
 
 ```
 ln -s ../preprocessing/teaseq.h5mu .
@@ -26,8 +26,6 @@ ln -s ../preprocessing/teaseq.h5mu .
 
 For this example, we will run some uni and multimodal integration methods. 
 In the yml we specify:
-
-
 
 ```
 rna:
@@ -44,7 +42,6 @@ multimodal:
   tools:
     - WNN
     - totalVI
-    - mofa
   totalvi:
     modalities: rna,prot
   WNN: 
@@ -53,15 +50,46 @@ multimodal:
     modalities: rna,atac,prot
 
 ```
-By default, `panpipes` will always produce the uncorrected unimodal objects by running neighbours and umap on the baseline dimensionality reduction, PCA or LSI depending on the modality. If you leave  the batch correction arguments blank, the uncorrected objects will be the only outputs.
+By default, `panpipes` will always produce the uncorrected unimodal objects by running neighbours and umap on the baseline dimensionality reduction if present in the object, PCA or LSI depending on the modality. 
+When the dimensionality reduction is not present in the object, `panpipes` follows the scanpy neighbours [default](https://github.com/scverse/scanpy/blob/master/scanpy/tools/_utils.py#L28) and calculates a PCA with 50 components. 
+If you leave the batch correction arguments blank, the uncorrected objects will be the only outputs of the integration workflow.
 
-For background on each method please consider reading the best practices for cross-modal single cell paper[REF], the benchmarks on batch correction and multimodal integration[REF]
+Some of the multimodal methods chosen can simultaneously account for batch effects while integrating the two modalities to generate a joint cell-representation. WNN instead offers full customization of the input representations from each modality. In this case we specify we want to run WNN on non-batch corrected data for each modality:
+
+```
+WNN:
+    # muon implementation of WNN 
+    modalities: rna,prot,atac 
+    # run wnn on batch corrected unimodal data, set each of the modalities you want to use to calc WNN to ONE method.
+    # leave to None and it will default to de novo calculation of neighbours on non corrected data for that modality using specified params 
+    batch_corrected:
+      # options are: "bbknn", "scVI", "harmony", "scanorama"
+      rna: None
+      # options are "harmony", "bbknn"
+      prot: None
+      # options are "harmony"
+      atac: None 
+  
+```
+
+For background on each batch correction method please consider reading the best practices for cross-modal [single cell paper](https://github.com/scverse/scanpy/blob/master/scanpy/tools/_utils.py#L28), the benchmarks on batch correction and multimodal integration.
 
 Run the integration workflow with 
+
 ```
 panpipes integration make full --local
 ```
+
+Panpipes is now running in parallel all the methods you specified for each modality. For the multimodal tools that require previous batch correction, such as WNN, panpipes will wait for these correction to be computed.
+
 Once the pipeline finishes, you will find the uni or multimodal integrated objects in a `tmp` folder, along with relevant auxillary files such as the scvi trained model in `batch_correction/scvi_model` and plots are saved in `figures`.
+
+Let's briefly take a look at the integration outputs:
+For the RNA modality, we see that there doesn't seem to be a strong difference when applying batch correction:
+
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/atac/violinatac_metrics_violin.png?raw=true" alt="img1" >
+
 In the paper, we showcase how WNN offers the flexibility to integrate modalities that have individually been batch-corrected.
 To showcase this scenario, we will use the last functionality of `panpipes integration` workflow, the `make merge_integration`. This task should be run after you have inspected the results of the integration and have decided which of the applied corrections you want to keep, for both uni and multimodal approaches.
 
