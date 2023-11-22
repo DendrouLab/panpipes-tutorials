@@ -59,6 +59,7 @@ In panpipes `preprocess` workflow, we use a [dictionary for filtering](https://p
 The filtering process in panpipes is sequential as it goes through the filtering dictionary.
 For each modality, starting with rna, it will first filter on obs and then vars. Each modality has a dictionary in the following format. 
 
+```
 # MODALITY
 # obs:
   # min:
@@ -68,6 +69,7 @@ For each modality, starting with rna, it will first filter on obs and then vars.
   # min:
   # max:
   # bool
+```
 
 This format can be applied to any modality by editing the filtering dictionary and you are not restricted by the columns given as default.
 
