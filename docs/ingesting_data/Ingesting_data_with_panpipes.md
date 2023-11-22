@@ -291,7 +291,9 @@ the naming of the plots allows to identify the output:
 scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png:
 
 - **scatter**: the type of plot (values: scatter/violin/barplot)
+  
 - **prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
+  
 - **log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
 
 
