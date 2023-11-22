@@ -192,6 +192,6 @@ When the run finishes, let's inspect the new `wnn` run. As expected, the batch e
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/sub_int_figures/umap_method_rna:dataset.png?raw=true" alt="img6">
 
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/sub_int_figures/LISI_scores.png?raw=true" alt="img7">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/sub_int_figures/LISI_scores.png?raw=true" alt="img7">
 
 
