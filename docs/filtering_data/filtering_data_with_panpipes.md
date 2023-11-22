@@ -192,7 +192,7 @@ AnnData object with n_obs × n_vars = 1914 × 107739
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/atac/LSI_corr_plot.png?raw=true" alt="img2" >
 
 
-NOTE: if you want to change other parameters like methods for HVG selection, to remove (or rename) the teaseq.h5mu object from the folder and re-run the workflow. You can also run `panpipes preprocess make preprocess_atac --local` to run individual steps.
+NOTE: if you want to make bigger changes in other parameters like methods for HVG selection, remove (or rename) the teaseq.h5mu object from the folder and re-run the workflow. You can also run `panpipes preprocess make preprocess_atac --local` to run individual steps.
 
 
 Next [uni and multimodal integration](../uni_multi_integration/Integrating_data_with_panpipes.md)
