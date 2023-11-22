@@ -1,0 +1,130 @@
+# ==============================================
+# Preprocessing, spatial transcriptomics
+# ==============================================
+
+
+# ---------------------------
+# 0. Compute resource options
+# ---------------------------
+
+resources:
+  # Number of threads used for parallel jobs
+  threads_high: 1 # Must be enough memory to load all input files and create MuDatas
+  threads_medium: 1  # Must be enough memory to load your mudata and do computationally light tasks
+  threads_low: 1 # Must be enough memory to load text files and do plotting, requires much less memory
+
+condaenv:   # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+
+
+# ------------------
+## 1. Specify input
+# ------------------
+
+# With the preprocess_spatial workflow, one or multiple MuData objects can be preprocessed in one run. 
+# For the preprocessing, it reads in all '.h5mu' objects of a directory, for example:
+# ./qc.data
+# ├── Human_LN_alt_unfilt.h5mu
+# ├── Human_LN_unfilt.h5mu
+# └── Human_heart_unfilt.h5mu
+
+# The workflow then runs the preprocessing for each MuData object separately with the same parameters that are specified in this yaml file. 
+# Note, that the MuData objects in the directory need to be of the same assay (Vizgen or Visium).
+
+input_dir: ../ingestion/qc.data/
+assay: visium # Specify the spatial transcriptomics assay, one of "visium" or "vizgen". If left blank, will use default "visium"
+
+
+# --------------
+## 2. Filtering
+# --------------
+
+# The filtering is fully customisable to any columns in the .obs or .var. You are not restricted by the columns given as default. When specifying a column name, make sure it exactly matches the column name in the h5mu object.
+# General structure: 
+# spatial:
+  # obs: <- spot/cell level filtering
+    # min: <-- Any column for which you want to run a minimum filter, 
+     # n_genes_by_counts: 500 <--- i.e. each spot/cell must have a minimum of 500 in the n_genes_by_counts column
+    # max: <-- Any column for which you want to run a maxiumum filter
+     # pct_counts_mt: 20 <-- i.e. each spot/cell may have a maximum of 20 in the pct_counts_mt column
+    # bool: 
+      # highly_variable: True  <--- boolean columns you want to filter on, in this case any obs['highly_variable'] that are True will be retained in the dataset.
+  # var: <- gene level filtering
+    # min:
+    # max:
+    # bool
+
+filtering:
+  run: True
+  keep_barcodes: # A file containing only barcodes you want to keep, leave blank if not applicable
+
+  #------------------------------------------------------
+  spatial:
+  #------------------------------------------------------ 
+  ## Obs filtering: spot/cell level filtering here
+    obs:
+      min:
+        total_counts: 
+      max:
+        total_counts: 30000
+        n_genes_by_counts: 
+        pct_counts_mt: # Percent filtering: this should be a value between 0 and 100
+        pct_counts_rp:
+      bool: 
+  ## Var filtering: gene level filtering here
+    var:
+      min:
+        n_cells_by_counts: 
+      max:
+        total_counts:
+        n_cells_by_counts:
+        
+
+
+# -------------------------
+## 3. Post-filter plotting
+# -------------------------
+
+# All metrics should be comma-separated without spaces, e.g. a,b,c 
+# If the metric is in both, .obs and .var, then both are plotted 
+plotqc:
+  grouping_var:  # Categorical variables to plot by. Not mandatory, can be left empty
+  spatial_metrics: total_counts
+
+
+
+# -----------------------------------------
+# 4. Spatial transcriptomics preprocessing
+# Normalization + HVG selection + PCA
+# -----------------------------------------
+
+spatial:
+  # How to perform normalization and HVG selection:
+  norm_hvg_flavour: seurat # ['seurat', 'squidpy']
+  # 'seurat': HVG selection and normalization by analytic Pearson residuals using sc.experimental.pp.normalize_pearson_residuals() and sc.experimental.pp.highly_variable_genes()
+  # 'squidpy': HVG selection and normalization using the standard scanpy functions (sc.pp.normalize_total(),sc.pp.log1p(), sc.pp.highly_variable_genes())
+
+  # The following parameters are only for the case norm_hvg_flavour == squidpy:
+  # Parameters for the HVG selection using sc.pp.highly_variable_genes():
+  squidpy_hvg_flavour: #seurat #['seurat','cellranger','seurat_v3'], leave blank to use default ('seurat'), flavour for the sc.pp.highly_variable_genes() function
+  min_mean:  # Leave blank to use default (0.05), parameter in sc.pp.highly_variable_genes()
+  max_mean:  # Leave blank to use default (1.5), parameter in sc.pp.highly_variable_genes()
+  min_disp: # Leave blank to use default (0.5), parameter in sc.pp.highly_variable_genes()
+
+  # The following parameters are only for the case norm_hvg_flavour == seurat:
+  theta: # Leave blank to use default (100), the negative binomial overdispersion parameter for Pearson residuals
+  clip: # Leave blank to use default (None)
+  # 'clip' can be specified as:
+  #    None: residuals are clipped to the interval [-sqrt(n_obs), sqrt(n_obs)]
+  #    a float value: if float c specified: clipped to the interval [-c, c]
+  #    np.Inf: no clipping
+
+  # Parameters for both cases norm_hvg_flavour = "seurat" and "squidpy":
+  n_top_genes: 2000 # Default is None; mandatory for norm_hvg_flavour = "seurat" and squidpy_hvg_flavor: "seurat_v3"
+  filter_by_hvg: False # Leave blank to use default (False); if True, subset the data to highly-variable genes after finding them
+  hvg_batch_key: # Leave blank to use default (None); if specified, highly-variable genes are selected within each batch separately and merged
+
+  n_pcs: 50 # Leave blank to use default (50); how many PCs to compute with sc.pp.PCA()
+
+
+
+

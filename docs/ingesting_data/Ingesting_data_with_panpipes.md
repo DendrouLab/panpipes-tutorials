@@ -119,7 +119,7 @@ other parameters include:
 scr:
   run: True
 ```
-- normalization choice of protein data
+- normalization choice of protein data (we need to normalize the protein data to visualize the quality of the AB, but the final normalization is chosen in the [preprocess worfklow](../filtering_data/filtering_data_with_panpipes.md))
 
 ```
 normalisation_methods: clr
@@ -173,8 +173,8 @@ Please note that the parameters specified for modalities that are not part of th
 
 ### Specifying paths
 
-As part of the ingest workflow, we additionally specify a series of custom paths to the files that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes.
-These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads.
+As part of the ingest workflow, we additionally specify a series of custom paths to the files that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes. 
+These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads. We explain more on how to supply and use these custom genes list in the [usage section](https://panpipes-pipelines.readthedocs.io/en/latest/usage/gene_list_format.html), check it out! 
 
 Download this file [here](./qc_genelist_1.0.csv)
 
@@ -290,9 +290,11 @@ the naming of the plots allows to identify the output:
 
 scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png:
 
-**scatter**: the type of plot (values: scatter/violin/barplot)
-**prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
-**log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
+- **scatter**: the type of plot (values: scatter/violin/barplot)
+  
+- **prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
+  
+- **log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
 
 
 You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the each of the multimodal assays.

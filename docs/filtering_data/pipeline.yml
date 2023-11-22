@@ -23,7 +23,7 @@ condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
 # --------------------------
 sample_prefix: teaseq
 unfiltered_obj: teaseq_unfilt.h5mu
-# if running this on prefiltered datat then
+# if running this on prefiltered data then
 #1. set unfiltered obj (above) to blank
 #2. rename your filtered file to match, the format PARAMS['sample_prefix'] + '.h5mu'
 #3. put renamed file in the same folder as this yml.
@@ -229,7 +229,7 @@ pca:
   # Otherwise specify a different solver, see https://scanpy.readthedocs.io/en/stable/generated/scanpy.tl.pca.html
   solver: default 
   # color to use when plotting the PCA
-  color_by: sample_id
+  color_by: sample_id,total_counts
 # --------------------------------------------------------------------------------------------------------
 # Protein (PROT) steps
 # --------------------------------------------------------------------------------------------------------
@@ -273,7 +273,7 @@ prot:
   # Set to False by default
   pca: True
   # number of components. Specify at least n_pcs <= number of features -1 
-  n_pcs: 50
+  n_pcs: 10
   # which solver to use
   solver: auto
   # column to be fetched from the protein layer .obs
@@ -284,8 +284,8 @@ prot:
 # --------------------------------------------------------------------------------------------------------
 atac:
   binarize: False
-  normalize: TFIDF
-  TFIDF_flavour: signac
+  normalize: log1p
+  TFIDF_flavour: 
 
   # highly variable feature selection:
   # HVF selection either with scanpy's pp.highly_variable_genes() function or a pseudo-FindTopFeatures() function of the signac package
@@ -305,7 +305,14 @@ atac:
   #----------------------------
   # ATAC Dimensionality reduction
   #----------------------------
-  dimred: LSI #PCA or LSI
+  dimred: PCA #PCA or LSI
+  n_comps: 50 # how many components to compute
   # which dimension to exclude from further processing (sometimes useful to remove PC/LSI_1  if it's associated to tech factors)
   # leave blank to retain all 
-  dim_remove: 1
+  # if using PCA, which solver to use. Default == 'arpack'
+  solver: default
+  # what covariate to use to color the dimensionality reduction
+  color_by: dataset,total_counts
+  # whether to remove the component(s) associated to technical effects, common to remove 1 for LSI
+  # leave blank to avoid removing any
+  dim_remove: 
