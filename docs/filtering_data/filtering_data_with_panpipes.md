@@ -153,7 +153,7 @@ We can look at each modality dimensionality reduction, for example the prot PCA 
 
 but in the RNA modality, the low-counts cells are distributed across multiple cell groups:
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/prot/pca_vars.png?raw=true" alt="img2" >
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/rna/pca_vars.png?raw=true" alt="img2" >
 
 
 
