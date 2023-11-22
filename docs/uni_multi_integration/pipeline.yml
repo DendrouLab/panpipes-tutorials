@@ -15,7 +15,7 @@ resources:
   # so that panpipes can find your gpu queue
   threads_gpu: 2
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
 
 # allows for tweaking which queues jobs get submitted to, 
 # in case there is a special queue for long jobs or you have access to a gpu-specific queue
@@ -298,7 +298,7 @@ multimodal:
     convergence_mode: fast
     save_parameters: False
     #if save_parameters True, set the following, otherwise leave blank
-    outfile: path/to/h5ad/to_save_model_to
+    outfile: 
   WNN:
     # muon implementation of WNN 
     modalities: rna,prot,atac 
