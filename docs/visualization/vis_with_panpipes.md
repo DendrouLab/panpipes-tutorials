@@ -11,17 +11,17 @@ In this tutorial, we will use the subset of the [teaseq datasets](https://elifes
 
 For the RNA modality, multiple QC metrics, as well as PCA and UMAP are present in the `mdata.mod["rna"]` slot: 
 <p align="left">
-<img src="input_rna.png" alt="Input MuData, RNA slot" width="700"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/input_rna.png?raw=true" alt="Input MuData, RNA slot" width="700"/>
 </p>
 
 Same goes for ATAC:
 <p align="left">
-<img src="input_atac.png" alt="Input MuData, ATAC slot" width="700"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/input_atac.png?raw=true" alt="Input MuData, ATAC slot" width="700"/>
 </p>
 
 and protein:
 <p align="left">
-<img src="input_protein.png" alt="Input MuData, protein slot" width="700"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/input_protein.png?raw=true" alt="Input MuData, protein slot" width="700"/>
 </p>
 
 
@@ -33,7 +33,7 @@ We will be working in in the `teaseq/vis` directory and save the input `MuData` 
 mkdir teaseq teaseq/vis teaseq/vis/data
 cd teaseq/vis
 ```
-You can download the `MuData` object we will use for this tutorial [here]() and save it to `teaseq/vis/data`.
+You can download the `MuData` object we will use for this tutorial [here](https://figshare.com/articles/dataset/Data_to_run_visualization_tutorial_https_panpipes-tutorials_readthedocs_io_en_latest_visualization_vis_with_panpipes_html_/24612087) and save it to `teaseq/vis/data`.
 
 After creating the directories and downloading the data, the folder structure looks as follows: 
 ```
@@ -61,16 +61,16 @@ After successfully running the pipeline with the [the provided yaml file](./pipe
 
 In each folder, you can find the embeddings (in our case PCA, UMAP) coloured by continuous variables. In this example, the PCA and UMAP of the RNA modality are coloured by `rna:total_counts`:  
 <p align="center">
-<img src="./X_pca_rna_continuous_vars.png" alt="PCA, RNA, total_counts" width="250"/>
-<img src="./X_umap_mindist_0.5_rna_continuous_vars.png" alt="UMAP, RNA, total_counts" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/X_pca_rna_continuous_vars.png?raw=true" alt="PCA, RNA, total_counts" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/X_umap_mindist_0.5_rna_continuous_vars.png?raw=true" alt="UMAP, RNA, total_counts" width="250"/>
 </p>
 
 The embeddings are also coloured by the categorical variables that are specified in the yaml. In this example, the PCA and UMAP embeddings of the RNA modality are coloured by a leiden clustering, doublet detection results, and sample ID: 
 <p align="center">
-<img src="./X_pca_rna_categorical_vars.png" alt="PCA, RNA, categorical" width="650"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/X_pca_rna_categorical_vars.png?raw=true" alt="PCA, RNA, categorical" width="650"/>
 </p>
 <p align="center">
-<img src="./X_umap_mindist_0.5_rna_categorical_vars.png" alt="UMAP, RNA, categorical" width="650"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/X_umap_mindist_0.5_rna_categorical_vars.png?raw=true" alt="UMAP, RNA, categorical" width="650"/>
 </p>
 
 
@@ -80,13 +80,13 @@ Besides the embedding plots, the pipeline also provides the possibility of (stac
 Plots of the custom markers that were specified in the [custom markers](./custom_markers.csv) csv file are also provided. The embeddings are coloured by the feature expression, additionally, dot plots and matrix plots are generated: 
 
 <p align="center">
-<img src="./X_umap_mindist_0.5_rna_logged_counts_Tcellmarkers.png" alt="UMAP, RNA, Tcellmarkers" width="500"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/X_umap_mindist_0.5_rna_logged_counts_Tcellmarkers.png?raw=true" alt="UMAP, RNA, Tcellmarkers" width="500"/>
 </p>
 <p align="center">
-<img src="./dotplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/dotplot_logged_counts_custom_markerscsv_Tcellmarkers.png?raw=true" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
 </p>
 <p align="center">
-<img src="./matrixplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/visualization/matrixplot_logged_counts_custom_markerscsv_Tcellmarkers.png?raw=true" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
 </p>
 
 
