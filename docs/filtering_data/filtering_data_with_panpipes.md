@@ -175,7 +175,7 @@ n_comps: 50 # how many components to compute
 
 We run `panpipes preprocess make full --local` again. Now we have in the mudata output file a LSI for the atac modality calculated on the same set of HVF as before, and a few new outputs, such as the LSI components correlation with gene counts.
 
-```(python)
+```
 import muon as mu
 mdata = mu.read("teaseq.h5mu")
 atac = mdata["atac"]

@@ -87,8 +87,27 @@ Once the pipeline finishes, you will find the uni or multimodal integrated objec
 Let's briefly take a look at the integration outputs:
 For the RNA modality, we see that there doesn't seem to be a strong difference when applying batch correction:
 
-
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/rna/umap_method_rna:dataset.png?raw=true" alt="img1" >
+
+But for the protein modality is a different picture:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/prot/umap_method_prot:orig.ident.png?raw=true" alt="img2" >
+
+also reflected in the LISI score:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/prot/LISI_scores.png?raw=true" alt="img3" height = 200>
+
+This unbalanced batch effect is also having an effect on WNN, but not on totalvi:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/multimodal/umap_method_atac:dataset.png?raw=true" alt="img5">
+
+and the lisi scores confirm this view
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/multimodal/LISI_scores.png?raw=true" alt="img4">
+
+(the plot shows the same LISI score for atac:dataset and rna:dataset because the pipeline detects that the columns used for each integration performed are different)
+
+
 
 In the paper, we showcase how WNN offers the flexibility to integrate modalities that have individually been batch-corrected.
 To showcase this scenario, we will use the last functionality of `panpipes integration` workflow, the `make merge_integration`. This task should be run after you have inspected the results of the integration and have decided which of the applied corrections you want to keep, for both uni and multimodal approaches.
@@ -112,10 +131,8 @@ final_obj:
     include: True
     bc_choice: harmony
   atac:
-    include: False
-    bc_choice: harmony
-    n_neighbors:
-    umap_min_dist:
+    include: True
+    bc_choice: bbknn
   multimodal:
     include: True
     bc_choice: WNN
@@ -131,13 +148,28 @@ once this is finished, you will find a new object in the main directory, namely 
 Let's create a new directory inside the integration folder where we have just finished our run.
 
 ```
-mdkir sub_integration && cd $_
+mkdir sub_integration && cd $_
 ln -s ../teaseq_corrected.h5mu teaseq_temp.h5mu
 cp ../pipeline.yml .
 ```
 
 In the new `pipeline.yml` we have just copied over, modify the name of the input file to `teaseq_temp.h5mu`. 
-Then set false all the modalities batch_correction algorithms and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object.
+Then set false all the modalities batch_correction algorithms, keep only wnn as a multimodal integration method and change the `wnn` parameters in the yaml file to instruct wnn to run on the batch corrected data from the `prot` and `atac` modalities in the h5mu input object, like so:
+
+```
+WNN:
+# muon implementation of WNN 
+modalities: rna,prot,atac 
+batch_corrected:
+  # options are: "bbknn", "scVI", "harmony", "scanorama"
+  rna: scVI
+  # options are "harmony", "bbknn"
+  prot: harmony
+  # options are "harmony"
+  atac: bbknn
+```
+
+
 To compare the new vs the nobatch wnn run as we have done in `integration`, we can create a `batch_correction` directory in this subfolder and link the original file to this location by taking care of adding a string that will distinguish the original wnn run from this new one.
 
 For example: 
@@ -150,9 +182,16 @@ ln -s ../../batch_correction/umap_multimodal_wnn.csv umap_multimodal_wnnnobatch.
 
 Also, to avoid re-running the unimodal no_correction runs, we can link the individual modalities `batch_correction/umap_*_none.csv` in the same way.
 
-Then run again `panpipes integration make full --local`
+Now go back to `sub_integration` directory and run again `panpipes integration make full --local`
 
-The pipeline will pick the new requirement for wnn and create a new wnn run with the desired batch corrections for each modality, and since we have linked the previous `wnn` correction in this subdirectory, it will generate the outputs (check the figures folder for plots and scores) to compare `wnn`` with and without batch correction.
+The pipeline will pick the new requirement for wnn and create a new wnn run with the desired batch corrections for each modality, and since we have linked the previous `wnn` correction in this subdirectory, it will generate the outputs (check the figures folder for plots and scores) to compare `wnn` with and without batch correction.
 
+When the run finishes, let's inspect the new `wnn` run. As expected, the batch effect introduced by the prot modality is now accounted for.
+
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/sub_int_figures/umap_method_rna:dataset.png?raw=true" alt="img6">
+
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/sub_int_figures/LISI_scores.png?raw=true" alt="img7">
 
 
