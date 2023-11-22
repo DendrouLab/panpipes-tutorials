@@ -88,7 +88,7 @@ Let's briefly take a look at the integration outputs:
 For the RNA modality, we see that there doesn't seem to be a strong difference when applying batch correction:
 
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_data/figures/atac/violinatac_metrics_violin.png?raw=true" alt="img1" >
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/figures/rna/umap_method_rna:dataset.png?raw=true" alt="img1" >
 
 In the paper, we showcase how WNN offers the flexibility to integrate modalities that have individually been batch-corrected.
 To showcase this scenario, we will use the last functionality of `panpipes integration` workflow, the `make merge_integration`. This task should be run after you have inspected the results of the integration and have decided which of the applied corrections you want to keep, for both uni and multimodal approaches.
