@@ -11,17 +11,17 @@ In this tutorial, we will use the subset of the [teaseq datasets](https://elifes
 
 For the RNA modality, multiple QC metrics, as well as PCA and UMAP are present in the `mdata.mod["rna"]` slot: 
 <p align="left">
-<img src="input_rna.png" alt="Input MuData, RNA slot" width="500"/>
+<img src="input_rna.png" alt="Input MuData, RNA slot" width="700"/>
 </p>
 
 Same goes for ATAC:
 <p align="left">
-<img src="input_atac.png" alt="Input MuData, ATAC slot" width="500"/>
+<img src="input_atac.png" alt="Input MuData, ATAC slot" width="700"/>
 </p>
 
 and protein:
 <p align="left">
-<img src="input_protein.png" alt="Input MuData, protein slot" width="500"/>
+<img src="input_protein.png" alt="Input MuData, protein slot" width="700"/>
 </p>
 
 
@@ -46,8 +46,8 @@ teaseq
 
 ## Edit yaml file 
 
-To create a pipeline.log and a pipeline.yml file, call `panpipes vis config` in `teaseq/vis` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the pipeline.yml or simply replace it with [the yaml file we provide](./pipeline.yml). In the yaml file you can specify which categorical and continuous variables to plot and on which embeddings. 
+To create the pipeline.log and a pipeline.yml file, call `panpipes vis config` in `teaseq/vis` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
+Modify the pipeline.yml or simply replace it with [the yaml file we provide](./pipeline.yml). In the yaml file, you can specify which categorical and continuous variables to plot and on which embeddings. 
 
 If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial, you may also download the needed csv-files of [custom markers](./custom_markers.csv), [paired markers](./paired_scatters_markers.csv), and  [paired metrics](./paired_scatters.csv). 
 
@@ -57,40 +57,36 @@ If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial,
 In `teaseq/vis`, run `panpipes vis make full --local` to visualize your data. 
 
 
-After successfully running the pipeline with the [the provided yaml file](./pipeline.yml) , the `vis` folder looks as follows: 
+After successfully running the pipeline with the [the provided yaml file](./pipeline.yml) , the `vis` folder contains a folder for each modality, in this case `rna`, `atac`, and `prot`. 
 
-```
-TODO
-```
-
-A folder for each modality is created, in this case `rna`, `atac`, and `prot`. 
-
-In each folder, you can f.ex. find the embeddings (in our case UMAP, PCA) coloured by continuous variables: 
+In each folder, you can find the embeddings (in our case PCA, UMAP) coloured by continuous variables. In this example, the PCA and UMAP of the RNA modality are coloured by `rna:total_counts`:  
 <p align="center">
 <img src="./X_pca_rna_continuous_vars.png" alt="PCA, RNA, total_counts" width="250"/>
 <img src="./X_umap_mindist_0.5_rna_continuous_vars.png" alt="UMAP, RNA, total_counts" width="250"/>
 </p>
 
-And coloured by categorical variables: 
+The embeddings are also coloured by the categorical variables that are specified in the yaml. In this example, the PCA and UMAP embeddings of the RNA modality are coloured by a leiden clustering, doublet detection results, and sample ID: 
 <p align="center">
-<img src="./X_pca_rna_categorical_vars.png" alt="PCA, RNA, categorical" width="550"/>
+<img src="./X_pca_rna_categorical_vars.png" alt="PCA, RNA, categorical" width="650"/>
 </p>
 <p align="center">
-<img src="./X_umap_mindist_0.5_rna_categorical_vars.png" alt="UMAP, RNA, categorical" width="550"/>
+<img src="./X_umap_mindist_0.5_rna_categorical_vars.png" alt="UMAP, RNA, categorical" width="650"/>
 </p>
 
 
+Besides the embedding plots, the pipeline also provides the possibility of (stacked) barplots for categorical variables and violin plots for continuous variables. 
 
-Plots of the custom markers that were specified in the [custom markers]() csv file are also provided: 
+
+Plots of the custom markers that were specified in the [custom markers](./custom_markers.csv) csv file are also provided. The embeddings are coloured by the feature expression, additionally, dot plots and matrix plots are generated: 
 
 <p align="center">
-<img src="./X_umap_mindist_0.5_rna_logged_counts_Tcellmarkers.png" alt="UMAP, RNA, Tcellmarkers" width="450"/>
+<img src="./X_umap_mindist_0.5_rna_logged_counts_Tcellmarkers.png" alt="UMAP, RNA, Tcellmarkers" width="500"/>
 </p>
 <p align="center">
-<img src="./dotplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="450"/>
+<img src="./dotplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
 </p>
 <p align="center">
-<img src="./matrixplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="450"/>
+<img src="./matrixplot_logged_counts_custom_markerscsv_Tcellmarkers.png" alt="Dotplot, RNA, Tcellmarkers" width="500"/>
 </p>
 
 
