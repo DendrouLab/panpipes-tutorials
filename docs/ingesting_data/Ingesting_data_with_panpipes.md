@@ -290,9 +290,9 @@ the naming of the plots allows to identify the output:
 
 scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png:
 
-**scatter**: the type of plot (values: scatter/violin/barplot)
-**prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
-**log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
+- **scatter**: the type of plot (values: scatter/violin/barplot)
+- **prot.orig.ident**: the grouping var used ("orig.ident" from the prot modality)
+- **log1p_nUMI_v_rna-log1p_nUMI**: the X and Y coordinates of the scatterplot
 
 
 You can also run individual steps, i.e. `panpipes ingest make plot_qc --local` will produce the qc plots from the metadata you have generated. In the `pipeline_ingest.py` workflow script, you can see that this step follows the qc metrics calculation for the each of the multimodal assays.

@@ -138,16 +138,50 @@ Look at the log file as it's generated `logs/filtering.log` to see what percenta
 
 ```
 
-Let's take a look at the plots produced now.
+Let's take a look at some of the plots produced now.
 
 
 
+We can see that we have been effective at filtering some of the cells which lied away from the correlation between the RNA and PROT modalities, looking at the scatterplot of log1p_nUMI in RNA vs PROT across the 3 teaseq samples of the original experiment.
 
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/rna_v_prot/scatter_prot.orig.ident-log1p_nUMI_v_rna-log1p_nUMI.png?raw=true" alt="img1" >
+
+After filtering, we ran normalization, scaling and dimensionality reduction for each modality.
+We can look at each modality dimensionality reduction, for example the prot PCA highlights a cluster with low UMI counts:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/prot/pca_vars.png?raw=true" alt="img2" >
+
+but in the RNA modality, the low-counts cells are distributed across multiple cell groups:
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/filtering_data/figures/prot/pca_vars.png?raw=true" alt="img2" >
 
 
 
 As usual, you can choose to modify the parameters and re-run a specific task, for example after removing the log file `logs/preprocess_rna.log` , running `panpipes preprocess make rna_preprocess` will specifically run the filtering task on the rna and exit the pipeline.
+For example, we can change the dimred of the ATAC modality into LSI, then remove the previous log file. We can simply change its name to keep the record of the previous run. (`mv logs/preprocess_atac.log logs/preprocess_atac.log`)
 
+
+```
+#----------------------------
+# ATAC Dimensionality reduction
+#----------------------------
+dimred: PCA #PCA or LSI
+n_comps: 50 # how many components to compute
+```
+
+We run `panpipes preprocess make full --local` again. Now we have a LSI for the atac modality in the mudata output file and a new plot
+
+```(python)
+import muon as mu
+mdata = mu.read("teaseq.h5mu")
+atac = mdata["atac"]
+atac
+
+
+
+```
+
+NOTE: if you want to change other parameters like methods for HVG selection, remove (or rename) the teaseq.h5mu object from 
 
 
 Next [uni and multimodal integration](../uni_multi_integration/Integrating_data_with_panpipes.md)
