@@ -119,7 +119,7 @@ other parameters include:
 scr:
   run: True
 ```
-- normalization choice of protein data
+- normalization choice of protein data (we need to normalize the protein data to visualize the quality of the AB, but the final normalization is chosen in the [preprocess worfklow](../filtering_data/filtering_data_with_panpipes.md))
 
 ```
 normalisation_methods: clr
