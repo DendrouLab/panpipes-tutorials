@@ -1,7 +1,7 @@
 # Visualizing data with Panpipes
 
 This tutorial guides you through the visualization of single-cell data using `Panpipes`. The [workflow](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/vis.html) describes the steps run by the pipeline in greater detail.
-The `vis` workflow can be run after any of the other `Panpipes` workflows and visualizes the data in e.g. UMAPs, PCA, barplots etc. It expects a `MuData` object as input. 
+The `vis` workflow can be run after any of the other `Panpipes` workflows and visualizes the data in e.g. UMAPs, PCA, barplots, etc. It expects a `MuData` object as input. 
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -57,7 +57,7 @@ If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial,
 In `teaseq/vis`, run `panpipes vis make full --local` to visualize your data. 
 
 
-After successfully running the pipeline with the [the provided yaml file](./pipeline.yml) , the `vis` folder contains a folder for each modality, in this case `rna`, `atac`, and `prot`. 
+After successfully running the pipeline with the [the provided yaml file](./pipeline.yml), the `vis` folder contains a folder for each modality, in this case, `rna`, `atac`, and `prot`. 
 
 In each folder, you can find the embeddings (in our case PCA, UMAP) coloured by continuous variables. In this example, the PCA and UMAP of the RNA modality are coloured by `rna:total_counts`:  
 <p align="center">
