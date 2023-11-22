@@ -109,7 +109,44 @@ now run `panpipes preprocess make full --local`
 
 Look at the log file as it's generated `logs/filtering.log` to see what percentage of cells you are filtering based on the selection criteria we specified in the yml.
 
-As usual, you can choose to modify the parameters and re-run a specific task, for example `panpipes preprocess make rna_preprocess` will specifically run the filtering task on the rna and exit the pipeline.
+```
+2023-11-21 18:16:11,864: INFO - Before filtering 2196
+2023-11-21 18:16:11,865: INFO - rna
+2023-11-21 18:16:11,865: INFO - filter rna pct_counts_mt to less than 40
+2023-11-21 18:16:11,883: INFO - Remaining cells 2013
+2023-11-21 18:16:11,883: INFO - Remaining cells 2013
+2023-11-21 18:16:11,883: INFO - filter rna pct_counts_rp to less than 100
+2023-11-21 18:16:11,889: INFO - Remaining cells 2013
+2023-11-21 18:16:11,889: INFO - Remaining cells 2013
+2023-11-21 18:16:11,889: INFO - filter rna doublet_scores to less than 0.25
+2023-11-21 18:16:11,895: INFO - Remaining cells 1917
+2023-11-21 18:16:11,895: INFO - Remaining cells 1917
+2023-11-21 18:16:11,895: INFO - filter rna n_genes_by_counts to more than 100
+2023-11-21 18:16:11,902: INFO - Remaining cells 1914
+2023-11-21 18:16:11,902: INFO - filter rna n_cells_by_counts to more than 1
+2023-11-21 18:16:11,915: INFO - Remaining cells 1914
+2023-11-21 18:16:11,915: INFO - prot
+2023-11-21 18:16:11,915: INFO - atac
+2023-11-21 18:16:12,229: INFO - intersecting barcodes in rna,prot,atac
+2023-11-21 18:16:12,329: INFO - Remaining cells 1914
+2023-11-21 18:16:12,329: INFO - (1914, 129082)
+2023-11-21 18:16:12,468: INFO - cell_counts
+  modality sample_id  n_cells
+0      rna    teaseq     1914
+1     prot    teaseq     1914
+2     atac    teaseq     1914
+
+```
+
+Let's take a look at the plots produced now.
+
+
+
+
+
+
+
+As usual, you can choose to modify the parameters and re-run a specific task, for example after removing the log file `logs/preprocess_rna.log` , running `panpipes preprocess make rna_preprocess` will specifically run the filtering task on the rna and exit the pipeline.
 
 
 
