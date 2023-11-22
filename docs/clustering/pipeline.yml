@@ -14,14 +14,13 @@ resources:
 
   fewer_jobs: True
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
 
 # Start
 # --------------------------
-# either one that exists already with
 sample_prefix: teaseq
-scaled_obj: ../teaseq_corrected.h5mu
-# full obj only applicable if you have filtered your sacled object by hvgs
+scaled_obj: ../teaseq_temp.h5mu
+# full obj only applicable if you have filtered your scaled object by hvgs
 # in this case panpipes will use the full obj to calculate rank_gene_groups and for plotting those genes
 # it should contain all the genes you want to include in rank_gene_groups, plus logged_counts as a layer
 # if your scaled_obj contains all the genes then leave full_obj blank

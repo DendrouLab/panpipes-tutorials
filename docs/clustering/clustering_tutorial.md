@@ -1,7 +1,7 @@
 Clustering tutorial
 ===================
 
-After the `integration` pipeline, we can run clustering in order to discover in an unsupervised way the cell-type composition in our dataset.
+After the `integration` pipeline, we can run clustering in order to discover the cell-type composition of our dataset in an unsupervised way.
 
 Let's create a clustering folder where we can run our workflow.
 
@@ -9,12 +9,16 @@ Let's create a clustering folder where we can run our workflow.
 *As usual, customize your project folder structure as works best for you!*
 
 ```
-mkidr clustering & cd $_
+mkdir clustering && cd $_
 ```
 
-now run `panpipes clustering config` . Inspect and customize the yml (or use the yml we provide in [clustering](../clustering/pipeline.yml))
+now run `panpipes clustering config`. Inspect and customize the yml (or use the yml we provide in [clustering](../clustering/pipeline.yml))
+In the config file, we specify we want to use the teaseq object we have generated in the integration folder.
 
-and run `panpipes clustering make full --local`  
+It's a rather simple setup, we simply specify 
+
+
+Now run `panpipes clustering make full --local`  
 You will find in the outputs:
  - the clustered h5mu object with all the tested combination of clustering parameters on the `.obs` of the respective modality (and the clustering of the multimodal representation in the outer `.obs`)
  - a metadata file with all the modality-specific `.obs` concatenated

@@ -139,6 +139,7 @@ final_obj:
 
 ```
 and run 
+
 ```
 panpipes integration make merge_integration --local
 ```
@@ -195,3 +196,15 @@ When the run finishes, let's inspect the new `wnn` run. As expected, the batch e
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/uni_multi_integration/sub_int_figures/LISI_scores.png?raw=true" alt="img7">
 
 
+To create a new mudata with this new version of wnn as well as the other corrections, we can link the unimodal correction files we generated before in the tmp folder:
+
+
+```
+cd tmp
+ln -s ../../tmp/scvi_scaled_adata_rna.h5ad .
+ln -s ../../tmp/harmony_scaled_adata_prot.h5ad .
+ln -s ../../tmp/bbknn_scaled_adata_atac.h5ad .
+```
+
+We don't need to change the pipeline.yml final bit because we are now fetching the updated wnn and the same unimodal correction methods as before. 
+Run `panpipes integration make merge_integration --local`. The new teaseq_corrected.h5mu object now has the new wnn data in! 
