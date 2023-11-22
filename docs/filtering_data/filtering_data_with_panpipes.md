@@ -52,7 +52,7 @@ ln -s ../teaseq_unfilt.h5mu teaseq_unfilt.h5mu
 ```
 
 
-If have a custom `.h5mu` dataset that you didn't generate with the `panpipes ingest` workflow, you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
+If you have a custom `.h5mu` dataset that you didn't generate with the `panpipes ingest` workflow, you can use `panpipes preprocess` workflow to filter the cells according to your own qc criteria. 
 
 In panpipes `preprocess` workflow, we use a [dictionary for filtering](https://panpipes-pipelines.readthedocs.io/en/latest/usage/filter_dict_instructions.html), which allows the maximum flexibility to filter your cells and features for each modality, allowing you to provide custom names.
 

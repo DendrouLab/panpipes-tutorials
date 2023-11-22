@@ -173,8 +173,8 @@ Please note that the parameters specified for modalities that are not part of th
 
 ### Specifying paths
 
-As part of the ingest workflow, we additionally specify a series of custom paths to the files that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes.
-These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads.
+As part of the ingest workflow, we additionally specify a series of custom paths to the files that contains the genes used for qc'ing the cells. We provide an example file that contains gene pathways that are associated to commonly used signatures, like mitochondrial or ribosomal genes. 
+These genes are used to score the cells for enrichment of specific signatures, and to flag cells with high percentage mitochondrial reads. We explain more on how to supply and use these custom genes list in the [usage section](https://panpipes-pipelines.readthedocs.io/en/latest/usage/gene_list_format.html), check it out! 
 
 Download this file [here](./qc_genelist_1.0.csv)
 
