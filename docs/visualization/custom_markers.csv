@@ -1,0 +1,7 @@
+mod,feature,group
+prot,prot_CD8,Tcellmarkers
+rna,CD8A,Tcellmarkers
+rna,CD4,Tcellmarkers
+rna,MS4A1,Bcellmarkers
+rna,GNLY,NKcellmarkers
+rna,GZMA,NKcellmarkers
