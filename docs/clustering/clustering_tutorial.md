@@ -109,7 +109,7 @@ here's what the different clusters look like on the computed RNA umap:
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/rna/X_umap_clusters.png?raw=true" alt="img1" >
 
-for reference, this is what our umap looked like in the integration analysis :
+for reference, this is what the RNA umap looked like in the integration analysis :
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/rna/umap_scvi_batch.png?raw=true" alt="img1" >
 
@@ -118,13 +118,22 @@ for reference, this is what our umap looked like in the integration analysis :
 These are the clustering resolutions we tested on the protein modality:
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/prot/X_umap_clusters.png?raw=true" alt="img1" >
 
+
+We can use [clustree]() to visualize how the cells are partitioned at increasing resolution parameters. Clustree is ran by default if you request more than one resolution per modality.
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/prot/clustree.png?raw=true" alt="img1" >
+
+
 While this is the multimodal clustered representation, we can see that the parameters combination did not yield different clusterings:
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/X_umap_clusters.png?raw=true" alt="img1" >
 
 Finally, an example of marker plots, calculated on the multimodal clusters:
 
-RNA
+- RNA markers obtained on multimodal clusters using normalized RNA counts
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/X_umap_clusters.png?raw=true" alt="img1" >
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/dotplot__top_markersrna.png?raw=true" alt="img1" >
 
+- ATAC markers obtained on multimodal clusters using normalized ATAC counts
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/matrixplot__top_markersatac.png?raw=true" alt="img1" >
