@@ -49,6 +49,7 @@ Finally, the workflow runs markers analysis across all combinations of clusterin
 
 Now run `panpipes clustering make full --local`  
 
+## Results
 
 After the workfow has finished, you will find in the outputs:
  - the clustered h5mu object with all the tested combination of clustering parameters on the `.obs` of the respective modality ,with the clustering of the multimodal representation,  in the outer `.obs`.
@@ -63,7 +64,7 @@ After the workfow has finished, you will find in the outputs:
   Finally, each of the clustering directories contains plots and txt files for the marker analysis. We run the marker analysis using the clustering results and ANY of the modalities. That means you can discover protein markers for clusters that were calculated on RNA, or on ATAC, and viceversa.
 
 
-let's take a look at the rna folder, we can focus on one resolution folder (algleiden_res0.2 in this example):
+Let's take a look at the rna folder, we can focus on one resolution folder (algleiden_res0.2 in this example):
 
 ```
 rna
@@ -104,27 +105,29 @@ rna
 └── md0.5_umap.txt.gz
 ```
 
-here's what the different clusters look like on the computed RNA umap:
+#### RNA clusters
 
+Here's what the discovered RNA clusters look like on the computed RNA umap:
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/rna/X_umap_clusters.png?raw=true" alt="img1" >
 
-for reference, this is what the RNA umap looked like in the integration analysis :
+for reference, this is what the RNA umap looked like in the integration analysis, using scvi for batch correction:
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/rna/umap_scvi_batch.png?raw=true" alt="img1" >
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/rna/umap_scvi_batch.png?raw=true" alt="img1" height= 200 >
 
-
+#### PROT clusters
 
 These are the clustering resolutions we tested on the protein modality:
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/prot/X_umap_clusters.png?raw=true" alt="img1" >
 
 
-We can use [clustree]() to visualize how the cells are partitioned at increasing resolution parameters. Clustree is ran by default if you request more than one resolution per modality.
+We can use [clustree](https://academic.oup.com/gigascience/article/7/7/giy083/5052205?login=false) to visualize how the cells are partitioned at increasing resolution parameters. Clustree is ran by default if you request more than one resolution per modality.
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/prot/clustree.png?raw=true" alt="img1" >
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/prot/clustree.png?raw=true" alt="img1" height = 250>
 
+#### Multimodal clusters
 
-While this is the multimodal clustered representation, we can see that the parameters combination did not yield different clusterings:
+Finally, this is the multimodal clustered representation, we can see that the parameters combination we choose did not yield different clusterings:
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/X_umap_clusters.png?raw=true" alt="img1" >
 
@@ -134,6 +137,9 @@ Finally, an example of marker plots, calculated on the multimodal clusters:
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/dotplot__top_markersrna.png?raw=true" alt="img1" >
 
-- ATAC markers obtained on multimodal clusters using normalized ATAC counts
+- ATAC markers obtained on multimodal clusters using normalized ATAC counts, summarized by cluster.
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/matrixplot__top_markersatac.png?raw=true" alt="img1" >
+
+
+For more visualizations, like custom genes expression projected on umaps, please check the [visualization tutorial!]()
