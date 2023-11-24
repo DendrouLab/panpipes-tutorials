@@ -21,7 +21,7 @@ Review and download a [preconfigured yml here](pipeline_yml.md).
 As we did before, we can link the preprocessed `h5mu` object in the present directory where we will run the integration.
 
 ```
-ln -s ../preprocessing/teaseq.h5mu .
+ln -s ../preprocessing/teaseq_atac_pca.h5mu teaseq.h5mu
 ```
 
 For this example, we will run some uni and multimodal integration methods. 
