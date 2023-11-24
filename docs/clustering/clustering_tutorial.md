@@ -142,4 +142,4 @@ Finally, an example of marker plots, calculated on the multimodal clusters:
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/clustering/figures/multimodal/matrixplot__top_markersatac.png?raw=true" alt="img1" >
 
 
-For more visualizations, like custom genes expression projected on umaps, please check the [visualization tutorial!]()
+For more visualizations, like custom genes expression projected on umaps, please check the [visualization tutorial!](https://panpipes-tutorials.readthedocs.io/en/latest/visualization/vis_with_panpipes.html)
