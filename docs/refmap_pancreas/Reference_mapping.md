@@ -126,17 +126,24 @@ tree reference_mapping
 
 In the figures folder, you will see that panpipes has produced the umaps for both scvi and scanvi query to reference mapping runs:
 
-<div>
-	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/umap_pancreasmodel_X_scVI.png" alt="img1" width = "250" height="250"/>
-	<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/umap_pancreasmodel_X_scANVI.png" alt="img2" width = "250" height="250"/>
-</div>
 
-and for the scanvi run, which transfers the labels in the reference to the query, we can plot a confusion matrix which compares the observed query labels with the predicted labels.
+The scvi Umap showing query and reference in the same representation
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/umap_pancreasmodel_X_scVI.png?raw=true" alt="img1" width = "250" height="200"  />
 
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/SCANVI_predicted_vs_observed_labels_query_data.png" alt="img3" width = "250" height="250"/>
+The scanVI Umap showing query and reference in the same representation
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/umap_pancreasmodelscanvi_X_scANVI.png?raw=true" alt="img2" width = "250" height="200" />
 
 
-In the refmap folder, you will find these outputs
+
+For the scanvi run, which transfers the labels in the reference to the query, we can plot a confusion matrix which compares the observed query labels with the predicted labels.
+
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/SCANVI_predicted_vs_observed_labels_query_data.png?raw=true" alt="img3" width = "250" height="200"/>
+
+
+
+All the outputs of the refmap workflow are in the `refmap` directory:
+
 
 | file                                                 | file type | info                                                         |
 | ---------------------------------------------------- | --------- | ------------------------------------------------------------ |
