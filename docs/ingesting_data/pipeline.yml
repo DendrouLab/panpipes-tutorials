@@ -2,7 +2,7 @@
 # QC pipeline DendrouLab
 # ----------------------- #
 # written by Charlotte Rich-Griffin, Thom Tomas, Fabiola Curion
-# maintained by Charlotte Rich-Griffin
+
 # needs a sample metadata file (see resources for an example)
 # will run :
 #   summary plots of 10x metrics
@@ -10,10 +10,11 @@
 #   scanpy QC
 #   summary QC plots
 
-# Followed by integration pipeline and clustering pipeline. This pipeline does not perform any filtering,
-# this happens as the first stpe in the integration pipeline. See pipeline_integration.yml for details
+# Followed by preprocess pipeline. 
+# The ingest pipeline does not perform any filtering of cells or genes.
+# Filtering happens as the first step in the preprocess pipeline. See pipeline_preprocess for details
 
-# Note that if you are combining mutliple datasets from different source the final anndata object will only contain the intersect of the genes
+# Note that if you are combining multiple datasets from different source the final anndata object will only contain the intersect of the genes
 # from all the data sets. For example if the mitochondrial genes have been excluded from one of the inputs, they will be excluded from the final data set.
 # In this case it might be wise to run qc separately on each dataset, and them merge them together to create on h5ad file to use as input for
 # integration pipeline.
@@ -119,8 +120,6 @@ subset_prot_barcodes_to_rna: False
 # if starting from cellranger outputs, you can parse multiple metrics_summary.csv files and plot them together
 # the workflow looks for the metrics_summary file in the "outs" folder and will stop if it doesn't find it.
 plot_10X_metrics: False #Set to False if not using cellranger folders as input
-# if starting from cellranger outputs, you can parse the raw cell counts and plot kneeplots
-kneeplot: False
 
 # ------------------------
 # Doublets on RNA - Scrublet
@@ -209,14 +208,22 @@ custom_genes_file: panpipes-tutorials/tutorials/ingesting_data/qc_genelist_1.0.c
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 
+# -------------------
+# Plot QC
+# -------------------
+# all metrics should be inputted as a comma separated string e.g. a,b,c
+
+# base of the plots, it is a column in the obs, can be a comma separated string of multiple categorical 
+# plotqc_grouping_var: sample_id,rna:channel,prot:sample
+# normally is the channel also referred to "sample_id"
+# if left blank, the base of the plot will be the `sample_id` of your submission file
+plotqc_grouping_var: orig.ident
+
+
 # ------------
 # Plot RNA QC metrics
 # ------------
-# all metrics should be inputted as a comma separated string e.g. a,b,c
-
-# base of the plots, normally is the channel also referred to as "sample_id"
-plotqc_grouping_var: orig.ident
-# other cell covariates
+# other cell covariates in rna .obs
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
 # ------------
@@ -274,8 +281,8 @@ normalisation_methods: clr
 # margin determines whether you normalise per cell (as you would RNA norm), 
 # or by feature (recommended, due to the variable nature of adts). 
 # CLR margin 0 is recommended for informative qc plots in this pipeline
-# 0 = normalise colwise (per feature)
-# 1 = normalise rowwise (per cell)
+# 0 = normalise rowwise (per feature)
+# 1 = normalise colwise (per cell)
 clr_margin: 1
 
 
