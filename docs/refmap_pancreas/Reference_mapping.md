@@ -136,13 +136,12 @@ The scanVI Umap showing query and reference in the same representation
 
 
 
-For the scanvi run, which transfers the labels in the reference to the query, we can plot a confusion matrix which compares the observed query labels with the predicted labels.
+For the scanvi run, which transfers the labels present in the reference to the query, we can plot a confusion matrix which compares the observed query labels with the predicted labels.
 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/refmap_pancreas/SCANVI_predicted_vs_observed_labels_query_data.png?raw=true" alt="img3" width = "250" height="200"/>
 
 
-
-All the outputs of the refmap workflow are in the `refmap` directory:
+Besides figures, refmap also outputs other useful files, in the `refmap` directory:
 
 
 | file                                                 | file type | info                                                         |
