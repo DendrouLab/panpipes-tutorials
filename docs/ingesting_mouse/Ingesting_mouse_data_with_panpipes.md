@@ -91,7 +91,7 @@ Violin plots of the computed gene group percentages and gene group scores are ge
 </p>
 
 
-### [Next: filtering and preprocessing using `panpipes preprocess`](../filtering_data/filtering_data_with_panpipes.md)
+We have demonstrated a use case of ingesting mouse dataset leveraging a custom gene file generated to allow panpipes' [actions](https://panpipes-pipelines.readthedocs.io/en/latest/usage/gene_list_format.html) to be performed. Users can play with the actions and follow the standard analysis steps as demonstrated for human data in `panpipes preprocess`(../filtering_data/filtering_data_with_panpipes.md) 
 
 
 
