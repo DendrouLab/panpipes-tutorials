@@ -1,0 +1,2 @@
+sample_id	rna_path	rna_filetype
+mouse_lymph_node	data/filtered_feature_bc_matrix.h5	10X_h5
