@@ -49,7 +49,7 @@ use_existing_h5mu: False
 # For ingest the required columns are
 # sample_id  rna_path  rna_filetype  (prot_path  prot_filetype tcr_path  tcr_filetype etc.)
 # Example at resources/sample_file_mm.txt
-submission_file: /well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/panpipes/submission_file_citeseq_vdj.tsv
+submission_file: /tutorial_datasets/panpipes/submission_file_citeseq_vdj.tsv
 
 # which metadata cols from the submission file do you want to include in the anndata object
 # as a comma-separated string e.g. batch,disease,sex
@@ -93,7 +93,7 @@ barcode_mtd:
 # To merge extra information about the antibodies e.g. whether they are hashing antibodies or isotypes,
 # Create a table with the first column equivalent to the first column of cellrangers features.tsv.gz
 # and specify it below (save as txt file)
-protein_metadata_table: /well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/panpipes/protein_metadata.txt
+protein_metadata_table: /tutorial_datasets/panpipes/protein_metadata.txt
 # Make sure there are unique entries in this column for each prot.
 # include a column called isotype (containing True or False) if you want to qc isotypes
 # include a column called hashing_ab (containing True or False) if your dataset contains hashing antibodies which you wish to split into a separate modality
@@ -177,7 +177,7 @@ ccgenes: default
 # 
 # custom genes actions
 
-custom_genes_file: /well/cartography/users/dms607/panpipes_public/panpipes/panpipes/resources/qc_genelist_1.0.csv
+custom_genes_file: /panpipes/panpipes/resources/qc_genelist_1.0.csv
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 
