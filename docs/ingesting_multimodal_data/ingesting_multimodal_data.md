@@ -37,6 +37,22 @@ outs
 We created a sample submission file which will instruct `panpipes` on how to find each modality's path. Download this submission file [here](../ingesting_multimodal_data/submission_file_citeseq_vdj.tsv).
 
 Besides the first column, "sample_id",  the order in which the columns are provided is not fixed, but the column names are fixed! Failing to specify the column names will result in omission of the modality from the analysis and early stopping of the pipeline. 
+
 We find useful to generate the submission file with softwares like Numbers or Excel and save the output as a txt file to ensure that the file is properly formatted.
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
+
+
+Now, activate the environment in which you have installed `panpipes` and configure the `ingest` workflow.
+
+`panpipes ingest config`
+This command will generate a config file, `pipeline.yml`. Modify the config file to read in the sample submission file provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiomodal_data/pipeline.yml). 
+
+Please remember to apply the necessary changes in this file to ensure it will run on your computer, and specify:
+- the environment in which you're running panpipes, if applicable.
+- the path to the custom_genes_file that we use to run scanpy.score.genes (we provide an example file in the panpipes' resources folder)
+
+Now, run the full panpipes ingestion workflow with:
+
+` panpipes ingest make full`
+
 
