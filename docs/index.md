@@ -1,7 +1,7 @@
 # Panpipes Tutorials
 This [website](https://panpipes-tutorials.readthedocs.io/en/latest/) contains tutorials to exemplify running [Panpipes](https://panpipes-pipelines.readthedocs.io/en/latest/).
 
-For installation please check the [documentation](https://github.com/DendrouLab/panpipes/blob/main/docs/install.md)
+For installation please check the [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/install.html)
 
 ## List of tutorials
 
