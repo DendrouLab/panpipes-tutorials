@@ -41,8 +41,5 @@ We find useful to generate the submission file with softwares like Numbers or Ex
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
 
 
-This is the sample submission file we are using for this tutorial:
 
-|sample_id|rna_path|rna_filetype|prot_path|prot_filetype|tcr_path|tcr_filetype|bcr_path|bcr_filetype|disease_state|tissue|preservation_method|celltype|
-|human_cmv|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_1/CR_MULTI/human_cmv/outs|cellranger_multi|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_1/CR_MULTI/human_cmv/outs|cellranger_multi|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_1/CR_MULTI/human_cmv/outs/per_sample_outs/human_cmv/vdj_t/filtered_contig_annotations.csv|cellranger_vdj|NA|NA|cytomegalovirus|blood|NA|T-lymphocyte|
-|human_pbmc|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_2/CR_MULTI/human_pbmc/outs|cellranger_multi|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_2/CR_MULTI/human_pbmc/outs|cellranger_multi|NA|NA|/well/cartography/users/dms607/projects/panpipes_revisions/tutorial_datasets/dataset_2/CR_MULTI/human_pbmc/outs/per_sample_outs/human_pbmc/vdj_b/filtered_contig_annotations.csv|cellranger_vdj|healthy|blood|Fresh|PBMCs|
+
