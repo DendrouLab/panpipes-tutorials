@@ -48,7 +48,6 @@ Now, activate the environment in which you have installed `panpipes`, create a `
 mkdir 1_ingest
 cd 1_ingest
 panpipes ingest config
-
 ```
 
 `panpipes ingest config`
