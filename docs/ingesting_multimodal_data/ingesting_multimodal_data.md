@@ -34,4 +34,4 @@ outs
         `-- vdj_t
             |-- filtered_contig_annotations.csv
 ```
-
+We created a sample submission file which will instruct `panpipes` on how to find each modality's path. Download this submission file [here](../ingesting_multimodal_data/submission_file_citeseq_vdj.tsv).
