@@ -11,7 +11,7 @@ For this tutorial we downloaded the dataset 1 and dataset 2 files from the websi
 
 ```
 # Here we show the directory structure of the outs folder for dataset 1 (human PBMC)
-# only with the essential files for panpipes
+# only with the essential files needed by panpipes ingest
 tree -L 4 ./outs
 outs
 |-- multi
