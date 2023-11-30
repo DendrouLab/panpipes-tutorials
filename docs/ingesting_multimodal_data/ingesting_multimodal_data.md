@@ -40,6 +40,3 @@ Besides the first column, "sample_id",  the order in which the columns are provi
 We find useful to generate the submission file with softwares like Numbers or Excel and save the output as a txt file to ensure that the file is properly formatted.
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
 
-
-
-
