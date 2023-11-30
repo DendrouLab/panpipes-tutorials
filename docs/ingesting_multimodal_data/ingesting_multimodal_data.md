@@ -42,7 +42,14 @@ We find useful to generate the submission file with softwares like Numbers or Ex
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
 
 
-Now, activate the environment in which you have installed `panpipes` and configure the `ingest` workflow.
+Now, activate the environment in which you have installed `panpipes`, create a `1_ingest` folder  and configure the `ingest` workflow within that folder
+
+```
+mkdir 1_ingest
+cd 1_ingest
+panpipes ingest config
+
+```
 
 `panpipes ingest config`
 This command will generate a config file, `pipeline.yml`. Modify the config file to read in the sample submission file provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiomodal_data/pipeline.yml). 
