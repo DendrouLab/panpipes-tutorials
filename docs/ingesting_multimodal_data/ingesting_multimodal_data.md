@@ -1,6 +1,7 @@
 Ingesting multimodal (CITE-Seq + VDJ) datasets from cellranger outputs 
 ===================
 
+# Datasets and directories
 Panpipes can read files from different cellranger outputs. Here we will showcase the example of  two multmodal (CITE-Seq + VDJ) datasets from the 10x website while ingesting cellranger multi outputs. 
 
 Download **dataset 1 ( 10k human PBMCs)** from the [10x website](https://www.10xgenomics.com/resources/datasets/integrated-gex-totalseq-c-and-bcr-analysis-of-chromium-connect-generated-library-from-10k-human-pbmcs-2-standard)
@@ -34,6 +35,9 @@ outs
         `-- vdj_t
             |-- filtered_contig_annotations.csv
 ```
+
+# Submisison and yaml file
+
 We created a sample submission file which will instruct `panpipes` on how to find each modality's path. Download this submission file [here](../ingesting_multimodal_data/submission_file_citeseq_vdj.tsv).
 
 Besides the first column, "sample_id",  the order in which the columns are provided is not fixed, but the column names are fixed! Failing to specify the column names will result in omission of the modality from the analysis and early stopping of the pipeline. 
@@ -43,6 +47,8 @@ For more examples please check our [documentation](https://panpipes-pipelines.re
 
 As we are ingesting CITE-Seq data, we created a protein metadata table, with information on if the antibody was an isotype or a hashing antibody. it is **important** to note that the  first column equivalent to the first column of cellrangers features.tsv.gz.
 Download the protein metadata table for this tutorial [here](../ingesting_multimodal_data/protein_metadata.txt).
+
+# Run panpipes ingest
 
 Now, activate the environment in which you have installed `panpipes`, create a `1_ingest` folder  and configure the `ingest` workflow within that folder
 
@@ -69,6 +75,8 @@ The pipeline will write to standard output and to a pipeline.log file about the 
 2023-11-27 10:07:10,498 INFO main task - Completed Task = 'pipeline_ingest.full' 
 2023-11-27 10:07:10,499 INFO main experiment - job finished in 978 seconds at Mon Nov 27 10:07:10 2023 -- 27.26 12.18  0.14  0.52 -- 85d537bd-19b2-41cd-8134-5d615c1342e5
 ```
+
+# Panpipes ingest outputs
 
 Let's inspect the outputs we have generated with `panpipes ingest` in the '1_ingest' directory"
 
@@ -131,6 +139,8 @@ Moreover a `MuData` object containing information for the background or the raw 
 The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
 
 Additionaly, plots for all samples and all modalities are additionally plotted and can be found under the `figures/tenx_metrics' directory.
+
+## 10x metrics plots
 
 With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating:
 1) the scatter plots of the number of cells vs the median umis in the log10 scale.
