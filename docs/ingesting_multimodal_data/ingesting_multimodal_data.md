@@ -143,8 +143,8 @@ Additionaly, plots for all samples and all modalities are additionally plotted a
 ### 10x metrics plots
 
 With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating:
-1) the scatter plots of the number of cells vs the median umis in the log10 scale.
-2) the squencing saturation per vs Number of reads per sample. 
+1) the scatter plots of the number of cells vs the median umis in the log10 scale for the RNA modality.
+2) the sequencing saturation per vs Number of reads per sample for the RNA modality. 
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="350"/>
