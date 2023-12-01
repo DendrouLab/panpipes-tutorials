@@ -138,11 +138,11 @@ Moreover a `MuData` object containing information for the background or the raw 
 
 The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
 
-Additionaly, plots for all samples and all modalities are additionally plotted and can be found under the `figures/tenx_metrics' directory.
+Additionaly, plots for all modalities for all the summary metrics are individually plotted across all samples and can be found under the `figures/tenx_metrics' directory. This is a nice way to compare and contrast all the samples in a single panpipes run for the relevant metrics.
 
 ### 10x metrics plots
 
-With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating:
+With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. For example, one can check the sequencing quality of the samples by evaluating:
 1) the scatter plots of the number of cells vs the median umis in the log10 scale for the RNA modality.
 2) the sequencing saturation per vs Number of reads per sample for the RNA modality. 
 
