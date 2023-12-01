@@ -61,4 +61,80 @@ Now, run the full panpipes ingestion workflow with:
 
 ` panpipes ingest make full`
 
+The pipeline will write to standard output and to a pipeline.log file about the steps it's running. When it's finished, you will see a  pipeline finished message:
+
+```
+2023-11-27 10:07:10,498 INFO main task - Completed Task = 'pipeline_ingest.full' 
+2023-11-27 10:07:10,499 INFO main experiment - job finished in 978 seconds at Mon Nov 27 10:07:10 2023 -- 27.26 12.18  0.14  0.52 -- 85d537bd-19b2-41cd-8134-5d615c1342e5
+```
+
+Let's inspect the outputs we have generated with `panpipes ingest` in the '1_ingest' directory"
+
+```
+tree -L 2 ./1_ingest
+.
+|-- 10x_metrics.csv
+|-- _downsampled_cell_metadata.tsv
+|-- figures
+|   |-- atac
+|   |-- background
+|   |-- barplot_cellcounts_thresholds_filter.png
+|   |-- prot
+|   |-- rep
+|   |-- rna
+|   |-- rna_v_prot
+|   `-- tenx_metrics
+|-- logs
+|   |-- assess_background.log
+|   |-- concat_bg_mudatas.log
+|   |-- concat_filtered_mudatas.log
+|   |-- human_cmv_bg_downsampled.log
+|   |-- human_pbmc_bg_downsampled.log
+|   |-- load_bg_mudatas_human_cmv.log
+|   |-- load_bg_mudatas_human_pbmc.log
+|   |-- load_mudatas_human_cmv.log
+|   |-- load_mudatas_human_pbmc.log
+|   |-- plot_qc.log
+|   |-- run_dsb_clr.log
+|   |-- run_scanpy_qc_prot.log
+|   |-- run_scanpy_qc_rep.log
+|   |-- run_scanpy_qc_rna.log
+|   |-- run_scrublet_human_cmv.log
+|   |-- run_scrublet_human_pbmc.log
+|   `-- tenx_metrics_multi_aggregate.log
+|-- mm_bg.h5mu
+|-- mm_cell_metadata.tsv
+|-- mm_prot_qc_metrics_per_sample_id.csv
+|-- mm_threshold_filter.tsv
+|-- mm_threshold_filter_explained.tsv
+|-- mm_unfilt.h5mu
+|-- pipeline.log
+|-- pipeline.yml
+|-- scrublet
+|   |-- human_cmv_doubletScore_histogram.png
+|   |-- human_cmv_scrublet_scores.txt
+|   |-- human_pbmc_doubletScore_histogram.png
+|   `-- human_pbmc_scrublet_scores.txt
+`-- tmp
+    |-- human_cmv.h5mu
+    |-- human_cmv_raw.h5mu
+    |-- human_pbmc.h5mu
+    `-- human_pbmc_raw.h5mu
+```
+
+The final `MuData` object with computed QC metrics is `mm_unfilt.h5mu`. A `MuData` object without QC metrics for each sample in the ` sample submisison_file` is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as a tsv file, `mm_cell_metadata.tsv`. Lastly, the per sample ADT metrics for each antibody are extracted and also saved as a tsv file, `mm_prot_qc_metrics_per_sample_id.csv`.
+
+Moreover a `MuData` object containing information for the background or the raw cellranger output is also created and is `mm_bg.h5mu`. This is either all the barcodes in the raw cellranger or a downsample object dpeending on if the `downsample` param has been set to `True` in the `pipeline.yml'.
+
+The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
+
+Additionaly, plots for all samples and all modalities are additionally plotted and can be found under the `figures/tenx_metrics' directory.
+
+With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating the scatter plots of the number of cells vs the median umis in the log10 scale
+and also  the squencing saturation per vs Number of reads per sample. 
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png)?raw=true" alt="scatter_plot, sequencing_saturation_summary" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png)?raw=true" alt="scatter, log10_median_UMIS, log10_no_cells_per_sample" width="300"/>
+</p>
 
