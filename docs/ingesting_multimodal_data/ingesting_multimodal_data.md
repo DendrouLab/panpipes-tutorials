@@ -138,7 +138,7 @@ Moreover a `MuData` object containing information for the background or the raw 
 
 The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
 
-Additionaly, plots for all modalities for all the summary metrics are individually plotted across all samples and can be found under the `figures/tenx_metrics' directory. This is a nice way to compare and contrast all the samples in a single panpipes run for the relevant metrics.
+Additionaly, plots for all modalities for all the summary metrics are individually plotted across all samples and can be found under the `figures/tenx_metrics` directory. This is a nice way to compare and contrast all the samples in a single panpipes run for the relevant metrics.
 
 ### 10x metrics plots
 
