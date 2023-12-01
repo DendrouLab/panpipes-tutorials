@@ -134,7 +134,7 @@ With the plots in the `figures/tenx_metrics`, you can evaluate the result of the
 and also  the squencing saturation per vs Number of reads per sample. 
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="300"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png?raw=true" alt="img2" width="300"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png?raw=true" alt="img2" width="350"/>
 </p>
 
