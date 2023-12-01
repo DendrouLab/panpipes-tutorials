@@ -63,7 +63,7 @@ This command will generate a config file, `pipeline.yml`. Modify the config file
 
 Please remember to apply the necessary changes in this file to ensure it will run on your computer, and specify:
 - the environment in which you're running panpipes, if applicable.
-- the path to the custom_genes_file that we use to run scanpy.score.genes (we provide an example file in the panpipes' resources folder)
+- the path to the custom_genes_file that we use to run `scanpy.score.genes` (we provide an example file in the panpipes' resources folder)
 
 Now, run the full panpipes ingestion workflow with:
 
