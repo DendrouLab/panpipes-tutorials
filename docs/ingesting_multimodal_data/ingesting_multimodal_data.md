@@ -41,6 +41,8 @@ Besides the first column, "sample_id",  the order in which the columns are provi
 We find useful to generate the submission file with softwares like Numbers or Excel and save the output as a txt file to ensure that the file is properly formatted.
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
 
+As we are ingesting CITE-Seq data, we created a protein metadata table, with information on if the antibody was an isotype or a hashing antibody. it is **important** to note that the  first column equivalent to the first column of cellrangers features.tsv.gz.
+Download the protein metadata table for this tutorial [here](../ingesting_multimodal_data/protein_metadata.txt).
 
 Now, activate the environment in which you have installed `panpipes`, create a `1_ingest` folder  and configure the `ingest` workflow within that folder
 
@@ -130,8 +132,9 @@ The `ingest` pipleine also aggregates and outputs all the cellranger summary met
 
 Additionaly, plots for all samples and all modalities are additionally plotted and can be found under the `figures/tenx_metrics' directory.
 
-With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating the scatter plots of the number of cells vs the median umis in the log10 scale
-and also  the squencing saturation per vs Number of reads per sample. 
+With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. for example check the sequencing quality of the samples by evaluating:
+1) the scatter plots of the number of cells vs the median umis in the log10 scale.
+2) the squencing saturation per vs Number of reads per sample. 
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="350"/>
