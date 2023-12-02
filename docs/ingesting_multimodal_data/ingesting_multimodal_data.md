@@ -169,7 +169,7 @@ one can also look at other relevant `10x_metrics` such as the Mean or median rea
 
 
 ### background plots
-The ingest pipeline also plots the barcode rank gene plots for all samples , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. 
+The ingest pipeline also plots the barcode rank gene plots for all samples , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. These plots can be found in `figures/background`
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img9" width="350"/>
@@ -191,7 +191,7 @@ Additionally, we also plot the highest expressing genes and proteins in all the 
 
 
 ### RNA QC plots
-`panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check `RNA` metrics such as number of genes detected in cells vs the total UMI counts , percentage of mitochondrial reads per cell vs library size.
+`panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check `RNA` metrics under the `figures/rna` such as number of genes detected in cells vs the total UMI counts , percentage of mitochondrial reads per cell vs library size.
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img13" width="350"/>
@@ -201,13 +201,23 @@ Additionally, we also plot the highest expressing genes and proteins in all the 
 
 
 ### Protein QC and normalisation plots
-For the `PROT` metrics it might be useful to check the total counts and mean counts of per ADT across samples.
+For the `PROT` metrics it might be useful to check the total counts and mean counts of per ADT across samples. The figures can be found under 
+ `figures/prot`.
+
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/boxplot_sample_id_total_counts.png?raw=true" alt="img16" width="350"/>
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/boxplot_sample_id_mean_counts.png?raw=true" alt="img17" width="350"/>
 </p>
 
 ### Repertoire QC plots
+For the QC of of `VDJ` data, we utilise the **scirpy** python package function `scirpy.tl.chain_qc` to perform QC based on the receptor-chain pairing configuration and categorise the cells into their receptor types and subtypes. This classification of the cells can be checked in the plots under `figures/rep`.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_receptor_type.png?raw=true" alt="img18" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_bcr_receptor_subtype.png?raw=true" alt="img19" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img20" width="250"/>   
+</p>
+
 
 
 We have demonstrated how to run the `ingest` workflow on multimodal (CITE-Seq + VDJ) data with multiple samples. Filtering of cells and genes is not applied in the `ingest` workflow but in the `preprocess`. Inspecting these output should help the user to choose appropriate filters for their data!
