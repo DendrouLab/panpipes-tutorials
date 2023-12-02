@@ -229,6 +229,14 @@ For the QC of of `VDJ` data, we utilise the **scirpy** python package function `
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img23" width="250"/>   
 </p>
 
+We can also visualised the proportion of cells belonging to exanded clonotypes for the `TCR` and `BCR` data across samples. For example in the `human_cmv` sample, we see there is a high fraction of cells with expanded `TCR` clones, but this is not the case of the `BCR` clones in the `human_pbmc` sample.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_clonal_expansion_bcr.png?raw=true" alt="img24" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_clonal_expansion_tcr.png?raw=true" alt="img25" width="250"/>
+</p>
+
+
 ### Multiple Filter threshold plots
 
 To aid with the filtering of the data, we also produce outputs that simulate common filtering scenarios, the height of the bar shows the percentage of cells retained if the threshold is applied. 
