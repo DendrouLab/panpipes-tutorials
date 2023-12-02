@@ -191,9 +191,13 @@ Additionally, we also plot the highest expressing genes and proteins in all the 
 
 
 ### RNA QC plots
-`panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check RNA metrics such as number of genes detected in cells vc the total UMI counts, percentage of mitochondrial reads per cell and library size.
+`panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check RNA metrics such as number of genes detected in cells vs the total UMI counts , percentage of mitochondrial reads per cell vs library size.
 
-
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img11" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-log1p_nUMI_v_rna-log1p_genes.png?raw=true" alt="img12" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img13" width="350"/>
+</p>
 
 
 ### Protein QC plots
