@@ -134,7 +134,7 @@ tree -L 2 ./1_ingest
 
 The final `MuData` object with computed QC metrics is `mm_unfilt.h5mu`. A `MuData` object without QC metrics for each sample in the ` sample submisison_file` is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as a tsv file, `mm_cell_metadata.tsv`. Lastly, the per sample ADT metrics for each antibody are extracted and also saved as a tsv file, `mm_prot_qc_metrics_per_sample_id.csv`.
 
-Moreover a `MuData` object containing information for the background or the raw cellranger output is also created and is `mm_bg.h5mu`. This is either all the barcodes in the raw cellranger or a downsample object dpeending on if the `downsample` param has been set to `True` in the `pipeline.yml'.
+Moreover a `MuData` object containing information for the background or the raw cellranger output is also created and is `mm_bg.h5mu`. This is either all the barcodes in the raw cellranger or a downsample object dpeending on if the `downsample` param has been set to `True` in the `pipeline.yml`.
 
 The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
 
@@ -158,27 +158,35 @@ We also plots different metrics across all samples for all the inputted modaliti
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20B-Estimated%20number%20of%20cells.png?raw=true" alt="img4" width="250" height="250"/>
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20T-Estimated%20number%20of%20cells.png?raw=true" alt="img5" width="250" height="250"/>
 </p>
- 
+
+one can also look at other relevant `10x_metrics` such as the Mean or median reads/UMI counts/genes per cell for the different modalities.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Median%20UMI%20counts%20per%20cell.png?raw=true" alt="img6" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Median%20genes%20per%20cell.png?raw=true" alt="img7" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Antibody%20Capture-Mean%20reads%20per%20cell.png?raw=true" alt="img8" width="250" height="250"/>
+</p>
+
 
 ### background plots
 The ingest pipeline also plots the barcode rank gene plots for all samples , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. 
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img6" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img9" width="350"/>
 </p>
 
 Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality seperately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img7" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img10" width="350"/>
 </p>
 
 
 Additionally, we also plot the highest expressing genes and proteins in all the samples as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high backgroudn expression of particular antibodies.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img8" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img9" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img11" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img12" width="350"/>
 </p>
 
 
@@ -191,3 +199,6 @@ Additionally, we also plot the highest expressing genes and proteins in all the 
 ### Protein QC plots
 
 ### Repertoire QC plots
+
+
+We have demonstrated how to run the `ingest` workflow on multimodal (CITE-Seq + VDJ) data with multiple samples. Filtering of cells and genes is not applied in the `ingest` workflow but in the `preprocess`. Inspecting these output should help the user to choose appropriate filters for their data!
