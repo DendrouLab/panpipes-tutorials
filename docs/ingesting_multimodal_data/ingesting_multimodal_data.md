@@ -151,25 +151,34 @@ With the plots in the `figures/tenx_metrics`, you can evaluate the result of the
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png?raw=true" alt="img2" width="350"/>
 </p>
 
+We also plots different metrics across all samples for all the inputted modalities. It might be useful to examine the number of cells across all the samples for `rna + prot`,`BCR` and `TCR` modalities.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Cells.png?raw=true" alt="img3" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20B-Estimated%20number%20of%20cells.png?raw=true" alt="img4" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20T-Estimated%20number%20of%20cells.png?raw=true" alt="img5" width="350"/>
+</p>
+ 
+
 ### background plots
 The ingest pipeline also plots the barcode rank gene plots for all samples , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. 
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img3" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img6" width="350"/>
 </p>
 
 Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality seperately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img4" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img7" width="350"/>
 </p>
 
 
 Additionally, we also plot the highest expressing genes and proteins in all the samples as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high backgroudn expression of particular antibodies.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img5" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img6" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img8" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img9" width="350"/>
 </p>
 
 
