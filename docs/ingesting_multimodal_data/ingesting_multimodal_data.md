@@ -153,11 +153,11 @@ With the plots in the `figures/tenx_metrics`, you can evaluate the result of the
 
 We also plots different metrics across all samples for all the inputted modalities. It might be useful to examine the number of cells across all the samples for `rna + prot`,`BCR` and `TCR` modalities.
 
-<div align="center>
+<p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Cells.png?raw=true" alt="img3" width="250" height="250"/>
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20B-Estimated%20number%20of%20cells.png?raw=true" alt="img4" width="250" height="250"/>
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20T-Estimated%20number%20of%20cells.png?raw=true" alt="img5" width="250" height="250"/>
-</div>
+</p>
  
 
 ### background plots
