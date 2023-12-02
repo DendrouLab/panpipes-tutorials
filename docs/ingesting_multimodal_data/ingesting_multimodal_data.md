@@ -164,9 +164,6 @@ For example we plot the highest expressing genes and proteins in all the samples
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img4" width="350"/>
-</p>
-
-<p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img5" width="350"/>
 </p>
 
