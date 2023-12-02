@@ -209,13 +209,23 @@ For the `PROT` metrics it might be useful to check the total counts and mean cou
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/boxplot_sample_id_mean_counts.png?raw=true" alt="img17" width="350"/>
 </p>
 
+As for the `prot` modality `clr` and `dsb` normalisation can also be performed in the `panpipes ingest` step, we can also visualise the normalised ridge plots for 1) clr & 2) dsb normalisation for each of the ADTs for each sample in the `sample_submission` file.
+
+The `dsb` normalisation corrects for background `ADT` noise and cell-cell technical cell-to-cell variations and can help to identify a cleaner expression protein signal in comparison to the `clr` normalisation. Here we show the clr and dsb ridge plots for the `human_cmv` dataset.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png" alt="img18" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/human_cmv_dsb_ridgeplot.png?raw=true" alt="img19" width="350"/>
+</p>
+
+
 ### Repertoire QC plots
 For the QC of of `VDJ` data, we utilise the **scirpy** python package function `scirpy.tl.chain_qc` to perform QC based on the receptor-chain pairing configuration and categorise the cells into their receptor types and subtypes. This classification of the cells can be checked in the plots under `figures/rep`.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_receptor_type.png?raw=true" alt="img18" width="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_bcr_receptor_subtype.png?raw=true" alt="img19" width="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img20" width="250"/>   
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_receptor_type.png?raw=true" alt="img20" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_bcr_receptor_subtype.png?raw=true" alt="img21" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img22" width="250"/>   
 </p>
 
 
