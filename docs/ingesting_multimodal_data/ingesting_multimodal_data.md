@@ -158,18 +158,26 @@ The ingest pipeline also plots the barcode rank gene plots for all samples , so 
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img3" width="350"/>
 </p>
 
-Moreover, we also evaluates the downsampled background for the **rna** and **prot** modality seperately and compared to each for all samples. 
-
-For example we plot the highest expressing genes and proteins in all the samples as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high backgroudn expression of particular antibodies.
+Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality seperately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img4" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img5" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img4" width="350"/>
 </p>
 
 
+Additionally, we also plot the highest expressing genes and proteins in all the samples as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high backgroudn expression of particular antibodies.
+
+<p align="center">
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img5" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img6" width="350"/>
+</p>
+
 
 ### RNA QC plots
+`panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check RNA metrics such as number of genes detected in cells vc the total UMI counts, percentage of mitochondrial reads per cell and library size.
+
+
+
 
 ### Protein QC plots
 
