@@ -10,6 +10,7 @@ For installation please check the [documentation](https://panpipes-pipelines.rea
 
 ingesting_data/Ingesting_data_with_panpipes.md
 ingesting_multiome/ingesting_mome.md
+ingesting_multimodal_data/ingesting_multimodal_data.md
 ingesting_mouse/Ingesting_mouse_data_with_panpipes.md
 filtering_data/filtering_data_with_panpipes.md
 uni_multi_integration/Integrating_data_with_panpipes.md

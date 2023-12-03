@@ -36,7 +36,7 @@ outs
             |-- filtered_contig_annotations.csv
 ```
 
-## Submisison and yaml file
+## Submission and yaml file
 
 We created a sample submission file which will instruct `panpipes` on how to find each modality's path. Download this submission file [here](../ingesting_multimodal_data/submission_file_citeseq_vdj.tsv).
 
@@ -45,7 +45,7 @@ Besides the first column, "sample_id",  the order in which the columns are provi
 We find useful to generate the submission file with softwares like Numbers or Excel and save the output as a txt file to ensure that the file is properly formatted.
 For more examples please check our [documentation](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#panpipes-sample-submission-file) on sample submission files.
 
-As we are ingesting CITE-Seq data, we created a protein metadata table, with information on if the antibody was an isotype or a hashing antibody. it is **important** to note that the  first column equivalent to the first column of cellrangers features.tsv.gz.
+As we are ingesting CITE-Seq data, we created a protein metadata table, with information on if the antibody was an isotype or a hashing antibody. It is **important** to note that the  first column is equivalent to the first column of cellranger's features.tsv.gz.
 Download the protein metadata table for this tutorial [here](../ingesting_multimodal_data/protein_metadata.txt).
 
 ## Run panpipes ingest
@@ -59,7 +59,26 @@ panpipes ingest config
 ```
 
 `panpipes ingest config`
-This command will generate a config file, `pipeline.yml`. Modify the config file to read in the sample submission file provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiomodal_data/pipeline.yml). 
+This command will generate a config file, `pipeline.yml`. Modify the config file, or just use sample submission file we provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiomodal_data/pipeline.yml). 
+
+As you see, since we have raw cellranger multimodal inputs, we can turn on a few tasks that require raw data, for example:
+
+- parsing and plotting 10x metrics for all the modalities
+
+```
+plot_10X_metrics: True
+```
+
+- estimation of background signal for proteins and rna
+```
+assess_background: True
+```
+
+- normalization of the protein data using dsb
+```
+normalisation_methods: clr,dsb
+```
+
 
 Please remember to apply the necessary changes in this file to ensure it will run on your computer, and specify:
 - the environment in which you're running panpipes, if applicable.
@@ -132,9 +151,9 @@ tree -L 2 ./1_ingest
     `-- human_pbmc_raw.h5mu
 ```
 
-The final `MuData` object with computed QC metrics is `mm_unfilt.h5mu`. A `MuData` object without QC metrics for each sample in the ` sample submisison_file` is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as a tsv file, `mm_cell_metadata.tsv`. Lastly, the per sample ADT metrics for each antibody are extracted and also saved as a tsv file, `mm_prot_qc_metrics_per_sample_id.csv`.
+The final `MuData` object with computed QC metrics is `mm_unfilt.h5mu`. A `MuData` object without QC metrics for each supplied sample in the ` sample submisison_file` is also available and stored in the `tmp` folder (you can delete this folder to save space). The metadata of the final `Mudata` object is additionally extracted and saved as a tsv file, `mm_cell_metadata.tsv`. Lastly, the per sample ADT metrics for each antibody are extracted and also saved as a tsv file, `mm_prot_qc_metrics_per_sample_id.csv`.
 
-Moreover a `MuData` object containing information for the background or the raw cellranger output is also created and is `mm_bg.h5mu`. This is either all the barcodes in the raw cellranger or a downsample object dpeending on if the `downsample` param has been set to `True` in the `pipeline.yml`.
+Moreover a `MuData` object containing information for the background or the raw cellranger output is also created and is `mm_bg.h5mu`. This is either all the barcodes in the raw cellranger or a downsample object if the `downsample` param has been set to `True` in the `pipeline.yml` (in this case, we have set it to True).
 
 The `ingest` pipleine also aggregates and outputs all the cellranger summary metrics for all the samples as a tsv file, `10x_metrics.csv`. 
 
@@ -142,7 +161,7 @@ Additionaly, plots for all modalities for all the summary metrics are individual
 
 ### 10x metrics plots
 
-With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` results for your samples. For example, one can check the sequencing quality of the samples by evaluating:
+With the plots in the `figures/tenx_metrics`, you can evaluate the result of the `cellranger multi` run for your samples. For example, one can check the sequencing quality of the samples by evaluating:
 1) the scatter plots of the number of cells vs the median umis in the log10 scale for the RNA modality.
 2) the sequencing saturation per vs Number of reads per sample for the RNA modality. 
 
@@ -168,21 +187,21 @@ one can also look at other relevant `10x_metrics` such as the Mean or median rea
 </p>
 
 
-### background plots
-The ingest pipeline also plots the barcode rank gene plots for all samples , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. These plots can be found in `figures/background`
+### Background plots
+The ingest pipeline also plots the cumulative barcode rank plots for all samples (also known as "kneeplot") , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. These plots can be found in `figures/background`
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img9" width="350"/>
 </p>
 
-Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality seperately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
+Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality separately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img10" width="350"/>
 </p>
 
 
-Additionally, we also plot the highest expressing genes and proteins in all the samples as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high backgroudn expression of particular antibodies.
+Additionally, we also plot the most highly expressed genes and proteins in the background as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high background expression of particular antibodies.
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img11" width="350"/>
@@ -212,7 +231,7 @@ For the `PROT` metrics it might be useful to check the total counts and mean cou
 
 As for the `prot` modality `clr` and `dsb` normalisation can also be performed in the `panpipes ingest` step, we can also visualise the normalised ridge plots for 1) clr & 2) dsb normalisation for each of the ADTs for each sample in the `sample_submission` file.
 
-The `dsb` normalisation corrects for background `ADT` noise and cell-cell technical cell-to-cell variations and can help to identify a cleaner expression protein signal in comparison to the `clr` normalisation. Here we show the clr and dsb ridge plots for the `human_cmv` dataset.
+The `dsb` normalisation corrects for background `ADT` noise and cell-to-cell technical variations and can help to identify a cleaner expression protein signal in comparison to the `clr` normalisation. Here we show the clr and dsb ridge plots for the `human_cmv` dataset.
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png" alt="img19" width="350"/>
@@ -229,7 +248,7 @@ For the QC of of `VDJ` data, we utilise the **scirpy** python package function `
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img23" width="250"/>   
 </p>
 
-We can also visualised the proportion of cells belonging to exanded clonotypes for the `TCR` and `BCR` data across samples. For example in the `human_cmv` sample, we see there is a high fraction of cells with expanded `TCR` clones, but this is not the case of the `BCR` clones in the `human_pbmc` sample.
+We can also visualise the proportion of cells belonging to expanded clonotypes for the `TCR` and `BCR` data across samples. For example in the `human_cmv` sample, we see there is a high fraction of cells with expanded `TCR` clones, but this is not the case of the `BCR` clones in the `human_pbmc` sample.
 
 <p align="center">
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_clonal_expansion_bcr.png?raw=true" alt="img24" width="300" height="200"/>
@@ -254,3 +273,5 @@ mu.read("mm_unfilt.h5mu")
 ```
 
 We have demonstrated how to run the `ingest` workflow on multimodal (CITE-Seq + VDJ) data with multiple samples. Filtering of cells and genes is not applied in the `ingest` workflow but in the `preprocess`. Inspecting these output should help the user to choose appropriate filters for their data!
+
+Users can follow the [preprocessing tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/filtering_data/filtering_data_with_panpipes.html) for an example on how to [filter](https://panpipes-pipelines.readthedocs.io/en/latest/usage/filter_dict_instructions.html) and further process the data. 

@@ -118,7 +118,7 @@ subset_prot_barcodes_to_rna: False
 # 10X qc files processing
 # ------------------------
 plot_10X_metrics: True
-kneeplot: False
+
 # ------------
 ## Doublets on RNA - Scrublet
 # ------------
