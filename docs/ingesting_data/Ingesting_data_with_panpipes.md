@@ -5,10 +5,19 @@ Panpipes is a single cell multimodal analysis pipeline with a lot of functionali
 Arguably, the most important part of a pipeline is the ingestion of the data into a format that allows efficient storage and agile processing. We believe that `AnnData` and `MuData` offer all those advantages and that's why we built `panpipes` with these data structure at its core. 
 Please check the [`scverse`](https://scverse.org/) webpage for more information on these formats!
 
+When running panpipes, you always need to start with the data ingestion. The ingest workflow will do the following:
+- create summary plots of 10x metrics
+- calculate scrublet scores (doublet detection)
+- scanpy Quality Control (QC)
+- create summary QC plots
+
+The ingest pipeline does not perform any filtering of cells or genes. Filtering occurs as the first step in the [preprocess workflow](https://panpipes-tutorials.readthedocs.io/en/latest/filtering_data/filtering_data_with_panpipes.html), which should be executed after the ingestion workflow.
+
 We provide examples of how to ingest single cell data from a 10X directory (see the [multiome tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_multiome/ingesting_mome.html) or the [citeseq tutorial]()) or directly from existing anndata objects, but we offer the possibility load any tabular format and assay-specific data types into a MuData object (check the [Supported Input Filetypes](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#supported-input-filetypes:~:text=per_barcode_metrics_file-,Supported%20input%20filetypes,-%EF%83%81) section and our [Ingesting Spatial Transcriptomics Tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.html))
 
 For all the tutorials we will append the `--local` command which instructs the pipeline to run on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a HPC cluster.
 
+Note that if you are combining multiple datasets from different sources, the final `AnnData` object will only contain the intersection of the genes from all the datasets. For example, if the mitochondrial genes have been excluded from one of the inputs, they will be excluded from the final dataset. In this case, it might be wise to run ingest separately on each dataset and then merge them together to create one `AnnData` object to use as input for the integration workflow.
 
 In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, check out the other tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
 
