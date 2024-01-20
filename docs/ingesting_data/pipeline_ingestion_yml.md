@@ -13,70 +13,78 @@
 ## Compute resource options
 
 * <p class="parameter">resources</p>
-    <p>Computing resources to use, specifically the number of threads used for parallel jobs.
-       Specified by the following three parameters:
-    </p><br>
-
-    * <p class="parameter">threads_high</p> Integer, Default: 1
-       <p>Number of threads used for high intensity computing tasks. 
-          For each thread, there must be enough memory to load all your input files at once and create the MuData object.
-       </p><br>
   
-    * <p class="parameter">threads_medium</p> Integer, Default: 1
+    Computing resources to use, specifically the number of threads used for parallel jobs.
+    Specified by the following three parameters:
+
+  - <p class="parameter">threads_high</p> Integer, Default: 1
+        <p>Number of threads used for high intensity computing tasks. 
+        For each thread, there must be enough memory to load all your input files at once and create the MuData object.
+        </p><br>
+  
+  - <p class="parameter">threads_medium</p> Integer, Default: 1
         <p>Number of threads used for medium intensity computing tasks.
-           For each thread, there must be enough memory to load your mudata and do computationally light tasks.
+        For each thread, there must be enough memory to load your mudata and do computationally light tasks.
         </p><br>
-
-    * <p class="parameter">threads_low</p> Integer, Default: 1
+  
+  - <p class="parameter">threads_low</p> Integer, Default: 1
   	    <p>Number of threads used for low intensity computing tasks.
-           For each thread, there must be enough memory to load text files and do plotting, requires much less memory than the other two.
+        For each thread, there must be enough memory to load text files and do plotting, requires much less memory than the other two.
         </p><br>
 
-* <p class="parameter">condaenv</p> Path
-    <p>Path to conda environment that should be used to run panpipes.
-       Leave blank if running native or your cluster automatically inherits the login node environment
-    </p><br>
+* <p class="parameter">condaenv</p> String
+  
+    Path to conda environment that should be used to run panpipes.
+    Leave blank if running native or your cluster automatically inherits the login node environment
+
 
 ## Loading and concatenating data options
 ### Project name and data format
 
 * <p class="parameter">project</p> String, Default: "test"
-    <p>Project name.
-    </p><br>
+    
+    Project name.
+
 
 * <p class="parameter">sample_prefix</p> String, Default: "test"
-    <p>Prefix for sample names.
-    </p><br>
+    
+    Prefix for sample names.
+
 
 * <p class="parameter">use_existing_h5mu</p> Boolean (True/False)
-    <p>If you have an existing MuData object (.h5mu file) that you want to run panpipes on, then store it in the folder where you intend to run the workflow, and call it ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above.
-    </p><br>
+    
+    If you have an existing MuData object (.h5mu file) that you want to run panpipes on, then store it in the folder where you intend to run the workflow, and call it ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above.
+
 
 * <p class="parameter">submission_file</p> String
-    <p>Submission file name (e.g. sample_file_qc.txt).
-       Ensure that the submission file must be in the right format.
-       For ingest, the submission file must contain the follwing columns: sample_id  rna_path  rna_filetype  (prot_path  prot_filetype tcr_path  tcr_filetype etc.)
-  	   An example submission file can be found at resources/sample_file_mm.txt
-    </p><br>
+    
+    Submission file name (e.g. sample_file_qc.txt).
+    Ensure that the submission file must be in the right format.
+    For ingest, the submission file must contain the follwing columns: sample_id  rna_path  rna_filetype  (prot_path  prot_filetype tcr_path  tcr_filetype etc.)
+    An example submission file can be found at resources/sample_file_mm.txt
+
 
 * <p class="parameter">metadatacols</p> String (comma-separated)
-    <p>Specify the metadata columns from the submission file that you want to include in for the downstream processing of the data.
-       The specified columns will we included in the created AnnData object that stores all data.
-       Provide the columns as a comma-separated String, for example: batch,disease,sex
-    </p><br>
+    
+    Specify the metadata columns from the submission file that you want to include in for the downstream processing of the data.
+    The specified columns will we included in the created AnnData object that stores all data. 
+    Provide the columns as a comma-separated String, for example: batch,disease,sex
+
 
 * <p class="parameter">concat_join_type</p> String, Default: inner
-    <p>Specifies which concat join is performed on the MuData objects.
-       We recommended inner.
-       See the [AnnData documentation](https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins) for details.
-    </p><br>
+    
+    Specifies which concat join is performed on the MuData objects.
+    We recommended `inner`.
+    See the [AnnData documentation](https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins) for details.
+
 
 ### Modalities in the project
 
 It is crucial to specify which modalities are present in the data and need to be processed by panpipes.
 The Quality Control (QC) is run for each modality independently.
 
-* <p class="parameter">modalities:</p><br>
+* <p class="parameter">modalities:</p>
+    
     Specify which modalities are included in the data by setting the respective modality to True.
     Leave empty (None) or False to signal this modality is not part of the experiment.
     The modalities are processed in the order of the following list:
@@ -89,7 +97,8 @@ The Quality Control (QC) is run for each modality independently.
     
 ### Integrating barcode level data
 
-* <p class="parameter">barcode_mtd</p><br>
+* <p class="parameter">barcode_mtd</p>
+  
     Specify if you want to integrate barcode level data, such as demultiplexing with hashtags, chemical tags or lipid tagging.
     In case you have cell level metadata such as results from a demultiplexing algorithm, you can incorporate it into the MuData object.
     The demultiplexing results should be stored in one csv file containing 2 columns, barcode_id, and sample_id.
@@ -111,93 +120,99 @@ The Quality Control (QC) is run for each modality independently.
 
 ### Loading prot data - additional options
 * <p class="parameter">protein_metadata_table</p> String
-    <p>File containing additional information on the proteins.
-      By default, the ingestion workflow will use the first column of the cellranger features.tsv.gz.
-      If you want to add additional information about the antibodies (e.g. whether they are hashing antibodies or isotypes), you need to provide an additional table containing these information.
-      The first column of the table must be equivalent to the first column of cellrangers features.tsv.gz and it must be stored as a txt file.
-      For example, you could create a table that include a column called isotype (containing True or False) to run QC isotypes, and a column called hashing_ab (containing True or False) if your dataset contains hashing antibodies which you wish to split into a separate modality.
-    </p><br>
+    
+    File containing additional information on the proteins.
+    By default, the ingestion workflow will use the first column of the cellranger features.tsv.gz.
+    If you want to add additional information about the antibodies (e.g. whether they are hashing antibodies or isotypes), you need to provide an additional table containing these information.
+    The first column of the table must be equivalent to the first column of cellrangers features.tsv.gz and it must be stored as a txt file.
+    For example, you could create a table that include a column called isotype (containing True or False) to run QC isotypes, and a column called hashing_ab (containing True or False) if your dataset contains hashing antibodies which you wish to split into a separate modality.
+
 
 * <p class="parameter">index_col_choice</p> String
-    <p>Column name from protein_metadata_table that should be included in the MuData object.
-       If you want to update the MuData object storing all our data with a column from the table specified in protein_metadata_table, specify the column name here.
-       Ensure that there are no overlaps with the gene symbols used for the rna modality, otherwise you might face issues down the line.
-       If there are overlaps with the rna gene symbols, then you might have trouble down the line
-       Consider adding e.g. a prefix to make the protein labels unique (e.g. "prot_CD4").
-    </p><br>
+    
+    Column name from protein_metadata_table that should be included in the MuData object.
+    If you want to update the MuData object storing all our data with a column from the table specified in protein_metadata_table, specify the column name here.
+    Ensure that there are no overlaps with the gene symbols used for the rna modality, otherwise you might face issues down the line.
+    If there are overlaps with the rna gene symbols, then you might have trouble down the line
+    Consider adding e.g. a prefix to make the protein labels unique (e.g. "prot_CD4").
+ 
 
 * <p class="parameter">load_prot_from_raw</p> Boolean, Default: False
-    <p>In case separate prot and rna 10X outputs are provided, the pipeline will load the filtered rna 10X outputs and the raw prot 10X counts.
-    </p><br>
+    
+    In case separate prot and rna 10X outputs are provided, the pipeline will load the filtered rna 10X outputs and the raw prot 10X counts.
+
     
 * <p class="parameter">subset_prot_barcodes_to_rna</p> Default: False
-    <p>Set to True if you want to treat filtered rna barcodes as the "real" cells (which we assume one wants to do in most cases), and, additionally, the out prot assay barcodes should mathc the rna ones.
-       If set to False, the full prot matrix will be loaded into the MuData object.
-    </p><br>
+    
+    Set to True if you want to treat filtered rna barcodes as the "real" cells (which we assume one wants to do in most cases), and, additionally, the out prot assay barcodes should mathc the rna ones.
+    If set to False, the full prot matrix will be loaded into the MuData object.
+
 
 ## Quality Control (QC) options
 ### 10X cellranger files processing
 
 * <p class="parameter">plot_10X_metrics</p> Boolean, Default: True<br>
-    <p>Specify if you want to plot 10x cellranger QC metrics.
-       Set this parameter to False if not using cellranger folders as input.
-       If starting from cellranger output, you can parse multiple metrics_summary.csv files and plot them together.
-       The ingestion workflow will search for the metrics_summary file(s) in the "outs" folder and will stop if it doesn't find it.
-    </p><br>
+    
+    Specify if you want to plot 10x cellranger QC metrics.
+    Set this parameter to False if not using cellranger folders as input.
+    If starting from cellranger output, you can parse multiple metrics_summary.csv files and plot them together.
+    The ingestion workflow will search for the metrics_summary file(s) in the "outs" folder and will stop if it doesn't find it.
+ 
 
 ### Doublets on RNA - Scrublet
 
 * <p class="parameter">scr</p><br>
-    <p>Specify the following parameters for doublet detection using the tool Scrublet. 
-    </p><br>  
+    
+    Specify the following parameters for doublet detection using the tool Scrublet.
 
     * <p class="parameter">expected_doublet_rate</p> Float, Default: 0.06
-        <p>Fraction of observations (cells) expected to be doublets.
-           Note that results are not particularly sensitive to this parameter.
-        </p><br>      
+        
+        Fraction of observations (cells) expected to be doublets.
+        Note that results are not particularly sensitive to this parameter. 
   
     * <p class="parameter">sim_doublet_ratio</p> Float, Default: 2
-        <p>Number of doublets to simulate, relative to the number of total observations.
-           Note that setting this too high drastically increases computationally complexity.
-           The minimum value we tested is 0.5.
-        </p><br>
+        
+        Number of doublets to simulate, relative to the number of total observations.
+        Note that setting this too high drastically increases computationally complexity.
+        The minimum value we tested is 0.5.
       
     * <p class="parameter">n_neighbours</p>Integer, Default: 20
-        <p>Number of neighbors used to construct the k-nearest-neighbor (KNN) classifier for the observations and simulated doublets.
-           The value (round(0.5*sqrt(n_cells))) usually works well.
-        </p><br>  
-  
+        
+        Number of neighbors used to construct the k-nearest-neighbor (KNN) classifier for the observations and simulated doublets.
+        The value (round(0.5*sqrt(n_cells))) usually works well.
+    
     * <p class="parameter">min_counts</p>Integer, Default: 2
-        <p>Used for gene filtering prior to PCA.
-           Genes expressed less than `min_counts` times in `min_cells` cells (see next parameter) are excluded from the data for further processing.
-        </p><br>  
-  
+        
+        Used for gene filtering prior to PCA.
+        Genes expressed less than `min_counts` times in `min_cells` cells (see next parameter) are excluded from the data for further processing.
+
     * <p class="parameter">min_cells</p>Integer, Default: 3
-        <p>Used for gene filtering prior to PCA.
+      
+        Used for gene filtering prior to PCA.
         Genes expressed less than `min_counts` (see previous parameter) times in `min_cells` cells are excluded from the data for further processing."
-        </p><br>  
   
     * <p class="parameter">min_gene_variability_pctl</p>Integer, Default: 85
-        <p>Used for gene filtering prior to PCA.
-           Keeps only the highly variable genes in the top min_gene_variability_pctl percentile for downstream processing, as measured by the v-statistic [Klein et al., Cell 2015].
-        </p><br>  
+      
+        Used for gene filtering prior to PCA.
+        Keeps only the highly variable genes in the top min_gene_variability_pctl percentile for downstream processing, as measured by the v-statistic [Klein et al., Cell 2015].
   
     * <p class="parameter">n_prin_comps</p> Integer, Default: 30
-        <p>Number of principal components used to embed the observations in a lower-dimensional space.
-           PCA is run prior to k-nearest-neighbor graph construction.
-        </p><br>  
+      
+        Number of principal components used to embed the observations in a lower-dimensional space.
+        PCA is run prior to k-nearest-neighbor graph construction.
   
-    * <p class="parameter">use_thr</p> Boolean, Default: True<br>
-        <p>Specify if you want to use a user-defined threshold in plots to distinguish between true and false doublets.
-           The actual threshold is defined in the following parameter.
-           If set to False, doublet detection will be run with the default threshold calculated by Scrublet.
-           Note that this threshold applies to plots only, meaning no actual filtering takes place here.
-        </p><br>  
+    * <p class="parameter">use_thr</p> Boolean, Default: True
+      
+        Specify if you want to use a user-defined threshold in plots to distinguish between true and false doublets.
+        The actual threshold is defined in the following parameter.
+        If set to False, doublet detection will be run with the default threshold calculated by Scrublet.
+        Note that this threshold applies to plots only, meaning no actual filtering takes place here.
   
-    * <p class="parameter">call_doublets_thr</p> Default: 0.25<br>
-        <p>If use_thr (previous parameter) is set to True, the threshold specified here will be used to define doublets.
-        </p><br>
+    * <p class="parameter">call_doublets_thr</p> Default: 0.25
+      
+        If use_thr (previous parameter) is set to True, the threshold specified here will be used to define doublets.
     
+
 ### RNA QC    
 This file section specifies parameters used for running Quality Control (QC) on the data.
 Note that we do not filter out cells or genes, as this is part of the subsequent workflow (preprocess).
@@ -232,67 +247,75 @@ ccgenes will plot the proportions of cell cycle genes, and, for each cell, deter
 Internally, `ccgenes` uses `scanpy.tl.score_genes_cell_cycle`, which requires a file comprising cell cicle genes to be provided.
 
 * <p class="parameter">ccgenes</p> String, Default: default
-    <p>Specify if you want to leave the default [cell cycle genes file provided by panpipes](panpipes/resources/cell_cicle_genes.tsv) (by setting this parameter to `default`) or if you want to provide your own list, in that case specify the path to that file in this parameter.
-       We recommend leaving this parameter as `default`.
-       If left blank, the cellcycle score will not be calculated.
-    </p><br>
+    
+    Specify if you want to leave the default [cell cycle genes file provided by panpipes](panpipes/resources/cell_cicle_genes.tsv) (by setting this parameter to `default`) or if you want to provide your own list, in that case specify the path to that file in this parameter.
+    We recommend leaving this parameter as `default`.
+    If left blank, the cellcycle score will not be calculated.
     
 
 #### custom genes actions
 
 * <p class="parameter">custom_genes_file</p>String, Default: resources/qc_genelist_1.0.csv
-    <p>Path to the file containing the entire gene list. Panpipes provides such a file with standard genes, and the path to this file is set as default.
-    </p><br>
+    
+    Path to the file containing the entire gene list. Panpipes provides such a file with standard genes, and the path to this file is set as default.
+  
 
 * <p class="parameter">calc_proportions</p> Default: hb,mt,rp
-    <p> Specify what gene proportions you want to calculate for each cell (e.g. mt for mitochondrial).
-    </p><br>
+    
+    Specify what gene proportions you want to calculate for each cell (e.g. mt for mitochondrial).
+    
 
 * <p class="parameter">score_genes</p> Default: MarkersNeutro
-    <p>Specify what genes should be scored.
-    </p><br>
+    
+    Specify what genes should be scored.
+ 
 
 ### Plot QC
 
 * <p class="parameter">plotqc_grouping_var</p> String, Default: orig.ident
-    <p>Specify column in the MuData observations (MuData.obs) that stores sample information (e.g. "sample_id" or "orig.ident"). Those values will be the basis of the QC plots.
-       It is also possible to use several obs columns by providing a comma separated String of multiple categorical observations (e.g. plotqc_grouping_var: sample_id,rna:channel,prot:sample)
-       If left blank, the base of the plot will be the `sample_id` of your submission file.
-    </p><br>
+    
+    Specify column in the MuData observations (MuData.obs) that stores sample information (e.g. "sample_id" or "orig.ident"). Those values will be the basis of the QC plots.
+    It is also possible to use several obs columns by providing a comma separated String of multiple categorical observations (e.g. plotqc_grouping_var: sample_id,rna:channel,prot:sample)
+    If left blank, the base of the plot will be the `sample_id` of your submission file.
+    
 
 ### Plot RNA QC metrics
 All parameter values in this section should be provided as a comma separated String e.g. a,b,c.
 
 * <p class="parameter">plotqc_rna_metrics</p> String (comma-separated), Default: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
-    <p>What cell observations to plot for the RNA modality.
-       Must be cell observations stored in .obs of the RNA AnnData.
-    </p><br>
+    
+    What cell observations to plot for the RNA modality.
+    Must be cell observations stored in .obs of the RNA AnnData.
+  
 
 ### Plot PROT QC metrics
 Plotting QC metrices for protein data requires prot_path to be included in the submission file.
 All parameter values in this section should be provided as a comma separated String e.g. a,b,c.
 
 * <p class="parameter">plotqc_prot_metrics</p> String (comma-separated), Default: total_counts,log1p_total_counts,n_prot_by_counts,pct_counts_isotype
-    <p>By leaving this parameter as the default value, the following metrics are calculated for prot data:
-       total_counts,log1p_total_counts,n_prot_by_counts,log1p_n_prot_by_counts
-       If isotypes can be detected, then the following are calculated also:
-       total_counts_isotype,pct_counts_isotype
-       You can choose which ones you want to plot here by specifying the respective metrics.
-    </p><br>
+    
+    By leaving this parameter as the default value, the following metrics are calculated for prot data:
+    total_counts,log1p_total_counts,n_prot_by_counts,log1p_n_prot_by_counts
+    If isotypes can be detected, then the following are calculated also:
+    total_counts_isotype,pct_counts_isotype
+    You can choose which ones you want to plot here by specifying the respective metrics.
+    
 
-* <p class="parameter">plot_metrics_per_prot</p> String (comma-separated), Default: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts<br>
-    <p>Since the protein antibody panels usually counts fewer features than the RNA, it might be interesting to
-       visualize breakdowns of single proteins plots describing their count distribution besides other QC options.
-       Specify the QC metrics you wish to plot here, such as any of the following:
-       n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
-    </p><br>   
+* <p class="parameter">plot_metrics_per_prot</p> String (comma-separated), Default: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
+    
+    Since the protein antibody panels usually counts fewer features than the RNA, it might be interesting to
+    visualize breakdowns of single proteins plots describing their count distribution besides other QC options.
+    Specify the QC metrics you wish to plot here, such as any of the following:
+    n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
+     
 
-* <p class="parameter">identify_isotype_outliers</p> Boolean, Default: True<br>
-    <p>Isotype outliers: one way to determine which cells are very sticky is to work out which cells have the most isotype UMIs associated to them.
-       To label a cell as an isotype outlier, it must be in the above x% quantile by UMI counts, for at least n isotypes 
-       (e.g. above 90% quantile UMIs in at least 2 isotypes).
-       The actual values are specified by the following two parameters.
-    </p><br> 
+* <p class="parameter">identify_isotype_outliers</p> Boolean, Default: True
+    
+    Isotype outliers: one way to determine which cells are very sticky is to work out which cells have the most isotype UMIs associated to them.
+    To label a cell as an isotype outlier, it must be in the above x% quantile by UMI counts, for at least n isotypes 
+    (e.g. above 90% quantile UMIs in at least 2 isotypes).
+    The actual values are specified by the following two parameters.
+    
 
 * <p class="parameter">isotype_upper_quantile</p> Integer, Default: 90
     
@@ -300,8 +323,9 @@ All parameter values in this section should be provided as a comma separated Str
 
     
 * <p class="parameter">isotype_n_pass</p> Integer, Default: 2<br>
-    <p> See explanation for `identify_isotype_outliers`.
-    </p><br>
+    
+    See explanation for `identify_isotype_outliers`.
+    
     
 ## Profiling Protein Ambient background
 It is useful to characterize the background of your gene expression assay and antibody binding assay.
