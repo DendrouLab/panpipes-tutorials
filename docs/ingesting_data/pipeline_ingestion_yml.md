@@ -376,58 +376,68 @@ This can help to determine any inconsistencies in staining per channel and other
     - 1 = normalise colwise (per cell)
 
 ### DSB parameters
+ In order to run DSB you must have access to the complete raw counts, including the empty droplets from both rna and protein assays.
+ See details for how to make sure your files are compatible in the _assess background_ section above.
 
-* <p class="parameter">quantile_clipping</p> Default: True
-    quantile clipping, even with normalisation, 
-    some cells get extreme outliers which can be clipped as discussed https://github.com/niaid/dsb
-    maximum value will be set at the value of the 99.5% quantile, applied per feature
-    note that this feature is in the default muon mu.pp.dsb code, but manually implemented in this code.
+* <p class="parameter">quantile_clipping</p> Boolean, Default: True
+  
+    Specify whether to perform quantile clipping.
+    Even with normalization, some cells will have outlier values, which can be clipped as [discussed here](https://github.com/niaid/dsb).
+    The maximum value will be set at the value of the 99.5% quantile, applied per feature.
+    Note that this feature is in the default muon `mu.pp.dsb` code, but manually implemented here.
 
-    in order to run DSB you must have access to the complete raw counts, including the empty droplets 
-    from both rna and protein assays, 
-    see details for how to make sure your files are compatible in the assess background section below
 
 ## Plot ATAC QC metrics 
-we require initializing one csv file per aggregated ATAC/multiome experiment.
-if you need to analyse multiple samples in the same project, aggregate them with the cellranger arc pipeline
-for multiome samples we recommend, specifying the 10X h5 input "10x_h5"
-per_barcode_metric is only avail on cellranger arc (multiome)
+We require initializing one csv file per aggregated ATAC/multiome experiment.
+If you need to analyse multiple samples in the same project, aggregate them with the cellranger arc pipeline.
+For multiome samples, we recommend specifying the 10X h5 input "10x_h5".
+`per_barcode_metric` is only avail on cellranger arc (multiome).
 
-* <p class="parameter">is_paired</p> Default: True
-    is this an ATAC alone or a multiome sample?
+* <p class="parameter">is_paired</p> Boolean, Default: True
+  
+    Are you working with only ATAC data, set to False.
+    If you have multiome samples, set to True.
+
 
 * <p class="parameter">partner_rna</p>
-    this is NOT a multiome exp, but you have an RNA anndata that you would like to use for TSS enrichment, 
-    leave empty if no rna provided
+  
+    In case this is NOT a multiome experiment, but you have an RNA anndata that you would like to use for TSS enrichment. 
+    Leave empty if no rna provided.
+
 
 * <p class="parameter">features_tss</p>
-    if this is a standalone atac (is_paired: False), please provide a feature file to run TSS enrichment.
-    supported annotations for protein coding genes provided
+    
+    In case this is a standalone ATAC (`is_paired`: False), please provide a feature file to run TSS enrichment. 
+    Supported annotations for protein coding genes provided.
 
-* <p class="parameter">plotqc_atac_metrics</p> Default: n_genes_by_counts,total_counts,pct_fragments_in_peaks,atac_peak_region_fragments,atac_mitochondrial_reads,atac_TSS_fragments
-    these will be used to plot and saved in the metadata
-    all metrics should be inputted as a comma separated string e.g. a,b,c
+
+* <p class="parameter">plotqc_atac_metrics</p> String (comma-separated), Default: n_genes_by_counts,total_counts,pct_fragments_in_peaks,atac_peak_region_fragments,atac_mitochondrial_reads,atac_TSS_fragments
+    
+    Specify the ATAC metrics you want to plot and save in the metadata.
+    The metrics should be provided as a comma separated string e.g. a,b,c.
+
 
 ## Plot Repertoire QC metrics
-Repertoire data will be stored in one modality called "rep", if you provide both TCR and BCR data then this will be merged, 
-but various functions will be fun on TCR and BCR separately
-Review scirpy documentation for specifics of data storage https://scverse.org/scirpy/latest/index.html
+Repertoire data will be stored in one modality called "rep".
+If you provide both TCR and BCR data, then this will be merged, nevertheless, various functions will be run on TCR and BCR separately.
+Review [scirpy documentation](https://scverse.org/scirpy/latest/index.html) for specifics on the storage of the data.
 
 * <p class="parameter">ir_dist</p>
-    compute sequence distance metric (required for clonotype definition)
-    for more info on the following args go to 
-    https://scverse.org/scirpy/latest/generated/scirpy.pp.ir_dist.html#scirpy.pp.ir_dist
-    leave blank for defaults
+  
+    Compute sequence distance metric (required for clonotype definition)
+    More information on the following args are provided [here](https://scverse.org/scirpy/latest/generated/scirpy.pp.ir_dist.html#scirpy.pp.ir_dist).
+    Leave blank to run with default arguments.
 
     * <p class="parameter">metric</p>
-    
+  
     * <p class="parameter">sequence</p>
 
+  
 * <p class="parameter">clonotype_definition</p>
-    clonotype definition 
-    for more info on the following args go to 
-    https://scverse.org/scirpy/latest/generated/scirpy.tl.define_clonotypes.html#scirpy.tl.define_clonotypes
-    leave blank for defaults
+    
+    Clonotype definition.
+    More information on the following args are provided [here](https://scverse.org/scirpy/latest/generated/scirpy.tl.define_clonotypes.html#scirpy.tl.define_clonotypes).
+    Leave blank to run with default arguments.
 
     * <p class="parameter">receptor_arms</p>
     
@@ -435,6 +445,7 @@ Review scirpy documentation for specifics of data storage https://scverse.org/sc
     
     * <p class="parameter">within_group</p>
 
+  
 * <p class="parameter">plotqc_rep_metrics</p>
     Default:
   
@@ -446,7 +457,8 @@ Review scirpy documentation for specifics of data storage https://scverse.org/sc
         - rep:chain_pairing
         - rep:multi_chain
 
-    Available matrics:
+    Specify which Repertoire QC metrics to plot.
+    Available metrics are:
     * rep:clone_id_size
     * rep:clonal_expansion
     * rep:receptor_type
