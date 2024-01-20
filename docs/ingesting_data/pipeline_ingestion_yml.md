@@ -280,89 +280,100 @@ All parameter values in this section should be provided as a comma separated Str
        You can choose which ones you want to plot here by specifying the respective metrics.
     </p><br>
 
-* <p class="parameter">plot_metrics_per_prot</p> Default: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts<br>
-    Since the protein antibody panels usually count fewer features than the RNA, it may be interesting to
-    visualize breakdowns of single proteins plots describing their count distribution and other qc options.
-    choose which ones you want to plot here, for example
-    n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
-    
-* <p class="parameter">identify_isotype_outliers</p> Default: True<br>
-    isotype outliers: one way to determine which cells are very sticky is to work out which cells have the most isotype UMIs
-    associated to them, to label a cell as an isotype outlier, it must meet or exceed the following crietria:
-    be in the above x% quantile by UMI counts, for at least n isotypes 
-    (e.g. above 90% quantile UMIs in at least 2 isotypes)
+* <p class="parameter">plot_metrics_per_prot</p> String (comma-separated), Default: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts<br>
+    <p>Since the protein antibody panels usually counts fewer features than the RNA, it might be interesting to
+       visualize breakdowns of single proteins plots describing their count distribution besides other QC options.
+       Specify the QC metrics you wish to plot here, such as any of the following:
+       n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
+    </p><br>   
 
-* <p class="parameter">isotype_upper_quantile</p> Default: 90<br>
-    
-* <p class="parameter">isotype_n_pass</p> Default: 2<br>
-    
-### Profiling Protein Ambient background
-It is useful to characterise the background of your gene expression assay and antibody binding assay.
-Inspect the plots and decide if to apply corrections, for example see Cellbender or SoupX. (currently not included in panpipes)
+* <p class="parameter">identify_isotype_outliers</p> Boolean, Default: True<br>
+    <p>Isotype outliers: one way to determine which cells are very sticky is to work out which cells have the most isotype UMIs associated to them.
+       To label a cell as an isotype outlier, it must be in the above x% quantile by UMI counts, for at least n isotypes 
+       (e.g. above 90% quantile UMIs in at least 2 isotypes).
+       The actual values are specified by the following two parameters.
+    </p><br> 
 
-PLEASE NOTE that this analysis can ONLY BE RUN IF YOU ARE PROVIDING RAW input starting from cellranger outputs
-(so the "empty" droplets can be used to  estimate the BG )
-setting asses_background to True when you don't have RAW inputs will stop the pipeline with an error.
+* <p class="parameter">isotype_upper_quantile</p> Integer, Default: 90
+    
+  See explanation for `identify_isotype_outliers`.
 
-* <p class="parameter">assess_background</p> Default: False
+    
+* <p class="parameter">isotype_n_pass</p> Integer, Default: 2<br>
+    <p> See explanation for `identify_isotype_outliers`.
+    </p><br>
+    
+## Profiling Protein Ambient background
+It is useful to characterize the background of your gene expression assay and antibody binding assay.
+Inspect the plots and decide whether corrections such as Cellbender or SoupX (currently not included in panpipes) should be applied. 
+
+>NOTE: This analysis can ONLY BE RUN IF YOU ARE PROVIDING RAW input starting from cellranger output, so that the "empty" droplets can be used to estimate the background.
+Setting asses_background to True when you don't have RAW inputs will stop the pipeline with an error.
+
+* <p class="parameter">assess_background</p> Boolean, Default: False
+
     Setting `assess_background` to True will:
-    1. create h5mu from raw data inputs (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
-    2. Plot comparitive QC plots to compare distribution of UMI and feature counts in background and foreground
-    3. Create heatmaps of the top features in the background, 
-    so you can compare the background contamination per channel
+  
+    1. Create a MuData object (h5mu) from the raw data input (expected as cellranger h5 or mtx folder, if you do not have this then set to False)
+    2. Plot comparative QC plots to compare distribution of UMI and feature counts in background and foreground
+    3. Create heatmaps depicting the top features in the background, so that you can compare the background contamination per channel
 
-* <p class="parameter">downsample_background</p> Default: True
-    typically there is a lot of cells in the full raw cellranger outputs, 
-    since we just want to get a picture of the background then we can subsample the data 
-    to a more reasonable ize. If you want to keep all the raw data then set the following to False
+
+* <p class="parameter">downsample_background</p> Boolean, Default: True
+    
+    Whether to subsample background data.
+    Typically, there are many cells in the full raw cellranger output.
+    Since we just want to get a picture of the background, we can subsample the data to a more reasonable size to speed up computation.
+    If you want to keep all the raw data then set this parameter to False.
+
 
 ### Files required for profiling ambient background or running dsb normalisation:
-the raw_feature_bc_matrix folder from cellranger or equivalent.
-The pipeline will automatically look for this as a .h5 or matrix folder 
-if the {mod}_filetype is set to "cellranger" or "cellranger_multi" or 10X_h5 
-based on the path specified in the submission file.
+To profile ambient background or run dsb normalization, the raw_feature_bc_matrix folder from cellranger or equivalent is required.
+The pipeline will automatically search for this as a .h5 or matrix folder, if the {mod}_filetype is set to "cellranger", "cellranger_multi" or "10X_h5" based on the path specified in the submission file.
 
-If you are using a different format of file input e.g. csv matrix, 
-make sure the two files are named using the convention:
+If you are using a different format of file input such as a csv matrix, make sure the two files are named using the following convention:
 {file_prefix}_filtered.csv" and {file_prefix}_raw.csv
 
-### Investigate per channel antibody staining
-This can help determine any inconsistencies in staining per channel and other QC concerns.
 
-* <p class="parameter">channel_col</p> Default: sample_id<br>
-    If you want to run clr normalisation on a per channel basis, then you need to 
-    specify which column in your submission file corresponds to the channel
-    at the QC stage it can be useful to look at the normalised data on a per sample or channel basis 
-    i.e. the 10X channel. 
-    this is usually the sample_id column (otherwise leave the next parameter blank)
+### Investigate per-channel antibody staining
+This can help to determine any inconsistencies in staining per channel and other QC concerns.
 
-* <p class="parameter">save_norm_prot_mtx</p> Default: False<br>
-    It is important to note that in ingest the per channel normalised prot scores are not saved in the mudata object
-    this is because if you perform feature normalisation (clr normalisation margin 0 or dsb normalisation), 
-    on subsets of cells then the normalised values cannot be simply concatenated. 
-    The PROT normalisation is rerun pn the complete object in the preprocess pipeline 
-    (or you can run this pipeline with channel_col set as None)
-    it is important to note, if you choose to run the clr on a per channel basis, then it is not stored in the h5mu file.
-    if you want to save the per channel normalised values set the following to True:
+* <p class="parameter">channel_col</p> String, Default: sample_id
+  
+    If you want to run clr normalisation on a per-channel basis, then you need to specify which column in your submission file corresponds to the channel at the QC stage.
+    It can be useful to look at the normalized data on a per-sample or per-channel basis, i.e. the 10X channel. 
+    Usually, this is the sample_id column (otherwise leave the next parameter blank)
+
+
+* <p class="parameter">save_norm_prot_mtx</p> Boolean, Default: False
+  
+    Set to True if you want to save the per-channel normalized values.
+    It is important to note that in ingestion workflow, the per-channel normalized prot scores are not saved in the `MuData` object.
+    This is because if you perform feature normalization (clr normalization margin 0 or dsb normalization) on subsets of cells, then the normalized values cannot simply be concatenated. 
+    The PROT normalization is rerun on the complete object in the preprocess pipeline (or you can run this pipeline with channel_col set as None).
+    Note that if you choose to run the clr on a per-channel basis, then it is not stored in the `MuData` file.
+
 
 ## PROT normalization
 
-* <p class="parameter">normalisation_methods</p> Default: clr
-    comma separated string of normalisation options
-    options: dsb,clr 
+* <p class="parameter">normalisation_methods</p> String, Default: clr, Options: dsb,clr
+    
+    Choose a normalization method.
     Setting normalization method to dsb without providing raw files will stop the pipeline with an error.
-    more details in this vignette https://muon.readthedocs.io/en/latest/omics/citeseq.html
-    dsb https://muon.readthedocs.io/en/latest/api/generated/muon.prot.pp.dsb.html
-    clr https://muon.readthedocs.io/en/latest/api/generated/muon.prot.pp.clr.html
+    More details on this can be found [here](https://muon.readthedocs.io/en/latest/omics/citeseq.html), and more specific information on 
+    [dsb here](https://muon.readthedocs.io/en/latest/api/generated/muon.prot.pp.dsb.html) and on
+    [clr here](https://muon.readthedocs.io/en/latest/api/generated/muon.prot.pp.clr.html).
+
 
 ### CLR parameters
 
-* <p class="parameter">clr_margin</p> Default: 0
-    margin determines whether you normalise per cell (as you would RNA norm), 
+* <p class="parameter">clr_margin</p> Integer, Default: 0
+  
+    Margin determines whether to normalize per cell (as you would do for RNA normalization), 
     or by feature (recommended, due to the variable nature of prot assays). 
-    CLR margin 0 is recommended for informative qc plots in this pipeline
-    0 = normalise rowwise (per feature)
-    1 = normalise colwise (per cell)
+    CLR margin 0 is recommended for informative QC plots in this pipeline.
+    - 0 = normalise rowwise (per feature, recommended)
+    - 1 = normalise colwise (per cell)
 
 ### DSB parameters
 
