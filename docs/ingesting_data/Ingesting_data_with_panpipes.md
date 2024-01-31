@@ -12,7 +12,7 @@ While going through the tutorials, you will notice that we append the --local fl
 In the following, we will explain all the steps necessary to run the `ingest` workflow, which takes multi-modal single-cell data as input and formats them into a single `MuData` object.
 
 ## 1. Preparing the data
-In this tutorial, we begin with data already stored in individual `AnnData` objects (file ending `.h5ad`) for each modality. If you want to start from another format, such as 10X outputs or CSV matrices, check out additional tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html).
+In this tutorial, we begin with data already stored in individual `AnnData` objects (file ending `.h5ad`) for each modality. If you want to start from another format, such as 10X outputs or CSV matrices, check out additional tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html).
 
 To run this tutorial with the same data as we utilized, please download the input data that we have provided [here](https://figshare.com/articles/dataset/data_to_run_tutorials_on_https_github_com_DendrouLab_panpipes-tutorials/23735706). It's a random subset of cells from the [teaseq datasets](https://elifesciences.org/articles/63632), which was also utilized in the `panpipes` paper. Once downloaded, you should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `prot` (in this case the object is saved as `adt`) and `atac`.
 
