@@ -224,7 +224,7 @@ multimodal:
     mt_column: mt
     # to filter outliers manually create a column called adt_outliers in mdata['prot'].obs
     filter_by_hvg: True
-    filter_adt_outliers: False
+    filter_prot_outliers: False
     model_args: 
       latent_distribution: "normal"
     training_args:
