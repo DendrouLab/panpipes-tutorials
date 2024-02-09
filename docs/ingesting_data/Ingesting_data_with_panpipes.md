@@ -1,40 +1,38 @@
 # Ingesting data with panpipes
 
-Panpipes is a single cell multimodal analysis pipeline with a lot of functionalities to streamline and speed up your single cell projects.
+Panpipes is a single-cell multimodal analysis pipeline that offers various functionalities to streamline and speed up your single-cell projects. It is divided into several modular [workflows](https://panpipes-pipelines.readthedocs.io/en/latest/index.html#available-workflows-for-multimodal-data), that can be run independently or in combination.
 
 Arguably, the most important part of a pipeline is the ingestion of the data into a format that allows efficient storage and agile processing. We believe that `AnnData` and `MuData` offer all those advantages and that's why we built `panpipes` with these data structure at its core. 
-Please check the [`scverse`](https://scverse.org/) webpage for more information on these formats!
+Please check the [`scverse` website](https://scverse.org/) for more information on these formats!
 
-We provide examples of how to ingest single cell data from a 10X directory (see the [multiome tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_multiome/ingesting_mome.html) or the [citeseq tutorial]()) or directly from existing anndata objects, but we offer the possibility load any tabular format and assay-specific data types into a MuData object (check the [Supported Input Filetypes](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#supported-input-filetypes:~:text=per_barcode_metrics_file-,Supported%20input%20filetypes,-%EF%83%81) section and our [Ingesting Spatial Transcriptomics Tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.html))
+When running panpipes, you always need to start with the data ingestion. The ingest workflow will do the following:
+- create summary plots of 10x metrics
+- calculate scrublet scores (doublet detection)
+- scanpy Quality Control (QC)
+- create summary QC plots
 
-For all the tutorials we will append the `--local` command which instructs the pipeline to run on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a HPC cluster.
+The ingest pipeline does not perform any filtering of cells or genes. Filtering occurs as the first step in the [preprocess workflow](https://panpipes-tutorials.readthedocs.io/en/latest/filtering_data/filtering_data_with_panpipes.html), which should be executed after the ingestion workflow.
 
+We provide examples of how to ingest single cell data starting either from 10X sequencing data (see the [multiome tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_multiome/ingesting_mome.html) or the [CITE-Seq + VDJ tutorial](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_multimodal_data/ingesting_multimodal_data.html)) or directly from existing `AnnData` objects. Importantly, it is possible to load any tabular format and assay-specific data types into one `MuData` object, which will then used for the downstream analysis by panpipes. For further information on this, check the section on [supported input filetypes](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html#supported-input-filetypes:~:text=per_barcode_metrics_file-,Supported%20input%20filetypes,-%EF%83%81) and our tutorial on [ingesting spatial transcriptomics data](https://panpipes-tutorials.readthedocs.io/en/latest/ingesting_spatial_data/Ingesting_spatialdata_with_panpipes.html).
 
-In this tutorial we are starting with the data already in individual h5ad objects per modality. If you want to start from another format, e.g. 10X outputs, or csv matrices, check out the other tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_ingest.html)
+While going through the tutorials, you will notice that we append the --local flag to each command. This flag instructs the pipeline to run on the computing node you are currently using, namely your local machine or an interactive session on a computing node within an HPC cluster.
 
+Note that if you are combining multiple datasets from different sources, the final `AnnData` object will only contain the intersection of the genes from all the datasets. For example, if the mitochondrial genes have been excluded from one of the inputs, they will be excluded from the final dataset. In this case, it might be wise to run ingest separately on each dataset and then merge them together to create one `AnnData` object to use as input for the integration workflow.
 
-## Starting from pre-existing h5ad objects
+In the following, we will explain all the steps necessary to run the `ingest` workflow, which takes multi-modal single-cell data as input and formats them into a single `MuData` object.
 
-Please download the input data that we have provided [here](https://figshare.com/articles/dataset/data_to_run_tutorials_on_https_github_com_DendrouLab_panpipes-tutorials/23735706). It's a random subset of cells from the [teaseq datasets](https://elifesciences.org/articles/63632) that we also used for the `panpipes` paper.
+## 1. Preparing the data
+In this tutorial, we begin with data already stored in individual `AnnData` objects (file ending `.h5ad`) for each modality. If you want to start from another format, such as 10X outputs or CSV matrices, check out additional tutorials and information on supported data formats [here](https://panpipes-pipelines.readthedocs.io/en/latest/usage/setup_for_qc_mm.html).
 
-You should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `prot` (in this case the object is saved as `adt`) and `atac`.
+To run this tutorial with the same data as we utilized, please download the input data that we have provided [here](https://figshare.com/articles/dataset/data_to_run_tutorials_on_https_github_com_DendrouLab_panpipes-tutorials/23735706). It's a random subset of cells from the [teaseq datasets](https://elifesciences.org/articles/63632), which was also utilized in the `panpipes` paper. Once downloaded, you should find three `.h5ad` objects in this directory, one for each modality of the teaseq experiment, namely `rna`, `prot` (in this case the object is saved as `adt`) and `atac`.
 
-In order to ingest the data, we have to tell panpipes the paths to each anndata.
-
-Download an example sample submission file here: [sample_file_qc.txt](sample_file_qc.txt).
-
-
-Create a directory in which you will store all the processing steps.
-for example 
-
+Next, create a directory in which panpipes will operate. To do so, navigate to the desired location for the folder and then create it by running the following command in your terminal (we call our directory `teaseq`):
 ``` 
 mkdir teaseq
 ```
 
-
-This is the top level directory in which you will create individual workflows outputs. 
-Create the directory to run the `ingest` workflow.
-
+The `teaseq` directory serves as the top-level directory. For each workflow you run, create a separate directory to store the output of the respective workflow.
+To create the directory for running the `ingest` workflow, execute the following:
 ```
 cd teaseq
 mkdir ingest && cd ingest
@@ -42,30 +40,30 @@ mkdir ingest && cd ingest
 mkdir data.dir
 ```
 
-Now move the 3 input anndata you downloaded into the `data.dir` folder you have just created.
+Now move the three input `AnnData` objects (file ending `.h5ad`) that you downloaded into the `data.dir` folder you have just created. You should now have the following directory structure (check with `ls` or `tree`commands if necessary):
 
 ```
->ls ingest/data.dir 
-
-adt.h5ad
-atac.h5ad
-rna.h5ad
+teaseq
+├── ingest
+│   ├── data.dir
+│   │   ├── adt.h5ad
+│   │   ├── atac.h5ad
+│   │   └── rna.h5ad
 ```
 
-## Preparing the Config and Submission file for the ingest pipeline
+## 2. Preparing the Configuration and Submission file for the ingest pipeline
 
-in `teaseq/ingest` call `panpipes ingest config`.
-This command will generate a `pipeline.log` and a `pipeline.yml` file. The `pipeline.yml` is our configuration file, it provides the workflow with some essential information, such as the path to the input data, the formats used, and holds the parameters of your analysis. The `ingest` workflow is the only one of the panpipes workflows that requires both a pipeline.yml and a submission file to perform its task (reading in single cell data and formatting it into a MuData object).
+In order to ingest the data, we have to tell panpipes the paths to each `AnnData` object, as well as specify other settings required to run `ingest`. For this purpose, panpipes uses _config_ and _submission files_. The `ingest` workflow is the only one of the panpipes workflows that requires both a _config_ and a _submission_ file to run.
 
-This is the sumbission file we are using for this tutorial (we provide it [here](./sample_file_qc.txt)):
+### Configuration file
 
-| sample_id | rna_path          | rna_filetype | prot_path         | prot_filetype | atac_path          | atac_filetype | tissue |
-| --------- | ----------------- | ------------ | ----------------- | ------------- | ------------------ | ------------- | ------ |
-| teaseq    | data.dir/rna.h5ad | h5ad         | data.dir/adt.h5ad | h5ad          | data.dir/atac.h5ad | h5ad          | pbmc   |
+Go to the directory `teaseq/ingest` and call:
+```
+panpipes ingest config
+```
+This command will generate a `pipeline.log` and a `pipeline.yml` file. The `pipeline.yml` is our configuration file, providing the `ingest` workflow with essential information such as the path to the input data, the type of data, and the parameters for running your analysis.
 
-
-
-Let's now take a look at the pipeline.yml file we provide [here](pipeline_yml.md).
+Let's have a look at the first part of the `pipeline.yml` file (in case you don't want to create it yourself, you can also view and download the completed file [here](pipeline_yml.md)):
 
 ```
 # ------------------------------------------------------------------------------------------------
@@ -77,7 +75,7 @@ Let's now take a look at the pipeline.yml file we provide [here](pipeline_yml.md
 project: Teaseq
 sample_prefix: teaseq
 # if you have an existing h5mu object that you want to run through the pipeline then
-# store it in the folder where you intend to run the folder, and call it
+# store it in the folder where you intend to run the workflow, and call it
 # ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above
 use_existing_h5mu: False
 
@@ -91,7 +89,7 @@ submission_file: sample_file_qc.txt
 # as a comma-separated string e.g. batch,disease,sex
 metadatacols: 
 
-# which concat join to you want to perform on your mudata objects, recommended inner
+# which concat join to you want to perform on your mudata objects, recommended is inner
 # see https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins for details
 concat_join_type: inner
 
@@ -107,19 +105,21 @@ modalities:
   bcr: False
   tcr: False
   atac: True
-
 ```
-- We specify the name of the sample that will be generated by aggregating the multimodal single cell data into a single MuData
-- We provide the pipeline with the input submission file in the current directory
-- We instruct the pipeline to perform the inner joint of loaded the cells in each unimodal assay (that is, we are working on cells which have all the three modalities and discarding those that don't have measurements in less than the 3 specified)
+In the excerpt from the `pipeline.yml` above, we specify the following:
+- We specify the name of the sample that will be generated when combining the individual single-cell modalities into a single `MuData`object: `teaseq`
+- We provide the name of the input submission file that should be located in the current directory: `sample_file_qc.txt`
+- We instruct the pipeline to perform an inner join when combining the unimodal assays. As a result, panpipes will only work with cells that have measurements for all three modalities and discard those that don't meet this criterion (i.e., don't have measurements for all modalities).
 
-other parameters include:
-- running doublet detection on RNA using scrublet
+There are many more parameters that can be specified in the configuration file. Important ones are:
+
+- Specify whether to run doublet detection on RNA data using scrublet (`True`/`False`):
 ```
 scr:
   run: True
 ```
-- normalization choice of protein data. Since we don't have access to cellranger files to estimate the background protein data, the only normalization we can use is clr
+
+- Choose the normalization method to use for protein data. Since, for the data used in this tutorial, we don't have access to `cellranger` files to estimate the background protein data, the only normalization we can use is `clr`:
 
 ```
 normalisation_methods: clr
@@ -132,7 +132,7 @@ normalisation_methods: clr
 clr_margin: 1
 ```
 
-- qc covariates to plot for each modality.
+- Specify which Quality Control (QC) covariates should be plotted for each modality:
 
 ```
 # ------------
@@ -162,13 +162,21 @@ plotqc_prot_metrics: total_counts,log1p_total_counts,n_adt_by_counts,pct_counts_
 # choose which ones you want to plot here, for example
 # n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
 prot_metrics_per_prot: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
-
-
 ```
 
-Inspect the configuration `pipeline.yml` file to familiarize with all the options.
-You can modify the `pipeline.yml` with custom parameters, or simply replace with the one we provide [here](pipeline_yml.md).
-Please note that the parameters specified for modalities that are not part of the experiment are ignored by the worlfow (in this case we are not processing bcr and tcr).
+One can specify many more parameters in the configuration file, `pipeline.yml`, which are all described in the file itself.
+We reccomend you closely inspect the `pipeline.yml` file to familiarize yourself with all the options.
+To progress with the tutorial, you can either modify the `pipeline.yml` with custom parameters, or simply replace the file with the one we provide [here](pipeline_yml.md).
+
+Please note that the parameters specified for modalities that are not part of the experiment are ignored by the workflow (for the data used in this tutorial, we are not processing `bcr` and `tcr` data).
+
+### Submission file
+This is the sumbission file we are using for this tutorial (we provide it [here](./sample_file_qc.txt)):
+
+| sample_id | rna_path          | rna_filetype | prot_path         | prot_filetype | atac_path          | atac_filetype | tissue |
+| --------- | ----------------- | ------------ | ----------------- | ------------- | ------------------ | ------------- | ------ |
+| teaseq    | data.dir/rna.h5ad | h5ad         | data.dir/adt.h5ad | h5ad          | data.dir/atac.h5ad | h5ad          | pbmc   |
+
 
 
 ### Specifying paths

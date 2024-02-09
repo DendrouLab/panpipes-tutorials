@@ -41,7 +41,7 @@ condaenv: pipeline_env
 project: Teaseq
 sample_prefix: teaseq
 # if you have an existing h5mu object that you want to run through the pipeline then
-# store it in the folder where you intend to run the folder, and call it
+# store it in the folder where you intend to run the workflow, and call it
 # ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above
 use_existing_h5mu: False
 
@@ -55,7 +55,7 @@ submission_file: sample_file_qc.txt
 # as a comma-separated string e.g. batch,disease,sex
 metadatacols: 
 
-# which concat join do you want to perform on your mudata objects, recommended inner
+# which concat join do you want to perform on your mudata objects, recommended is inner
 # see https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins for details
 concat_join_type: inner
 
@@ -106,7 +106,7 @@ index_col_choice:
 # If providing separate prot and rna 10X outputs, then the pipeline will load the filtered rna 10X outputs and the raw prot 10X counts
 # we assume in most cases that we want to treat filtered rna barcodes as the "real" cells
 # and we want out prot assays barcodes to match rna. In which case set subset_prot_barcodes_to_rna: True (which is also the default setting)
-# if explicitly set to False, the full prot matrix will be loaded into the mudata obect
+# if explicitly set to False, the full prot matrix will be loaded into the mudata object
 load_prot_from_raw: False
 subset_prot_barcodes_to_rna: False
 
