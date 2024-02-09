@@ -29,7 +29,7 @@ resources:
   threads_medium: 1
   # this must be enough memory to load text files and do plotting, requires much less memory than the other two
   threads_low: 1
-# path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+#Change path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
 condaenv: pipeline_env
 
 # ------------------------------------------------------------------------------------------------
@@ -201,10 +201,9 @@ ccgenes: default
 # If left blank, the cellcycle score will not be calculated.
 
 #-------------------------
-# custom genes actions
-#-------------------------
-
-custom_genes_file: panpipes-tutorials/tutorials/ingesting_data/qc_genelist_1.0.csv
+# custom genes actions#-------------------------
+# Make sure that the qc_genelist_1.0.cs file is in the current directory (data.dir) 
+custom_genes_file: qc_genelist_1.0.csv
 calc_proportions: hb,mt,rp,ig
 score_genes: MarkersNeutro
 

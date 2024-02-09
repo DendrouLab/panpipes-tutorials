@@ -51,6 +51,18 @@ teaseq
 │   │   └── rna.h5ad
 ```
 
+
+Before moving onto preparing configuration and submission for ingest, rename the three `AnnData` objects (file ending `.h5ad`) to adt.h5ad, atac.h5ad and rna.h5ad, removing the prefix subsample_. You can do so using the move command (mv) and just adding the new name to the end of the path:
+
+```
+mv subsample_adt.h5ad teaseq/ingest/data.dir/adt.h5ad
+
+mv subsample_atac.h5ad teaseq/ingest/data.dir/atac.h5ad
+
+mv subsample_rna.h5ad teaseq/ingest/data.dir/rna.h5ad
+```
+
+
 ## 2. Preparing the Configuration and Submission file for the ingest pipeline
 
 In order to ingest the data, we have to tell panpipes the paths to each `AnnData` object, as well as specify other settings required to run `ingest`. For this purpose, panpipes uses _config_ and _submission files_. The `ingest` workflow is the only one of the panpipes workflows that requires both a _config_ and a _submission_ file to run.
