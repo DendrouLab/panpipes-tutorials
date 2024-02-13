@@ -118,7 +118,7 @@ is_paired:
 # use the partner_rna to specify the path to the file and provide a features_tss file with the tss coordinates
 # leave empty if multiome is used
 partner_rna:
-features_tss: #resources/features_tss_hg19.tsv
+features_tss:
 plotqc_atac_metrics:
 
 # ---------------------------
