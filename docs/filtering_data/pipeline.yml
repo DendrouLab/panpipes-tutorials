@@ -275,7 +275,7 @@ prot:
   # number of components. Specify at least n_pcs <= number of features -1 
   n_pcs: 10
   # which solver to use
-  solver: auto
+  solver: default
   # column to be fetched from the protein layer .obs
   color_by: orig.ident,log1p_total_counts
 
