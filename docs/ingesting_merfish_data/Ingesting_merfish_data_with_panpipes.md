@@ -39,7 +39,7 @@ Create a submission file like [the one we provide](sample_file_qc_spatial.txt) a
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Customize the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
+Customize the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline_yml.md), you potentially need to add the path of the conda environment in the yaml. 
 
 
 ## Run Panpipes

@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline ingest yaml - ingesting multimodal data
 -----------------------------
 
 Download this [file](pipeline.yml)
