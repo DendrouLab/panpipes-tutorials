@@ -1,4 +1,4 @@
-Pipeline qc_spatial yaml - visium
+Pipeline preprocess_spatial yaml
 -----------------------------
 
 Download this [file](pipeline.yml)

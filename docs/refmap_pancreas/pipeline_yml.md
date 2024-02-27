@@ -1,4 +1,4 @@
-Pipeline qc_spatial yaml - visium
+Pipeline refmap yaml
 -----------------------------
 
 Download this [file](pipeline.yml)

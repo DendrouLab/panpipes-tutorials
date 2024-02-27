@@ -35,7 +35,7 @@ As with all the other worflows you can configure the refmap workflow using:
 `panpipes refmap config`
 
 which will generate the `pipeline.yml` file that is used as input. 
-We provide the pipeline yml file for this tutorial [here](../../../docs/refmap_pancreas/).
+We provide the pipeline yml file for this tutorial [here](pipeline_yml.md).
 
 
 In the config file, we only have to specify the path to the query, if the query has a batch covariate and if it has a celltype annotation column:
