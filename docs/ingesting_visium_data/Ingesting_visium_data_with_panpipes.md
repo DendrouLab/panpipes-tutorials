@@ -78,7 +78,7 @@ For `10X Visium datasets`, only the first four columns need to be specified. Wit
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
+Modify the `pipeline.yml` or simply replace it with [the one we provide](pipeline_yml.md). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline_yml.md), you potentially need to add the path of the conda environment in the yaml. 
 
 ## Run Panpipes
 
@@ -116,7 +116,7 @@ ingestion
 └── V1_Human_Lymph_Node_cell_metadata.tsv # Metadata, i.e. .obs
 ```
 In the `qc.data` folder, the final `MuData` objects with computed QC metrics are stored. `MuData` objects without QC metrics are also available and stored in the `tmp` folder. The metadata of the final `Mudata` objects is additionally extracted and saved as tsv files, `V1_Human_Heart_cell_metadata.tsv` `V1_Human_Lymph_Node_cell_metadata.tsv`.
-Using the [provided example yaml file](pipeline.yml), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
+Using the [provided example yaml file](pipeline_yml.md), the first rows and columns of the `V1_Human_Heart_cell_metadata` tsv file should look as follows: 
 
 |                   | spatial:in_tissue | spatial:array_row | spatial:array_col | spatial:sample_id | spatial:MarkersNeutro_score | spatial:n_genes_by_counts
 -------------------|-------------------|-------------------|-------------------|-------------------|-----------------------------|--------------------------
