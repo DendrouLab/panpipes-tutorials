@@ -1,6 +1,5 @@
-Pipeline preprocess yaml
+Pipeline deconvolution yml
 -----------------------------
-
 
 Download this [file](pipeline.yml)
 

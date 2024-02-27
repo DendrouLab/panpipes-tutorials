@@ -74,7 +74,7 @@ deconvolution
 ### Edit yaml file 
 
 In `spatial/deconvolution`, create the pipeline.yml and pipeline.log files by running `panpipes deconvolution_spatial config` in the command line (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the yaml file, or simply use the [pipeline.yml](pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml).  
+Modify the yaml file, or simply use the [pipeline.yml](pipeline_yml.md) that we provide (you potentially need to add the path of the conda environment in the yaml).  
 
 
 

@@ -39,7 +39,7 @@ Create a submission file like [the one we provide](sample_file_qc_spatial.txt) a
 
 Next, in `spatial/ingestion` call `panpipes qc_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Customize the `pipeline.yml` or simply replace it with [the one we provide](pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline_yml.md), you potentially need to add the path of the conda environment in the yaml. 
+Customize the `pipeline.yml` or simply replace it with [the one we provide](pipeline_yml.md). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline_yml.md), you potentially need to add the path of the conda environment in the yaml. 
 
 
 ## Run Panpipes
@@ -74,7 +74,7 @@ ingestion
 ```
 
 In the `qc.data` folder, the final `MuData` object with computed QC metrics is stored. The `MuData` object without QC metrics is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as tsv file, `mouse_brain_cell_metadata.tsv`.
-Using the [provided example yaml file](pipeline.yml), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
+Using the [provided example yaml file](pipeline_yml.md), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
 
 |                  | spatial:fov | spatial:volume | spatial:min_x | spatial:max_x | spatial:min_y | spatial:max_y
 ----------------------------------------|------------------|----------------------|----------------------|----------------------|------------------------|-----------------------

@@ -1,6 +1,5 @@
-Pipeline preprocess yaml
+Pipeline ingest yml - ingesting mouse data
 -----------------------------
-
 
 Download this [file](pipeline.yml)
 

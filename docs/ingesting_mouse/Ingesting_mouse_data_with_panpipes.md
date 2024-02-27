@@ -37,7 +37,7 @@ The `ingest` workflow provides the possibility to compute percentages and scores
 
 After creating the submission and gene list files, call `panpipes ingest config` in the `ingest` directory (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). This will generate a `pipeline.log` and a `pipeline.yml` file.
 
-Modify the `pipeline.yml` or simply replace it with [the provided yaml](./pipeline.yml). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](./pipeline.yml), you potentially need to add the path of the conda environment in the yaml. 
+Modify the `pipeline.yml` or simply replace it with [the provided yaml](pipeline_yml.md). Make sure to specify the correct path to the submission file. If you're using the [provided example yaml file](pipeline_yml.md), you potentially need to add the path of the conda environment in the yaml. 
 
 
 ## Run Panpipes

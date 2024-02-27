@@ -13,7 +13,7 @@ In your previously created the `teaseq` directory, create a new folder to run th
 mkdir preprocessing && cd preprocessing
 ```
 
-In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
+In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml.md).
 
 Open the yml file to inspect the parameters choice. 
 
