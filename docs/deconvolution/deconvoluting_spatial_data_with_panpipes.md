@@ -1,6 +1,6 @@
 # Deconvoluting spatial data with Panpipes
 
-The `deconvolution_spatial` workflow runs deconvolution for spatial data using cell2location. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/deconvolute_spatial.html).
+The `deconvolution_spatial` workflow runs deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/deconvolute_spatial.html).
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
