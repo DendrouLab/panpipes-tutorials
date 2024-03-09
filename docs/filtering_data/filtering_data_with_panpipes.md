@@ -21,23 +21,17 @@ If you have run the previous step, [Ingesting data with panpipes](../ingesting_d
 This file is the input that we specify in the yaml, where we also specify the modalities that are included in the object:
 
 ```
-# --------------------------
-# Start
-# --------------------------
+#-------------------------------
+# General project specifications
+#-------------------------------
 sample_prefix: teaseq
 unfiltered_obj: teaseq_unfilt.h5mu
-# if running this on prefiltered data then
-#1. set unfiltered obj (above) to blank
-#2. rename your filtered file to match, the format PARAMS['sample_prefix'] + '.h5mu'
-#3. put renamed file in the same folder as this yml.
-#4. set filtering run: to False below.
 
 modalities:
   rna:  True
   prot: True
   rep: False
   atac: True
-
 ```
 
 **NOTE**: it's important that the `.h5mu` object is linked (or renamed) in this directory with a `sampleprefix_unfilt` structure, cause the pipeline will look for this string to start from.
@@ -76,28 +70,18 @@ This format can be applied to any modality by editing the filtering dictionary a
 For example, the filtering in the rna modality retains cells with at least 100 counts and less than 40% mt and 25% doublet scores
 
 ```
-#------------------------------------------------------
-  rna:
-  #------------------------------------------------------
-    ## obs filtering: cell level filtering here
+#------------------------
+# RNA-specific filtering
+rna:
+    # obs, i.e. cell level filtering
     obs:
       min:
         n_genes_by_counts: 100 
       max:
-        # percent filtering: 
-        # this should be a value between 0 and 100%. 
-        # leave blank or set to 100 to avoid filtering for any of these param
         pct_counts_mt: 40
         pct_counts_rp: 100
-        # either one score for all samples e.g. 0.25, 
-        # or a csv file with two columns sample_id, and cut off
-        # less than
         doublet_scores: 0.25
-        #  if you wanted to be more precise i.e. apply a different scrublet threshold per sample
-        # you could add a new column to the mudata['rna'].obs with True False values, and list
-        # that column under bool:, you can do this for any modality
       bool:
-  
 ```
 
 Since we're using the inner join of the mudata object, all the cells passing filtering criteria in all modalities will be retained.
@@ -173,11 +157,10 @@ We rename the teaseq object with lognormalized counts and PCA for atac `teaseq_a
 
 
 ```
-#----------------------------
+#------------------------------
 # ATAC Dimensionality reduction
-#----------------------------
-dimred: LSI #PCA or LSI
-n_comps: 50 # how many components to compute
+dimred: LSI  #PCA or LSI
+n_comps: 50  #How many components to compute
 ```
 
 We run `panpipes preprocess make full --local` again. Now we have in the mudata["atac"] slot,  a new normalization layer, a new set of HVF  and the LSI for the atac modality.

@@ -172,6 +172,7 @@ prot:
   solver: default
   color_by: orig.ident,log1p_total_counts
 
+
 # ------------------------
 # ATAC preprocessing steps
 # ------------------------
