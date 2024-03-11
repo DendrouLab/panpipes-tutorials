@@ -59,7 +59,7 @@ panpipes ingest config
 ```
 
 `panpipes ingest config`
-This command will generate a config file, `pipeline.yml`. Modify the config file, or just use sample submission file we provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiomodal_data/pipeline.yml). 
+This command will generate a config file, `pipeline.yml`. Modify the config file, or just use sample submission file we provided. You can find the preconfigured `pipeline.yml` file [here](pipeline_yml.md). 
 
 As you see, since we have raw cellranger multimodal inputs, we can turn on a few tasks that require raw data, for example:
 

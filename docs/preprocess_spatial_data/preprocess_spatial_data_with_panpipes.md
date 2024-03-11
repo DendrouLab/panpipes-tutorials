@@ -43,7 +43,7 @@ The `preprocess_spatial` workflow allows you to preprocess one or multiple `MuDa
 ## Edit yaml file 
 
 In `spatial/preprocess`, create the pipeline.yml and pipeline.log files by running `panpipes preprocess_spatial config` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the yaml file, or simply use the [pipeline.yml](pipeline.yml) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
+Modify the yaml file, or simply use the [pipeline.yml](pipeline_yml.md) that we provide (you potentially need to add the path of the conda environment in the yaml). Note, that the filtering step is **optional**. You can avoid filtering by setting the `run` parameter under `filtering` to `False`. The pipeline will then only normalize the data, compute HVGs and run PCA.  
 
 
 

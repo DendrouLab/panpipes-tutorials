@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline vis yaml
 -----------------------------
 
 Download this [file](pipeline.yml)

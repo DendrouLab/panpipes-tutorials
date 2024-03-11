@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline clustering yml
 -----------------------------
 
 Download this [file](pipeline.yml)

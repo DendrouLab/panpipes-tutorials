@@ -58,7 +58,7 @@ multiomecaf.txt
 Now, activate the environment in which you have installed `panpipes` and configure the `ingest` workflow.
 
 `panpipes ingest config`
-This command will generate a config file, `pipeline.yml`. Modify the config file to read in the sample submission file provided. You can find the preconfigured `pipeline.yml` file [here](../ingesting_multiome/pipeline.yml). 
+This command will generate a config file, `pipeline.yml`. Modify the config file to read in the sample submission file provided. You can find the preconfigured `pipeline.yml` file [here](pipeline_yml.md). 
 
 Please remember to apply the necessary changes in this file to ensure it will run on your computer, and specify:
 - the environment in which you're running panpipes, if applicable.

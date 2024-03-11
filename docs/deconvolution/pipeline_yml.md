@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline deconvolution yml
 -----------------------------
 
 Download this [file](pipeline.yml)
