@@ -284,8 +284,8 @@ prot:
 # --------------------------------------------------------------------------------------------------------
 atac:
   binarize: False
-  normalize: log1p
-  TFIDF_flavour: 
+  normalize: TFIDF
+  TFIDF_flavour: signac
 
   # highly variable feature selection:
   # HVF selection either with scanpy's pp.highly_variable_genes() function or a pseudo-FindTopFeatures() function of the signac package
