@@ -1,5 +1,5 @@
 mod,feature,group
-prot,prot_CD8,Tcellmarkers
+prot,prot_CD8a,Tcellmarkers
 rna,CD8A,Tcellmarkers
 rna,CD4,Tcellmarkers
 rna,MS4A1,Bcellmarkers
