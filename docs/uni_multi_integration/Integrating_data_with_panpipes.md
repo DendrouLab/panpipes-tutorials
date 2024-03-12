@@ -18,6 +18,12 @@ panpipes integration config
 
 Review and download a [preconfigured yml here](pipeline_yml.md).
 
+
+
+For a description of the algorithms and source references for the methods that will be used below, please check [Integration methods implemented in panpipes](https://github.com/DendrouLab/panpipes/blob/docs_g/docs/usage/integration_methods.md).
+
+
+
 As we did before, we can link the preprocessed `h5mu` object in the present directory where we will run the integration.
 
 ```

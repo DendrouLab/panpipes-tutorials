@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline ingest yaml - multiome data
 -----------------------------
 
 Download this [file](pipeline.yml)

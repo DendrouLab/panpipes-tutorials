@@ -13,7 +13,7 @@ In your previously created the `teaseq` directory, create a new folder to run th
 mkdir preprocessing && cd preprocessing
 ```
 
-In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
+In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the preprocess `pipeline.yml` [here](pipeline_yml.md).
 
 Open the yml file to inspect the parameters choice. 
 
@@ -151,9 +151,9 @@ You can choose to modify the parameters and re-run a specific task, for example 
 
 If you want to make changes to other parameters like changing normalization methods and then HVG selection and dimensionality reduction, rename the teaseq.h5mu object from the folder and re-run the workflow. (You can also remove all outputs except for the pipeline.yml)
 
-For example, we can change the normalization and dimensionality reduction of the ATAC modality into LSI, then remove the previous log file. We can simply change its name to keep the record of the previous run. (`mv logs/preprocess_atac.log logs/preprocess_atac.log`)
+For example, we can change the dimensionality reduction of the ATAC modality into LSI, then remove the previous log file. We can simply change its name to keep the record of the previous run. (`mv logs/preprocess_atac.log logs/preprocess_atac.log`)
 
-We rename the teaseq object with lognormalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
+We rename the teaseq object with log-normalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
 
 
 ```
@@ -163,7 +163,7 @@ dimred: LSI  #PCA or LSI
 n_comps: 50  #How many components to compute
 ```
 
-We run `panpipes preprocess make full --local` again. Now we have in the mudata["atac"] slot,  a new normalization layer, a new set of HVF  and the LSI for the atac modality.
+We run `panpipes preprocess make full --local` again. Now we have in the mudata["atac"] slot, a new normalization layer, a new set of HVF and the LSI for the atac modality.
 
 ```
 import muon as mu

@@ -178,8 +178,8 @@ prot:
 # ------------------------
 atac:
   binarize: False
-  normalize: log1p  #"log1p" or "TFIDF"
-  TFIDF_flavour:   #"signac", "logTF" or "logIDF"
+  normalize: TFIDF  #"log1p" or "TFIDF"
+  TFIDF_flavour: signac  #"signac", "logTF" or "logIDF"
   feature_selection_flavour: scanpy  #"signac" or "scanpy"
 
   # parameters for feature_selection_flavour == "scanpy", leave blank to use defaults
