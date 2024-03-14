@@ -167,12 +167,9 @@ You can choose to modify the parameters and re-run a specific task, for example 
 
 If you want to make changes to other parameters like changing normalization methods and then HVG selection and dimensionality reduction, rename the teaseq.h5mu object from the folder and re-run the workflow. (You can also remove all outputs except for the pipeline.yml)
 
-For example, we can change the dimensionality reduction of the ATAC modality into LSI, then remove the previous log file. We can simply change its name to keep the record of the previous run. (`mv logs/preprocess_atac.log logs/preprocess_atac.log`)
+For example, we can change the dimensionality reduction of the ATAC modality from PCA to LSI in the configuration file, as shown in the following excerpt from the `pipeline.yml` file:
 
-We rename the teaseq object with log-normalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
-
-
-```
+```yaml
 #----------------------------
 # ATAC Dimensionality reduction
 #----------------------------
@@ -180,7 +177,14 @@ dimred: LSI #PCA or LSI
 n_comps: 50 # how many components to compute
 ```
 
-We run `panpipes preprocess make full --local` again. Now we have in the mudata["atac"] slot, a new normalization layer, a new set of HVF and the LSI for the atac modality.
+
+Then, to apply this change and make sure `panpipes` re-processes the object with the new dimensionality reduction, we need to remove the previous log file. 
+Note that we can simply change its name to keep the record of the previous run, i.e. : `mv logs/preprocess_atac.log logs/preprocess_log1p_atac.log` . The new run will create a new log file `logs/preprocess_atac.log` reflecting the new request.
+
+We also rename the teaseq object with log-normalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
+
+Now, to apply these changes, we run `panpipes preprocess make full --local` again. 
+After the workflow finishes, we can inspect the resulting `MuData` and check for changes in the `["atac"]` slot. As you can see, we now have a new normalization layer `'signac_norm'`, a new set of Highly Variable Features and the LSI for the atac modality.
 
 ```
 import muon as mu
