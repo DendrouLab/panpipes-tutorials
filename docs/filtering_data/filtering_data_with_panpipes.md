@@ -167,7 +167,7 @@ You can choose to modify the parameters and re-run a specific task, for example 
 
 If you want to make changes to other parameters like changing normalization methods and then HVG selection and dimensionality reduction, rename the teaseq.h5mu object from the folder and re-run the workflow. (You can also remove all outputs except for the pipeline.yml)
 
-For example, we can change the dimensionality reduction of the ATAC modality from PCA to LSI in the configuration file, 
+For example, we can change the dimensionality reduction of the ATAC modality from PCA to LSI in the configuration file, as shown in the following excerpt from the `pipeline.yml` file:
 
 ```yaml
 #----------------------------
