@@ -13,7 +13,8 @@ resources:
   threads_medium: 1  # Must be enough memory to load your mudata and do computationally light tasks
   threads_low: 1 # Must be enough memory to load text files and do plotting, requires much less memory
 
-condaenv:  # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+# Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: /path/to/conda/env
 
 
 
