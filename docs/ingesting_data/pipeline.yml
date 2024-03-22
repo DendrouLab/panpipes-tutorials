@@ -14,7 +14,7 @@ resources:
   threads_low: 1
 
 # Add path to conda env, leave blank if running native or your cluster automatically inherits the login node environment  
-condaenv: /path/to/conda/env
+condaenv:
 
 # --------------------------------
 # Loading and merging data options
