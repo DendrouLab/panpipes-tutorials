@@ -13,9 +13,8 @@ resources:
   threads_low: 2
 
   fewer_jobs: True
-# path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
-
+# Add path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: /path/to/conda/env
 # Start
 # --------------------------
 sample_prefix: teaseq
