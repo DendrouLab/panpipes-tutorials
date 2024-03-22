@@ -19,7 +19,9 @@ resources:
   threads_low: 3
 
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: 
+condaenv: /path/to/conda/env
+
+
 # Start
 # --------------------------
 # either one that exists already with
