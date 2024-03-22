@@ -16,7 +16,7 @@ resources:
 
   
 # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /path/to/conda/env
+condaenv:
 
 queues:
   long: 
