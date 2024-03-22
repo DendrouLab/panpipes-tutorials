@@ -14,7 +14,7 @@ resources:
 
   fewer_jobs: True
 # Add path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /path/to/conda/env
+condaenv: /path/to/conda/env 
 # Start
 # --------------------------
 sample_prefix: teaseq
