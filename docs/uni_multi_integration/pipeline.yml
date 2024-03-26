@@ -54,6 +54,7 @@ rna:
 
   # SCVI args
   scvi:
+    seed: 1492
     exclude_mt_genes: True
     mt_column: mt
     model_args:
@@ -142,6 +143,7 @@ multimodal:
 
   # TotalVI arguments
   totalvi:
+    seed: 1492
     modalities: rna,prot
     exclude_mt_genes: True
     mt_column: mt
@@ -157,6 +159,7 @@ multimodal:
 
   # MultiVI arguments
   MultiVI:
+    seed: 1492
     lowmem: True
     model_args:
       n_hidden :
