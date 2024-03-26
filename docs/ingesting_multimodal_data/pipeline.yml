@@ -12,8 +12,9 @@ resources:
   threads_high: 3
   threads_medium: 2
   threads_low: 1
-
-condaenv:
+  
+ # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: 
 
 # --------------------------------
 # Loading and merging data options

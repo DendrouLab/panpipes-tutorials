@@ -13,7 +13,8 @@ resources:
   threads_medium: 4
   threads_low: 2
 
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
+ # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+condaenv: 
 
 # --------------------------------
 # Loading and merging data options

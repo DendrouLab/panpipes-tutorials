@@ -13,7 +13,9 @@ resources:
   threads_medium: 2
   threads_low: 1
 
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_bbknn
+# Add path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+
+condaenv: 
 
 
 #-------------------------------
