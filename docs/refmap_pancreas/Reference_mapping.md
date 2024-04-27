@@ -1,6 +1,11 @@
 Reference mapping
 ===================
 
+**scvi-tools has implemented some changes and as a result old models (scvi-tools<=1.0) require pandas <2.0. 
+This will be fixed in a future version of scvi-tools. 
+To use an old model in `panpipes refmap` please downgrade pandas.** 
+
+
 Reference mapping is the process of aligning a new single cell dataset to an existing single cell atlas generated with a deep learning model that allows to see the new data (referred to as query) in the context of a pre-genererated latent space (normally called reference).
 
 Panpipes supports the use of `scvi-tools` for constructing and leveraging reference models to do query to reference mapping (scvi, scanvi and TotalVI).
