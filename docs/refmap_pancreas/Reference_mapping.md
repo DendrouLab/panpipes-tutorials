@@ -1,8 +1,9 @@
 Reference mapping
 ===================
 
-**scvi-tools has implemented some changes and as a result old models (scvi-tools<=1.0) require pandas <2.0. 
-This will be fixed in a future version of scvi-tools. 
+**scvi-tools has implemented some changes and as a result old models (scvi-tools<=1.0) require pandas <2.0. <br>
+https://github.com/scverse/scvi-tools/issues/2387 <br>
+This will be fixed in a future version of scvi-tools. <br>
 To use an old model in `panpipes refmap` please downgrade pandas.** 
 
 
