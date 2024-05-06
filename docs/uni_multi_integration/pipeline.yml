@@ -238,6 +238,16 @@ plotqc:
   multimodal: rna:total_counts
 
 
+#-------------
+# scib metrics
+#-------------
+#Obs columns containing the cell type labels
+scib:
+  rna:
+  prot:
+  atac:
+
+
 # -------------------------
 # Creating the final object
 # -------------------------
