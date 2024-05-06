@@ -69,6 +69,8 @@ In order to ingest the data, we have to tell panpipes the paths to each `AnnData
 
 ### Configuration file
 
+>NOTE: We provide a detailed explanation of all the parameters that can be specified in the ingestion configuration file, `pipeline.yml`. View [here](https://panpipes-pipelines.readthedocs.io/en/latest/yaml_docs/pipeline_ingestion_yml.html).
+
 Go to the directory `teaseq/ingest` and call:
 ```
 panpipes ingest config
@@ -78,39 +80,21 @@ This command will generate a `pipeline.log` and a `pipeline.yml` file. The `pipe
 Let's have a look at the first part of the `pipeline.yml` file (in case you don't want to create it yourself, you can also view and download the completed file [here](pipeline_yml.md)):
 
 ```
-# ------------------------------------------------------------------------------------------------
-# Loading and concatenating data options
-# ------------------------------------------------------------------------------------------------
-# ------------------------
+# --------------------------------
+# Loading and merging data options
+# --------------------------------
+
+# ----------------------------
 # Project name and data format
-# ------------------------
 project: Teaseq
 sample_prefix: teaseq
-# if you have an existing h5mu object that you want to run through the pipeline then
-# store it in the folder where you intend to run the workflow, and call it
-# ${sample_prefix}_unfilt.h5mu where ${sample_prefix} = sample_prefix argument above
 use_existing_h5mu: False
-
-# submission_file format:
-# For qc_mm the required columns are
-# sample_id  rna_path  rna_filetype  (prot_path  prot_filetype tcr_path  tcr_filetype etc.)
-# Example at resources/sample_file_mm.txt
 submission_file: sample_file_qc.txt
-
-# which metadata cols from the submission file do you want to include in the anndata object
-# as a comma-separated string e.g. batch,disease,sex
 metadatacols: 
-
-# which concat join to you want to perform on your mudata objects, recommended is inner
-# see https://anndata.readthedocs.io/en/latest/concatenation.html#inner-and-outer-joins for details
 concat_join_type: inner
 
-#---------------------------------------
+#--------------------------
 # Modalities in the project
-#---------------------------------------
-# the qc scripts are independent and modalities are processed following this order. Set to True to abilitate modality(ies). 
-# Leave empty (None) or False to signal this modality is not in the experiment.
-
 modalities:
   rna: True
   prot: True
@@ -135,44 +119,33 @@ scr:
 
 ```
 normalisation_methods: clr
-# CLR parameters:
-# margin determines whether you normalise per cell (as you would RNA norm), 
-# or by feature (recommended, due to the variable nature of adts). 
+
+#-----------------------------------------------
+# Centered log ratio (CLR) normalization options
+
+# margin determines whether you normalise per cell (as you would for RNA),
+# or by feature (recommended, due to the variable nature of prot assays).
 # CLR margin 0 is recommended for informative qc plots in this pipeline
-# 0 = normalise colwise (per feature)
-# 1 = normalise rowwise (per cell)
+# 0 = normalise row-wise (per cell)
+# 1 = normalise column-wise (per feature)
 clr_margin: 1
 ```
 
 - Specify which Quality Control (QC) covariates should be plotted for each modality:
 
 ```
-# ------------
-# Plot RNA QC metrics
-# ------------
-# all metrics should be inputted as a comma separated string e.g. a,b,c
-# base of the plots, normally is the channel also referred to "sample_id"
+# ------------------------
+# Plotting RNA QC metrics
+# all metrics should be provided as a comma separated string e.g. a,b,c
 plotqc_grouping_var: orig.ident
-# other cell covariates
 plotqc_rna_metrics: doublet_scores,pct_counts_mt,pct_counts_rp,pct_counts_hb,pct_counts_ig
 
-# ------------
-# Plot PROT QC metrics
-# ------------
-# requires prot_path to be included in the submission file
-# all metrics should be inputted as a comma separated string e.g. a,b,c
+# ----------------------------
+# Plotting Protein QC metrics
 
-# as standard the following metrics are calculated for prot data
-# per cell metrics:
-# total_counts,log1p_total_counts,n_adt_by_counts,log1p_n_adt_by_counts
-# if isotypes can be detected then the following are calculated also:
-# total_counts_isotype,pct_counts_isotype
-# choose which ones you want to plot here
+# requires prot_path to be included in the submission file
+# all metrics should be provided as a comma separated string e.g. a,b,c
 plotqc_prot_metrics: total_counts,log1p_total_counts,n_adt_by_counts,pct_counts_isotype
-# Since the protein antibody panels usually count fewer features than the RNA, it may be interesting to
-# visualize breakdowns of single proteins plots describing their count distribution and other qc options.
-# choose which ones you want to plot here, for example
-# n_cells_by_counts,mean_counts,log1p_mean_counts,pct_dropout_by_counts,total_counts,log1p_total_counts
 prot_metrics_per_prot: total_counts,log1p_total_counts,n_cells_by_counts,mean_counts
 ```
 
@@ -204,7 +177,7 @@ remember to change the following paths to the files on your local machine!
 - We need to specify the path to the `sample_qc_file.txt` submission file 
 - We need to provide the path to the `qc_genelist_1.0.csv` file that you downloaded or customized.
 
-## Running the workflow
+## 3. Running the workflow
 
 Review the steps that are going to be run as part of the `ingest` pipeline:
 ```

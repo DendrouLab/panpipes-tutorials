@@ -12,10 +12,9 @@ resources:
   threads_high: 1
   threads_medium: 1
   threads_low: 1
-
   threads_gpu: 2
 
-condaenv:
+condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
 
 queues:
   long: 
@@ -26,8 +25,7 @@ queues:
 # --------------------------------
 
 # ----------------------------
-# Data input
-# ----------------------------
+# Data format
 sample_prefix: teaseq
 preprocessed_obj: teaseq.h5mu
 
@@ -35,7 +33,7 @@ preprocessed_obj: teaseq.h5mu
 #-----------------
 # Batch correction
 # ----------------
-# Batch correction, unimodal correction: meaning each modality is batch corrected independently.
+# Batch correction is done unimodal, meaning each modality is batch corrected independently
 
 # ------------
 # RNA modality
@@ -56,6 +54,7 @@ rna:
 
   # SCVI args
   scvi:
+    seed: 1492
     exclude_mt_genes: True
     mt_column: mt
     model_args:
@@ -144,6 +143,7 @@ multimodal:
 
   # TotalVI arguments
   totalvi:
+    seed: 1492
     modalities: rna,prot
     exclude_mt_genes: True
     mt_column: mt
@@ -159,6 +159,7 @@ multimodal:
 
   # MultiVI arguments
   MultiVI:
+    seed: 1492
     lowmem: True
     model_args:
       n_hidden :
@@ -197,11 +198,11 @@ multimodal:
 
   # WNN arguments
   WNN:
-    modalities: rna,prot,atac
+    modalities: rna,prot,atac 
     batch_corrected:
       rna: None
       prot: None
-      atac: None 
+      atac: None
 
     # please use anchors (&) and scalars (*) if necessary
     knn:
@@ -215,7 +216,7 @@ multimodal:
     n_multineighbors: 200
     metric: 'euclidean'
     low_memory: True
-
+  
   # KNN calculation for multimodal analysis
   neighbors:
     npcs: 30
@@ -237,21 +238,9 @@ plotqc:
   multimodal: rna:total_counts
 
 
-#-------------
-# scib metrics
-#-------------
-#Obs columns containing the cell type labels
-scib:
-  rna:
-  prot:
-  atac:
-
-
 # -------------------------
 # Creating the final object
 # -------------------------
-
-#To make the final object please run: panpipes integration make merge_integration
 final_obj:
   rna:
     include: True

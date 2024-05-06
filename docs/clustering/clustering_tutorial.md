@@ -12,7 +12,7 @@ Let's create a clustering folder where we can run our workflow.
 mkdir clustering && cd $_
 ```
 
-now run `panpipes clustering config`. Inspect and customize the yml (or use the yml we provide in [clustering](../clustering/pipeline.yml))
+now run `panpipes clustering config`. Inspect and customize the yml (or use the [precompiled yml we provide](pipeline_yml.md))
 In the config file, we specify we want to use the teaseq object we have generated in the integration folder, after running the additional batch correction for wnn. We can link it in the folder or specify the full path to the file. 
 The clustering workflow defines what representation is used for the clustering and the clustering parameters. We simply specify which modalities of the object we want to run clustering on, and at which resolution. We can instruct the workflow to run multiple resolutions and they will all be run in parallel.
 

@@ -47,9 +47,9 @@ teaseq
 ## Edit yaml file 
 
 To create the pipeline.log and a pipeline.yml file, call `panpipes vis config` in `teaseq/vis` (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
-Modify the pipeline.yml or simply replace it with [the yaml file we provide](./pipeline.yml). In the yaml file, you can specify which categorical and continuous variables to plot and on which embeddings. 
+Modify the pipeline.yml or simply replace it with [the yaml file we provide](pipeline_yml.md). In the yaml file, you can specify which categorical and continuous variables to plot and on which embeddings. 
 
-If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial, you may also download the needed csv-files of [custom markers](./custom_markers.csv), [paired markers](./paired_scatters_markers.csv), and  [paired metrics](./paired_scatters.csv). 
+If you decide to use [the provided yaml file](pipeline_yml.md) for this tutorial, you may also download the needed csv-files of [custom markers](./custom_markers.csv), [paired markers](./paired_scatters_markers.csv), and  [paired metrics](./paired_scatters.csv). 
 
 
 ## Run Panpipes 
@@ -57,7 +57,7 @@ If you decide to use [the provided yaml file](./pipeline.yml) for this tutorial,
 In `teaseq/vis`, run `panpipes vis make full --local` to visualize your data. 
 
 
-After successfully running the pipeline with the [the provided yaml file](./pipeline.yml), the `vis` folder contains a folder for each modality, in this case, `rna`, `atac`, and `prot`. 
+After successfully running the pipeline with the [the provided yaml file](pipeline_yml.md), the `vis` folder contains a folder for each modality, in this case, `rna`, `atac`, and `prot`. 
 
 In each folder, you can find the embeddings (in our case PCA, UMAP) coloured by continuous variables. In this example, the PCA and UMAP of the RNA modality are coloured by `rna:total_counts`:  
 <p align="center">

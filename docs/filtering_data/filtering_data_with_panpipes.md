@@ -13,7 +13,7 @@ In your previously created the `teaseq` directory, create a new folder to run th
 mkdir preprocessing && cd preprocessing
 ```
 
-In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the yaml here: [pipeline_preprocess.yml](pipeline_yml).
+In here, run `panpipes preprocess config`, which will generate again a `pipeline.yml` file for you to customize. You can review and download the preprocess `pipeline.yml` [here](pipeline_yml.md).
 
 Open the yml file to inspect the parameters choice. 
 
@@ -21,23 +21,17 @@ If you have run the previous step, [Ingesting data with panpipes](../ingesting_d
 This file is the input that we specify in the yaml, where we also specify the modalities that are included in the object:
 
 ```
-# --------------------------
-# Start
-# --------------------------
+#-------------------------------
+# General project specifications
+#-------------------------------
 sample_prefix: teaseq
 unfiltered_obj: teaseq_unfilt.h5mu
-# if running this on prefiltered data then
-#1. set unfiltered obj (above) to blank
-#2. rename your filtered file to match, the format PARAMS['sample_prefix'] + '.h5mu'
-#3. put renamed file in the same folder as this yml.
-#4. set filtering run: to False below.
 
 modalities:
   rna:  True
   prot: True
   rep: False
   atac: True
-
 ```
 
 **NOTE**: it's important that the `.h5mu` object is linked (or renamed) in this directory with a `sampleprefix_unfilt` structure, cause the pipeline will look for this string to start from.
@@ -76,28 +70,18 @@ This format can be applied to any modality by editing the filtering dictionary a
 For example, the filtering in the rna modality retains cells with at least 100 counts and less than 40% mt and 25% doublet scores
 
 ```
-#------------------------------------------------------
-  rna:
-  #------------------------------------------------------
-    ## obs filtering: cell level filtering here
+#------------------------
+# RNA-specific filtering
+rna:
+    # obs, i.e. cell level filtering
     obs:
       min:
         n_genes_by_counts: 100 
       max:
-        # percent filtering: 
-        # this should be a value between 0 and 100%. 
-        # leave blank or set to 100 to avoid filtering for any of these param
         pct_counts_mt: 40
         pct_counts_rp: 100
-        # either one score for all samples e.g. 0.25, 
-        # or a csv file with two columns sample_id, and cut off
-        # less than
         doublet_scores: 0.25
-        #  if you wanted to be more precise i.e. apply a different scrublet threshold per sample
-        # you could add a new column to the mudata['rna'].obs with True False values, and list
-        # that column under bool:, you can do this for any modality
       bool:
-  
 ```
 
 Since we're using the inner join of the mudata object, all the cells passing filtering criteria in all modalities will be retained.
@@ -167,20 +151,24 @@ You can choose to modify the parameters and re-run a specific task, for example 
 
 If you want to make changes to other parameters like changing normalization methods and then HVG selection and dimensionality reduction, rename the teaseq.h5mu object from the folder and re-run the workflow. (You can also remove all outputs except for the pipeline.yml)
 
-For example, we can change the normalization and dimensionality reduction of the ATAC modality into LSI, then remove the previous log file. We can simply change its name to keep the record of the previous run. (`mv logs/preprocess_atac.log logs/preprocess_atac.log`)
-
-We rename the teaseq object with lognormalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
+For example, we can change the dimensionality reduction of the ATAC modality from PCA to LSI in the configuration file, as shown in the following excerpt from the `pipeline.yml` file:
 
 
-```
-#----------------------------
+```yaml
+#------------------------------
 # ATAC Dimensionality reduction
-#----------------------------
-dimred: LSI #PCA or LSI
-n_comps: 50 # how many components to compute
+dimred: LSI  #PCA or LSI
+n_comps: 50  #How many components to compute
 ```
 
-We run `panpipes preprocess make full --local` again. Now we have in the mudata["atac"] slot,  a new normalization layer, a new set of HVF  and the LSI for the atac modality.
+
+Then, to apply this change and make sure `panpipes` re-processes the object with the new dimensionality reduction, we need to remove the previous log file. 
+Note that we can simply change its name to keep the record of the previous run, i.e. : `mv logs/preprocess_atac.log logs/preprocess_log1p_atac.log` . The new run will create a new log file `logs/preprocess_atac.log` reflecting the new request.
+
+We also rename the teaseq object with log-normalized counts and PCA for atac `teaseq_atac_pca.h5mu` since we will use it later.
+
+Now, to apply these changes, we run `panpipes preprocess make full --local` again. 
+After the workflow finishes, we can inspect the resulting `MuData` and check for changes in the `["atac"]` slot. As you can see, we now have a new normalization layer `'signac_norm'`, a new set of Highly Variable Features and the LSI for the atac modality.
 
 ```
 import muon as mu

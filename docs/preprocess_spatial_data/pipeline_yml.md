@@ -1,4 +1,4 @@
-Pipeline ingest yaml
+Pipeline preprocess_spatial yaml
 -----------------------------
 
 Download this [file](pipeline.yml)

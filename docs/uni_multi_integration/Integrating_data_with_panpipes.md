@@ -18,6 +18,12 @@ panpipes integration config
 
 Review and download a [preconfigured yml here](pipeline_yml.md).
 
+
+
+For a description of the algorithms and source references for the methods that will be used below, please check [Integration methods implemented in panpipes](https://github.com/DendrouLab/panpipes/blob/docs_g/docs/usage/integration_methods.md).
+
+
+
 As we did before, we can link the preprocessed `h5mu` object in the present directory where we will run the integration.
 
 ```
@@ -58,18 +64,11 @@ Some of the multimodal methods chosen can simultaneously account for batch effec
 
 ```
 WNN:
-    # muon implementation of WNN 
     modalities: rna,prot,atac 
-    # run wnn on batch corrected unimodal data, set each of the modalities you want to use to calc WNN to ONE method.
-    # leave to None and it will default to de novo calculation of neighbours on non corrected data for that modality using specified params 
     batch_corrected:
-      # options are: "bbknn", "scVI", "harmony", "scanorama"
-      rna: None
-      # options are "harmony", "bbknn"
-      prot: None
-      # options are "harmony"
-      atac: None 
-  
+      rna: None  #options are: "bbknn", "scVI", "harmony", "scanorama"
+      prot: None  #options are "harmony", "bbknn"
+      atac: None  #options are "harmony"
 ```
 
 For background on each batch correction method please consider reading the best practices for cross-modal [single cell paper](https://github.com/scverse/scanpy/blob/master/scanpy/tools/_utils.py#L28), the benchmarks on batch correction and multimodal integration.
@@ -128,14 +127,9 @@ To showcase this scenario, we will use the last functionality of `panpipes integ
 To do this, you must modify the `pipeline.yml` file and keep :
 
 ```
-# ----------------
-# Make final object
-# ----------------
-## Final choices: Leave blank until you have reviewed the results from running
-# panpipes integration make full
-# choose the parameters to integrate into the final anndata object
-# then run
-# panpipes integration make merge_integration
+# -------------------------
+# Creating the final object
+# -------------------------
 final_obj:
   rna:
     include: True
@@ -149,7 +143,6 @@ final_obj:
   multimodal:
     include: True
     bc_choice: WNN
-
 ```
 and run 
 
@@ -172,15 +165,11 @@ Then set false all the modalities batch_correction algorithms, keep only wnn as 
 
 ```
 WNN:
-# muon implementation of WNN 
-modalities: rna,prot,atac 
-batch_corrected:
-  # options are: "bbknn", "scVI", "harmony", "scanorama"
-  rna: scVI
-  # options are "harmony", "bbknn"
-  prot: harmony
-  # options are "harmony"
-  atac: bbknn
+    modalities: rna,prot,atac 
+    batch_corrected:
+      rna: scVI
+      prot: harmony
+      atac: bbknn
 ```
 
 

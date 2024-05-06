@@ -1,6 +1,12 @@
 Reference mapping
 ===================
 
+**scvi-tools has implemented some changes and as a result old models (scvi-tools<=1.0) require pandas <2.0. <br>
+https://github.com/scverse/scvi-tools/issues/2387 <br>
+This will be fixed in a future version of scvi-tools. <br>
+To use an old model in `panpipes refmap` please downgrade pandas.** 
+
+
 Reference mapping is the process of aligning a new single cell dataset to an existing single cell atlas generated with a deep learning model that allows to see the new data (referred to as query) in the context of a pre-genererated latent space (normally called reference).
 
 Panpipes supports the use of `scvi-tools` for constructing and leveraging reference models to do query to reference mapping (scvi, scanvi and TotalVI).
@@ -35,7 +41,7 @@ As with all the other worflows you can configure the refmap workflow using:
 `panpipes refmap config`
 
 which will generate the `pipeline.yml` file that is used as input. 
-We provide the pipeline yml file for this tutorial [here](../../../docs/refmap_pancreas/).
+We provide the pipeline yml file for this tutorial [here](pipeline_yml.md).
 
 
 In the config file, we only have to specify the path to the query, if the query has a batch covariate and if it has a celltype annotation column:
