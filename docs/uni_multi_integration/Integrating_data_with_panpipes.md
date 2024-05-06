@@ -106,8 +106,8 @@ and the lisi scores confirm this view
 
 (the plot shows the same LISI score for atac:dataset and rna:dataset because the pipeline detects that the columns used for each integration performed are different)
 
-The integration output is further assessed using [scib-metrics]https://scib-metrics.readthedocs.io/en/latest/index.html), which calculates batch correction and bio-conservation scores for the different unimodal integration techniques.
-Most of the metrics rely on already known cell type annotations.
+Additionally, panpipes also computes [scib-metrics](https://scib-metrics.readthedocs.io/en/latest/index.html) to assess unimodal integration techniques with respect to batch correction and bio-conservation.
+Most of the metrics require cell type labels for each cell.
 For datasets where this information is not available at the time of integration, as is the case for the dataset in this tutorial, only few batch correction metrics can be calculated (no bio-conservation metrics) and plot generation is omitted.
 In any case, all computed metrics are saved as csv files for each modality separately.
 Let's take a look at the metrics for the protein modality:
