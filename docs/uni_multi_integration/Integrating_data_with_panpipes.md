@@ -112,11 +112,11 @@ For datasets where this information is not available at the time of integration,
 In any case, all computed metrics are saved as csv files for each modality separately.
 Let's take a look at the metrics for the protein modality:
 
-| **  Embedding **    | **  ilisi_knn ** | **  pcr_comparison ** |
-|---------------------|------------------|-----------------------|
-| **  Unintegrated ** | 0.44926          | 0.0                   |
-| **  bbknn **        | 0.46967          | 0                     |
-| **  harmony **      | 0.89955          | 0.82495               |
+| **Embedding**    | **ilisi_knn**   | **pcr_comparison**   |
+|------------------|-----------------|----------------------|
+| **Unintegrated** | 0.44926         | 0.0                  |
+| **bbknn**        | 0.46967         | 0                    |
+| **harmony**      | 0.89955         | 0.82495              |
 
 Corroborating the previous findings, the harmony method seems to be the best choice for the protein modality in this dataset based on the scib batch correction metrics.
 
