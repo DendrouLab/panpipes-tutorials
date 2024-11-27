@@ -106,6 +106,19 @@ and the lisi scores confirm this view
 
 (the plot shows the same LISI score for atac:dataset and rna:dataset because the pipeline detects that the columns used for each integration performed are different)
 
+Additionally, panpipes also computes [scib-metrics](https://scib-metrics.readthedocs.io/en/latest/index.html) to assess unimodal integration techniques with respect to batch correction and bio-conservation.
+Most of the metrics require cell type labels for each cell.
+For datasets where this information is not available at the time of integration, as is the case for the dataset in this tutorial, only few batch correction metrics can be calculated (no bio-conservation metrics) and plot generation is omitted.
+In any case, all computed metrics are saved as csv files for each modality separately.
+Let's take a look at the metrics for the protein modality:
+
+| Embedding    | ilisi_knn   | pcr_comparison   |
+|--------------|-------------|------------------|
+| Unintegrated | 0.44926     | 0.0              |
+| bbknn        | 0.46967     | 0                |
+| harmony      | 0.89955     | 0.82495          |
+
+Corroborating the previous findings, the harmony method seems to be the best choice for the protein modality in this dataset based on the scib batch correction metrics.
 
 
 In the paper, we showcase how WNN offers the flexibility to integrate modalities that have individually been batch-corrected.
