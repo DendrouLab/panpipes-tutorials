@@ -13,7 +13,8 @@ resources:
   threads_medium: 1
   threads_low: 1
 
-condaenv: pipeline_env
+# Add path to conda env, leave blank if running native or your cluster automatically inherits the login node environment  
+condaenv:
 
 # --------------------------------
 # Loading and merging data options

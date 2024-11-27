@@ -13,7 +13,9 @@ resources:
   # this must be enough memory to load text files and do plotting, requires much less memory than the other two
   threads_low: 1
 # path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: /Users/fabiola.curion/Documents/devel/miniconda3/envs/pipeline_env
+
+condaenv: 
+
 
 # allows for tweaking which queues jobs get submitted to, 
 # in case there is a special queue for long jobs or you have access to a gpu-sepcific queue
