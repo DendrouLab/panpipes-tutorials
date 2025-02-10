@@ -29,7 +29,7 @@ spatial
 │           └── datasets_mouse_brain_map_BrainReceptorShowcase_Slice1_Replicate1_images_micron_to_mosaic_pixel_transform.csv
 ```
 
-**Please note, that the data folder structure needs to be structured as expected by the [squidpy.read.vizgen](https://squidpy.readthedocs.io/en/stable/api/squidpy.read.vizgen.html) function.**
+**Please note, that the data folder structure needs to be structured as expected by the [spatialdata_io.merscope](https://spatialdata.scverse.org/projects/io/en/latest/generated/spatialdata_io.merscope.html) function.**
 
 
 ## Edit submission and yaml file 
