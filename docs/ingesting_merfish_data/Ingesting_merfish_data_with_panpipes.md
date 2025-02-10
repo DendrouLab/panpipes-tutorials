@@ -60,20 +60,20 @@ ingestion
 │       ├── violin_obs_total_counts_sample_id.mouse_brain.png
 │       └── violin_var_total_counts.mouse_brain.png     
 ├── logs
-│   ├── make_mudatas_mouse_brain.log  
+│   ├── make_spatialdatas_mouse_brain.log  
 │   ├── qcplot.mouse_brain.log  
 │   └── spatialQC_mouse_brain.log
-├── qc.data # MuData with QC metrics 
-│   └──	mouse_brain_unfilt.h5mu
-├── tmp # MuData without QC metrics
-│   └──	mouse_brain_raw.h5mu
+├── qc.data # SpatialData with QC metrics 
+│   └──	mouse_brain_unfilt.zarr
+├── tmp # SpatialData without QC metrics
+│   └──	mouse_brain_raw.zarr
 ├── pipeline.log
 ├── pipeline.yml
 ├── sample_file_qc_spatial.txt
 └── mouse_brain_cell_metadata.tsv # Metadata, i.e. .obs
 ```
 
-In the `qc.data` folder, the final `MuData` object with computed QC metrics is stored. The `MuData` object without QC metrics is also available and stored in the `tmp` folder. The metadata of the final `Mudata` object is additionally extracted and saved as tsv file, `mouse_brain_cell_metadata.tsv`.
+In the `qc.data` folder, the final `SpatialData` object with computed QC metrics is stored. The `SpatialData` object without QC metrics is also available and stored in the `tmp` folder. The metadata of the final `SpatialData` object is additionally extracted and saved as tsv file, `mouse_brain_cell_metadata.tsv`.
 Using the [provided example yaml file](pipeline_yml.md), the first rows and columns of the `mouse_brain_cell_metadata` tsv file look as follows: 
 
 |                  | spatial:fov | spatial:volume | spatial:min_x | spatial:max_x | spatial:min_y | spatial:max_y
