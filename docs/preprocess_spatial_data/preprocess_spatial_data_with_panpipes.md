@@ -1,6 +1,6 @@
 # Preprocessing spatial data with Panpipes
 
-The `preprocess_spatial` workflow expects one or multiple `MuData` objects as input, each with a `spatial` slot. The workflow filters the data, followed by normalization, HVG selection, and PCA computation. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/preprocess_spatial.html).
+The `preprocess_spatial` workflow expects one or multiple `SpatialData` objects as input. The workflow filters the data, followed by normalization, HVG selection, and PCA computation. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/preprocess_spatial.html).
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -16,7 +16,7 @@ mkdir preprocess
 cd preprocess
 ```
 
-In this tutorial, we will use the output `Mudata` objects of the [Visium ingestion tutorial](../ingesting_visium_data/Ingesting_visium_data_with_panpipes.md). Namely, the `MuData` files saved in `spatial/ingestion/qc.data/`:
+In this tutorial, we will use the output `Spatialdata` objects of the [Visium ingestion tutorial](../ingesting_visium_data/Ingesting_visium_data_with_panpipes.md). Namely, the `SpatialData` files saved in `spatial/ingestion/qc.data/`:
 
 
 ```
@@ -27,8 +27,8 @@ spatial
     ├── figures
     ├── logs
     ├── qc.data # MuDatas with QC metrics 
-    │	├── V1_Human_Heart_unfilt.h5mu
-    │	└── V1_Human_Lymph_Node_unfilt.h5mu
+    │	├── V1_Human_Heart_unfilt.zarr
+    │	└── V1_Human_Lymph_Node_unfilt.zarr
     ├── tmp 
     ├── pipeline.log
     ├── pipeline.yml
@@ -37,7 +37,7 @@ spatial
     └── V1_Human_Lymph_Node_cell_metadata.tsv
 ```
 
-The `preprocess_spatial` workflow allows you to preprocess one or multiple `MuData` objects **of the same assay, i.e. Visium or Vizgen,** in one run. For that, the workflow reads in all `.h5mu` files of the input directory. The `MuData` objects of the input directory are then **preprocessed with the same specified parameters**.
+The `preprocess_spatial` workflow allows you to preprocess one or multiple `SpatialData` objects **of the same assay, i.e. Visium, Vizgen, or Xenium,** in one run. For that, the workflow reads in all `.zarr` files of the input directory. The `SpatialData` objects of the input directory are then **preprocessed with the same specified parameters**.
  
 
 ## Edit yaml file 
@@ -68,8 +68,8 @@ preprocess
 │       ├── violin_var_total_counts.V1_Human_Heart.png
 │       └── violin_var_total_counts.V1_Human_Lymph_Node.png
 ├── filtered.data
-│   ├──V1_Human_Heart_filtered.h5mu  
-│   └── V1_Human_Lymph_Node_filtered.h5mu
+│   ├──V1_Human_Heart_filtered.zarr  
+│   └── V1_Human_Lymph_Node_filtered.zarr
 ├── logs
 │   ├── filtering.V1_Human_Heart_.log  
 │   ├── filtering.V1_Human_Lymph_Node_.log  
@@ -86,7 +86,7 @@ preprocess
 │   └── V1_Human_Lymph_Node_filtered_filtered_cell_metadata.tsv
 ```
 
-You can find the final `MuData` objects in the `spatial/preprocess/filtered.data` folder. Additionally, the metadata of the filtered `Mudata` objects is saved as tsv files in the `spatial/preprocess/tables` directory, together with csv-files containing the number of spots/cells after filtering.
+You can find the final `SpatialData` objects in the `spatial/preprocess/filtered.data` folder. Additionally, the metadata of the filtered `Spatialdata` objects is saved as tsv files in the `spatial/preprocess/tables` directory, together with csv-files containing the number of spots/cells after filtering.
 
 Post-filter plots are stored in `spatial/preprocess/figures/spatial`.  The plots include visualizations of the spatial embeddings, as well as violin plots: 
 
