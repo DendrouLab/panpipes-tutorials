@@ -1,0 +1,2 @@
+sample_id	spatial_path	spatial_filetype
+xenium_test	data	xenium

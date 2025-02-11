@@ -33,7 +33,7 @@ condaenv:
 
 project: test
 # Submission_file format (example at resources/sample_file_qc_spatial.txt) :
-submission_file: sample_file_qc_spatial.txt # Path to submission file
+submission_file: sample_file_qc_visium.txt # Path to submission file
 
 
 
