@@ -166,24 +166,24 @@ With the plots in the `figures/tenx_metrics`, you can evaluate the result of the
 2) the sequencing saturation per vs Number of reads per sample for the RNA modality. 
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png?raw=true" alt="img2" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/10x_sequencing_saturation_summary.png?raw=true" alt="img1" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/10x_cells_by_UMIs.png?raw=true" alt="img2" width="350"/>
 </p>
 
 We also plots different metrics across all samples for all the inputted modalities. It might be useful to examine the number of cells across all the samples for `rna + prot`,`BCR` and `TCR` modalities.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Cells.png?raw=true" alt="img3" width="250" height="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20B-Estimated%20number%20of%20cells.png?raw=true" alt="img4" width="250" height="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/VDJ%20T-Estimated%20number%20of%20cells.png?raw=true" alt="img5" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/Gene%20Expression-Cells.png?raw=true" alt="img3" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/VDJ%20B-Estimated%20number%20of%20cells.png?raw=true" alt="img4" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/VDJ%20T-Estimated%20number%20of%20cells.png?raw=true" alt="img5" width="250" height="250"/>
 </p>
 
 one can also look at other relevant `10x_metrics` such as the Mean or median reads/UMI counts/genes per cell for the different modalities.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Median%20UMI%20counts%20per%20cell.png?raw=true" alt="img6" width="250" height="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Gene%20Expression-Median%20genes%20per%20cell.png?raw=true" alt="img7" width="250" height="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/Antibody%20Capture-Mean%20reads%20per%20cell.png?raw=true" alt="img8" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/Gene%20Expression-Median%20UMI%20counts%20per%20cell.png?raw=true" alt="img6" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/Gene%20Expression-Median%20genes%20per%20cell.png?raw=true" alt="img7" width="250" height="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/Antibody%20Capture-Mean%20reads%20per%20cell.png?raw=true" alt="img8" width="250" height="250"/>
 </p>
 
 
@@ -191,21 +191,21 @@ one can also look at other relevant `10x_metrics` such as the Mean or median rea
 The ingest pipeline also plots the cumulative barcode rank plots for all samples (also known as "kneeplot") , so that it is easier to contrast and compare them and evaluate the number of barcodes called as cells vs not. These plots can be found in `figures/background`
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img9" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/rna_barcode_ranks.png?raw=true" alt="img9" width="350"/>
 </p>
 
 Moreover, we also evaluate the downsampled background for the **rna** and **prot** modality separately and compared to each for all samples. For example a scatter plot visualising the nUMI counts in the empty barcodes (background) vs the cell containing barcodes (foreground) in the protein vs rna.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img10" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/scatter_bg_fg_rna_nUMI_prot_nUMI.png?raw=true" alt="img10" width="350"/>
 </p>
 
 
 Additionally, we also plot the most highly expressed genes and proteins in the background as boxplots and heatmaps. This helps you evaluate potential sources of ambient contamination in the samples, like heamoglobin contamination or high mitochondrial gene expression or high background expression of particular antibodies.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img11" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img12" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/highest_expr_genes_rna_background.png?raw=true" alt="img11" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/heatmap_background_sample_id_prot_top_expressed.png?raw=true" alt="img12" width="350"/>
 </p>
 
 
@@ -213,10 +213,10 @@ Additionally, we also plot the most highly expressed genes and proteins in the b
 `panpipes ingest` workflow computes qc metrics for each modality given as input. For a multimodal sample it may be useful to check `RNA` metrics under the `figures/rna` such as number of genes detected in cells vs the total UMI counts , percentage of mitochondrial reads per cell vs library size and doublet scores across the different samples.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img13" width="300" height="200"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-log1p_nUMI_v_rna-log1p_genes.png?raw=true" alt="img14" width="300" height="200"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img15" width="300" height="200"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/violin_sample_id_rna-doublet_scores.png?raw=true" alt="img16" width="300" height="200"/>   
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-genes.png?raw=true" alt="img13" width="300" height="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/scatter_sample_id_rna-log1p_nUMI_v_rna-log1p_genes.png?raw=true" alt="img14" width="300" height="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/scatter_sample_id_rna-nUMI_v_rna-pct_mt.png?raw=true" alt="img15" width="300" height="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/violin_sample_id_rna-doublet_scores.png?raw=true" alt="img16" width="300" height="200"/>   
 </p>
 
 
@@ -225,8 +225,8 @@ For the `PROT` metrics it might be useful to check the total counts and mean cou
  `figures/prot`.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/boxplot_sample_id_total_counts.png?raw=true" alt="img17" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/boxplot_sample_id_mean_counts.png?raw=true" alt="img18" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/boxplot_sample_id_total_counts.png?raw=true" alt="img17" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/boxplot_sample_id_mean_counts.png?raw=true" alt="img18" width="350"/>
 </p>
 
 As for the `prot` modality `clr` and `dsb` normalisation can also be performed in the `panpipes ingest` step, we can also visualise the normalised ridge plots for 1) clr & 2) dsb normalisation for each of the ADTs for each sample in the `sample_submission` file.
@@ -234,8 +234,8 @@ As for the `prot` modality `clr` and `dsb` normalisation can also be performed i
 The `dsb` normalisation corrects for background `ADT` noise and cell-to-cell technical variations and can help to identify a cleaner expression protein signal in comparison to the `clr` normalisation. Here we show the clr and dsb ridge plots for the `human_cmv` dataset.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png" alt="img19" width="350"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/human_cmv_dsb_ridgeplot.png?raw=true" alt="img20" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png" alt="img19" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/human_cmv_dsb_ridgeplot.png?raw=true" alt="img20" width="350"/>
 </p>
 
 
@@ -243,16 +243,16 @@ The `dsb` normalisation corrects for background `ADT` noise and cell-to-cell tec
 For the QC of of `VDJ` data, we utilise the **scirpy** python package function `scirpy.tl.chain_qc` to perform QC based on the receptor-chain pairing configuration and categorise the cells into their receptor types and subtypes. This classification of the cells can be checked in the plots under `figures/rep`.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_receptor_type.png?raw=true" alt="img21" width="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_bcr_receptor_subtype.png?raw=true" alt="img22" width="250"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img23" width="250"/>   
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_group_abundance_receptor_type.png?raw=true" alt="img21" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_group_abundance_bcr_receptor_subtype.png?raw=true" alt="img22" width="250"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_group_abundance_tcr_receptor_subtype.png?raw=true" alt="img23" width="250"/>   
 </p>
 
 We can also visualise the proportion of cells belonging to expanded clonotypes for the `TCR` and `BCR` data across samples. For example in the `human_cmv` sample, we see there is a high fraction of cells with expanded `TCR` clones, but this is not the case of the `BCR` clones in the `human_pbmc` sample.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_clonal_expansion_bcr.png?raw=true" alt="img24" width="300" height="200"/>
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_clonal_expansion_tcr.png?raw=true" alt="img25" width="300" height="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_clonal_expansion_bcr.png?raw=true" alt="img24" width="300" height="200"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_clonal_expansion_tcr.png?raw=true" alt="img25" width="300" height="200"/>
 </p>
 
 
@@ -261,7 +261,7 @@ We can also visualise the proportion of cells belonging to expanded clonotypes f
 To aid with the filtering of the data, we also produce outputs that simulate common filtering scenarios, the height of the bar shows the percentage of cells retained if the threshold is applied. 
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/da_ingest_multimodal/docs/ingesting_multimodal_data/barplot_cellcounts_thresholds_filter.png?raw=true" alt="drawing" width = "500" height = "450"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/barplot_cellcounts_thresholds_filter.png?raw=true" alt="drawing" width = "500" height = "450"/>
 </p>
 
 
