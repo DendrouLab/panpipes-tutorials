@@ -234,7 +234,7 @@ As for the `prot` modality `clr` and `dsb` normalisation can also be performed i
 The `dsb` normalisation corrects for background `ADT` noise and cell-to-cell technical variations and can help to identify a cleaner expression protein signal in comparison to the `clr` normalisation. Here we show the clr and dsb ridge plots for the `human_cmv` dataset.
 
 <p align="center">
-<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png" alt="img19" width="350"/>
+<img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/human_cmv_clr_ridgeplot.png?raw=true" alt="img19" width="350"/>
 <img src="https://github.com/DendrouLab/panpipes-tutorials/blob/main/docs/ingesting_multimodal_data/human_cmv_dsb_ridgeplot.png?raw=true" alt="img20" width="350"/>
 </p>
 
