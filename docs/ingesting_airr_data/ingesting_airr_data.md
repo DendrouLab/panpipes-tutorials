@@ -1,4 +1,5 @@
 # Tutorial
+
 Analyzing scRNA-seq and scTCR-seq Data with Panpipes
 ===================
 
@@ -6,7 +7,6 @@ Analyzing scRNA-seq and scTCR-seq Data with Panpipes
 
 This tutorial guides you through the process of analyzing single-cell RNA sequencing (scRNA-seq) and single-cell T-cell receptor sequencing (scTCR-seq) data using Panpipes.
 While similar to the multimodal CITE-seq tutorial, this guide differs in two major points – it's much easier to follow and it focuses on single-cell transcriptomics and immunomics (AIRR – Adaptive Immune Receptor Repertoire) analysis.
-
 
 ## Before you start
 
@@ -46,7 +46,7 @@ To install R dependencies for `panpipes`, run `panpipes install_r_dependencies`.
 
 #### Other installation options
 
-For Apple Silicone instructions, more magic with R and conda guide follow this tutorial - https://panpipes-pipelines.readthedocs.io/en/latest/install.html
+For Apple Silicone instructions, more magic with R and conda guide follow this tutorial - <https://panpipes-pipelines.readthedocs.io/en/latest/install.html>
 
 However, in our experience, separate installations of Python and R worked the best – you install a system-wide R, and follow the steps from the previous section on `panpipes` installation in a virtual environment.
 
@@ -136,7 +136,7 @@ Besides the first column, “sample_id”, the order in which the columns are pr
 
 We find useful to generate the submission file with softwares like Numbers or Excel and save the output as a txt file to ensure that the file is properly formatted. For more examples please check our documentation on sample submission files.
 
-Put the submission file to the top of your project: 
+Put the submission file to the top of your project:
 
 ```
 project-name/
@@ -269,7 +269,6 @@ Below are automatically generated summary plots from the 10x Genomics pipeline. 
 
   ![VDJ T-Cells with Productive Contigs](img/tenx_productive_tra_trb.png)
 
-
 ### RNA QC Plots
 
 These plots focus on standard single-cell RNA-seq quality control metrics, helping you decide which cells are high-quality for downstream analysis.
@@ -285,7 +284,6 @@ These plots focus on standard single-cell RNA-seq quality control metrics, helpi
   *Why it matters:* Cells with high mitochondrial fraction (>10–15%) are often stressed or dying and may need to be excluded.
 
   ![nUMI vs % Mitochondrial](img/rna_nUMI_vs_pct_mito.png)
-
 
 ### TCR Repertoire Plots
 
@@ -325,7 +323,6 @@ cp ../backup/* ./
 panpipes ingest make full --local
 ```
 
-
 #### Re-running the analysis with re-installation of panpipes
 
 Use it when you work on `panpipes` locally and change something in the source code. We assumer you are in the `1_ingest` folder.
@@ -342,6 +339,7 @@ panpipes ingest make full --local
 
 Mind the `pip install -e .`. It installs `panpipes` locally and doesn't require to changing the version of the package. However, here we assume that you work with the data analysis from the same folder, where the source code of `panpipes` is stored, i.e.,:
 
+```
 panpipes/
 ├── 1_ingest/  
 │   ├── pipeline.yml
@@ -353,11 +351,12 @@ panpipes/
 ├── panpipes # source code
 ├── tests
 └── ...
+```
 
 ## Contact and troubleshooting
 
-For `panpipes` issues please use https://github.com/DendrouLab/panpipes
+For `panpipes` issues please use <https://github.com/DendrouLab/panpipes>
 
-For issues with tutorials please use https://github.com/DendrouLab/panpipes-tutorials/issues
+For issues with tutorials please use <https://github.com/DendrouLab/panpipes-tutorials/issues>
 
 The tutorial is prepared by [Vadim Nazarov](https://github.com/vadimnazarov). Please feel free to reach out with scTCR/BCR-seq questions and if there are some issues with, well, GitHub issues.
