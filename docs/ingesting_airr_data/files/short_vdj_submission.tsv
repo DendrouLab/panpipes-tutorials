@@ -1,0 +1,2 @@
+sample_id	rna_path	rna_filetype	prot_path	prot_filetype	tcr_path	tcr_filetype	bcr_path	bcr_filetype	disease_state	tissue	preservation_method	celltype
+human_cmv	/FullProjectPath/data/outs/	cellranger_multi	NA	NA	/FullProjectPath/data/outs/per_sample_outs/human_cmv/vdj_t/filtered_contig_annotations.csv	cellranger_vdj	NA	NA	cytomegalovirus	blood	NA	T-lymphocyte
