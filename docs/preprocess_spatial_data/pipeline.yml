@@ -125,6 +125,11 @@ spatial:
 
   n_pcs: 50 # Leave blank to use default (50); how many PCs to compute with sc.pp.PCA()
 
+# -----------------------------------------
+# 4. Concatenation
+# -----------------------------------------
+
+concat: False # Leave blank to use default (False); whether to conatenate all preprocessed SpatialDatas in ./filtered_data
 
 
 
