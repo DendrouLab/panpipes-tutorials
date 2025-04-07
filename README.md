@@ -16,6 +16,7 @@ For installation instructions, please check the [documentation](https://github.c
 - [Ingesting MERFISH data with Panpipes](docs/ingesting_merfish_data/Ingesting_merfish_data_with_panpipes.md)  
 - [Filtering and preprocessing spatial data with Panpipes](docs/preprocess_spatial_data/preprocess_spatial_data_with_panpipes.md)
 - [Deconvoluting spatial data with Panpipes](docs/deconvolution/deconvoluting_spatial_data_with_panpipes.md)
+- [Analyzing scRNA-seq and scTCR-seq Data with Panpipes](docs/ingesting_airr_data/ingesting_airr_data.md)
 - [Contributing to Panpipes](docs/contributing.md) 
 
 
