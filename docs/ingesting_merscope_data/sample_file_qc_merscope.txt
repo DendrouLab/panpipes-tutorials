@@ -1,0 +1,2 @@
+sample_id	spatial_path	spatial_filetype	vpt_cell_by_gene	vpt_cell_metadata	vpt_cell_boundaries
+merscope_test	data	vizgen	data/cell_by_gene.csv	data/cell_metadata.csv	data/cellpose_micron_space.parquet

@@ -1,3 +1,0 @@
-sample_id	spatial_path	spatial_filetype	spatial_counts	spatial_metadata	spatial_transformation
-V1_Human_Heart	data/V1_Human_Heart	visium	V1_Human_Heart_filtered_feature_bc_matrix.h5
-V1_Human_Lymph_Node	data/V1_Human_Lymph_Node	visium	V1_Human_Lymph_Node_filtered_feature_bc_matrix.h5

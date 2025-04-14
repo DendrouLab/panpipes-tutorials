@@ -1,6 +1,6 @@
 # Deconvoluting spatial data with Panpipes
 
-The `deconvolution_spatial` workflow runs deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `MuData` object, with the spatial data saved in `mudata.mod['spatial']`. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/deconvolute_spatial.html).
+The `deconvolution_spatial` workflow runs deconvolution for spatial data. Multiple slides can be deconvoluted with the same reference in one run. For each spatial slide, the workflow expects one `SpatialData` object. For the reference scRNA-Seq data, it expects a `MuData`, with the gene expression data saved in `mudata.mod['rna']`. The steps of the workflow are explained in greater detail [here](https://panpipes-pipelines.readthedocs.io/en/latest/workflows/deconvolute_spatial.html).
 
 For all the tutorials, we will append the `--local` command which ensures that the pipeline runs on the computing node you're currently on, namely your local machine or an interactive session on a computing node on a cluster.
 
@@ -17,10 +17,11 @@ cd deconvolution
 ```
 
 In this tutorial, we will use human heart spatial transcriptomics and scRNA-Seq data published by [Kuppe et al](https://www.nature.com/articles/s41586-022-05060-x). 
-You can use the following python code to download and save the data as `MuData` files: 
+You can use the following python code to download and save the data: 
 
 ```
 import scanpy as sc
+import spatialdata as sd
 import muon as mu
 
 # Loading the spatial data: 
@@ -33,7 +34,8 @@ adata_st = adata_st[adata_st.obs["patient"] == "P1"]
 del adata_st.uns["spatial"]["control_P17"]
 del adata_st.uns["spatial"]["control_P7"]
 del adata_st.uns["spatial"]["control_P8"]
-mu.MuData({"spatial": adata_st}).write_h5mu("./data/spatial_data/Human_Heart.h5mu")
+sdata_st = sd.SpatialData(tables=adata_st)
+sdata_st.write("./data/spatial_data/Human_Heart.zarr")
 
 # Loading the single-cell reference
 adata_sc = sc.read(
@@ -58,25 +60,24 @@ deconvolution
 └──  data
 	|── Human_Heart_reference.h5mu
 	└──  spatial_data
-		└── Human_Heart.h5mu
+		└── Human_Heart.zarr
 ```
 
 
-**Note, that the `MuData` object of the reference data should not be saved into the same folder as the spatial data!**
-*When running the workflow, the workflow expects all spatial `MuData` objects to be saved in the same folder and reads in all `MuData` objects of that directory. When saving the reference `MuData` into the same folder as the spatial, the workflow would treat the reference `MuData` as spatial and would try to run deconvolution on it.*
+
+*When running the workflow, the workflow expects all spatial `SpatialData` objects to be saved in the same folder and reads in all `SpatialData` objects of that directory.*
 
 
+### Create yaml file 
 
+In `spatial/deconvolution`, create the pipeline.yml and pipeline.log files by running `panpipes deconvolution_spatial config` in the command line (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
 
 
 ## Cell2Location
 
 ### Edit yaml file 
 
-In `spatial/deconvolution`, create the pipeline.yml and pipeline.log files by running `panpipes deconvolution_spatial config` in the command line (you potentially need to activate the conda environment with `conda activate pipeline_env` first!). 
 Modify the yaml file, or simply use the [pipeline.yml](pipeline_yml.md) that we provide (you potentially need to add the path of the conda environment in the yaml).  
-
-
 
 ### Run Panpipes
 
@@ -90,11 +91,11 @@ deconvolution
 │   └── Human_Heart
 │		├── Cell2Loc_inf_aver.csv
 │		├── Cell2Loc_screference_output.h5mu
-│		└── Cell2Loc_spatial_output.h5mu
+│		└── Cell2Loc_spatial_output.zarr
 ├── data
 │	|── Human_Heart_reference.h5mu
 │	└──  spatial_data
-│		└── Human_Heart.h5mu
+│		└── Human_Heart.zarr
 ├── figures
 │   └── Cell2Location
 │   	└── Human_Heart
@@ -114,7 +115,8 @@ deconvolution
 
 	
 In the folder `./cell2location.output` a folder for each slide will be created containing the following outputs: 
-* `MuData` containing the spatial data together with the posterior of the spatial mapping model
+* `SpatialData` containing the spatial data together with the posterior of the spatial mapping model
+  * If `export_gene_by_spot = True` a gene by spot matrix for each cell type in a layer
 * `MuData` containing the reference data together with the posterior of the reference model
 * A csv-file `Cell2Loc_inf_anver.csv` containing the estimated expression of every gene in every cell type 
 * If `save_models = True`, the reference model and the spatial mapping model 
@@ -135,6 +137,52 @@ Also in `./figures/Cell2Location`, a folder for each slide will be created. Each
 
   * ELBO plots
 * Spatial plot where the spots of the slide are colored by the estimated cell type abundances 
+
+
+## Tangram
+
+### Edit yaml file 
+
+Modify the yaml file, or simply use the [pipeline.yml](../deconvolution_tangram/pipeline_yml.md) that we provide (you potentially need to add the path of the conda environment in the yaml).  
+
+### Run Panpipes
+
+Run the full workflow with `panpipes deconvolution_spatial make full --local`.
+
+Once `Panpipes` has finished, the `spatial/deconvolution` directory will have the following structure:
+
+```
+deconvolution
+├── data
+│	|── Human_Heart_reference.h5mu
+│	└──  spatial_data
+│		└── Human_Heart.zarr
+├── figures
+│   └── Tangram
+│       └── Human_Heart            
+│           ├── rank_genes_groups_cell_type_original.png
+│           └── show_tangram_ct_pred.png
+├── logs
+│   └── 2_Tangram_Human_Heart.log
+├── pipeline.log
+├── pipeline.yml
+└── tangram.output
+    └── Human_Heart
+        ├── Tangram_screference_output.h5mu
+        ├── Tangram_spatial_output.zarr
+        └── rank_genes_groups.csv
+```
+
+In the folder `./tangram.output` a folder for each slide will be created containing the following outputs: 
+* `SpatialData` containing the spatial data with the projected cell annotations
+* `MuData` containing the reference data
+* If gene selection via rank genes is performed: A csv-file `rank_genes_groups.csv` containing the rank genes
+
+	
+Also in `./figures/Tangram`, a folder for each slide will be created. Each folder will contain the following plots: 
+* If gene selection via rank genes is performed: a plot of the rank genes groups ([sc.pl.rank_genes_groups](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://scanpy.readthedocs.io/en/1.10.x/api/generated/scanpy.pl.rank_genes_groups.html&ved=2ahUKEwirjO-x9biLAxV-0QIHHa18MF4QFnoECAgQAQ&usg=AOvVaw1j4CGWeO_DBNcRM7eIjZfE))
+* Spatial plot where the spots of the slide are colored by the predicted cell type probabilities 
+
 
 
 

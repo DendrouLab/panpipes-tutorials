@@ -1,7 +1,8 @@
-# ----------------------- #
-# Spatial QC pipeline 
-# ----------------------- #
-# Written by Fabiola Curion, Sarah Ouologuem
+# =============================================================================
+# Ingestion, spatial transcriptomics workflow Panpipes (pipeline_qc_spatial.py)
+# =============================================================================
+# Written by Fabiola Curion and Sarah Ouologuem
+
 
 # This pipeline needs a sample metadata file (see resources for an example)
 # Will run :
@@ -22,8 +23,8 @@ resources:
   threads_medium: 1  # Must be enough memory to load your mudata and do computationally light tasks
   threads_low: 1 # Must be enough memory to load text files and do plotting, requires much less memory
 
- # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
-condaenv: 
+condaenv: # Path to conda env, leave blank if running native or your cluster automatically inherits the login node environment
+
 
 
 # ------------------------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ condaenv:
 
 project: test
 # Submission_file format (example at resources/sample_file_qc_spatial.txt) :
-submission_file: sample_file_qc_merfish.txt # Path to submission file
+submission_file: sample_file_qc_xenium.txt # Path to submission file
 
 
 
@@ -51,7 +52,7 @@ submission_file: sample_file_qc_merfish.txt # Path to submission file
 # 1. Cell cycle scores (optional)
 # Leave options blank to avoid running
 # Default file: panpipes/resources/cell_cycle_genes.tsv
-ccgenes: # "default" (uses panpipes/resources/cell_cycle_genes.tsv) or path to tsv file with columns "cc_phase" and "gene_name". "cc_phase" can either be "s" or "g2m". Information in tsv file used to run the function scanpy.tl.score_genes_cell_cycle()
+ccgenes:  # "default" (uses panpipes/resources/cell_cycle_genes.tsv) or path to tsv file with columns "cc_phase" and "gene_name". "cc_phase" can either be "s" or "g2m". Information in tsv file used to run the function scanpy.tl.score_genes_cell_cycle()
 
 
 # 2. Custom genes actions (optional)
@@ -62,9 +63,9 @@ ccgenes: # "default" (uses panpipes/resources/cell_cycle_genes.tsv) or path to t
 
 # Leave options blank to avoid running
 # Default file: panpipes/resources/qc_genelist_1.0.csv
-custom_genes_file: default # "default" (uses panpipes/resources/qc_genelist_1.0.csv) or path to csv file with columns "group" and "feature".
+custom_genes_file:  # "default" (uses panpipes/resources/qc_genelist_1.0.csv) or path to csv file with columns "group" and "feature".
 
-calc_proportions: hb,mt,rp # Comma-separated without spaces, which groups in the custom_genes_file to calculate percentages for
+calc_proportions:  # Comma-separated without spaces, which groups in the custom_genes_file to calculate percentages for
 score_genes:  # Comma-separated without spaces, which groups in the custom_genes_file to run scanpy.score_genes() for
 
 
@@ -75,6 +76,6 @@ score_genes:  # Comma-separated without spaces, which groups in the custom_genes
 # All metrics and grouping variables should be inputted as a comma separated string without spaces, e.g. a,b,c
 
 plotqc:
-  grouping_var: sample_id # sample_id is the name of each spatial slide (specified in the submission file) and it will always be used to plot.
+  grouping_var: sample_id # sample_id is the name of each spatial slide (specified in the submission file)
   spatial_metrics: total_counts,n_genes_by_counts # If metric is present in both, .obs and .var, both will be plotted
 
